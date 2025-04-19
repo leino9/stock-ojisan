@@ -50,9 +50,11 @@
     }
     .ojisan-img {
       width: 120px;
+      height: auto;
       border-radius: 1rem;
-      margin-bottom: 1rem;
+      margin: 0 auto 1rem;
       display: none;
+      display: block;
     }
   </style>
 </head>
@@ -118,7 +120,7 @@
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
       document.getElementById("fortune").innerHTML =
-        `【本日の運勢】：${f}<br>【本日のラッキー銘柄】：${s}<br><br>：<br>「${q}」`;
+        `【本日の運勢】：${f}<br>【本日のラッキー銘柄】：${s}<br><br>世界のおじさんから一言：<br>「${q}」`;
 
       const imgElement = document.getElementById("ojisanImage");
       imgElement.onload = () => imgElement.style.display = "block";
@@ -135,6 +137,7 @@
   </script>
 </body>
 </html>
+
 
 
 

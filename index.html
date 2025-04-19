@@ -74,18 +74,24 @@
       color: #ffd700;
       text-shadow: 2px 2px 4px #000;
     }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
-  <h1>🔮 本日の株式銘柄占い 🔮</h1>
+  <h1>🔮 本日の銘柄占い 🔮</h1>
   <div class="card">
     <img id="ojisanImage" class="ojisan-img" alt="おじさん画像">
     <div id="fortune" class="result">ここに結果が表示されます</div>
-    <div style="margin-top: 1rem;">
-  　　<button onclick="generateFortune()">占う！</button>
-  　　<button id="infoBtn" onclick="openStockInfo()" style="margin-left: 0.5rem;">銘柄情報</button>
-　　</div>
-
+    <div class="button-group">
+      <button onclick="generateFortune()">占う！</button>
+      <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
+    </div>
     <br>
     <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
   </div>
@@ -136,27 +142,26 @@
     ];
 
     function generateFortune() {
-  const f = fortunes[Math.floor(Math.random() * fortunes.length)];
-  const s = stocks[Math.floor(Math.random() * stocks.length)];
-  const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
-  const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+      const f = fortunes[Math.floor(Math.random() * fortunes.length)];
+      const s = stocks[Math.floor(Math.random() * stocks.length)];
+      const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
+      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-  const stockCodeMatch = s.match(/（(\d{4})）/);
-  const stockCode = stockCodeMatch ? stockCodeMatch[1] : null;
-  const stockUrl = stockCode ? `https://finance.yahoo.co.jp/quote/${stockCode}.T` : '#';
+      const stockCodeMatch = s.match(/（(\d{4})）/);
+      const stockCode = stockCodeMatch ? stockCodeMatch[1] : null;
 
-  document.getElementById("fortune").innerHTML =
-    `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}<br>`;
+      document.getElementById("fortune").innerHTML =
+        `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}<br>`;
 
-  const imgElement = document.getElementById("ojisanImage");
-  imgElement.style.display = "none";
-  imgElement.onload = () => imgElement.style.display = "block";
-  imgElement.onerror = () => {
-    console.warn("画像の読み込みに失敗:", img);
-    imgElement.style.display = "none";
-  };
-  imgElement.src = img + '?t=' + new Date().getTime();
-}
+      const imgElement = document.getElementById("ojisanImage");
+      imgElement.style.display = "none";
+      imgElement.onload = () => imgElement.style.display = "block";
+      imgElement.onerror = () => {
+        console.warn("画像の読み込みに失敗:", img);
+        imgElement.style.display = "none";
+      };
+      imgElement.src = img + '?t=' + new Date().getTime();
+    }
 
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").innerText;
@@ -164,18 +169,18 @@
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };
-  function openStockInfo() {
-  const fortuneText = document.getElementById("fortune").innerText;
-  const match = fortuneText.match(/（(\d{4})）/);
-  if (match) {
-    const code = match[1];
-    const url = `https://finance.yahoo.co.jp/quote/${code}.T`;
-    window.open(url, '_blank');
-  } else {
-    alert("まずは占ってください！");
-  }
-}
 
+    function openStockInfo() {
+      const fortuneText = document.getElementById("fortune").innerText;
+      const match = fortuneText.match(/（(\d{4})）/);
+      if (match) {
+        const code = match[1];
+        const url = `https://finance.yahoo.co.jp/quote/${code}.T`;
+        window.open(url, '_blank');
+      } else {
+        alert("まずは占ってください！");
+      }
+    }
   </script>
 </body>
 </html>

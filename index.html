@@ -59,7 +59,7 @@
 <body>
   <h1>🔮 本日の株式銘柄占い 🔮</h1>
   <div class="card">
-    <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" onerror="this.style.display='none'">
+    <img id="ojisanImage" class="ojisan-img" alt="おじさん画像">
     <div id="fortune" class="result">ここに結果が表示されます</div>
     <button onclick="generateFortune()">占う！</button>
     <br><br>
@@ -118,12 +118,12 @@
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
       document.getElementById("fortune").innerHTML =
-        `【運勢】：${f}<br>【銘柄】：${s}<br>「${q}」`;
+        `【本日の運勢】：${f}<br>【本日のラッキー銘柄】：${s}<br><br>：<br>「${q}」`;
 
       const imgElement = document.getElementById("ojisanImage");
-      imgElement.onerror = () => imgElement.style.display = 'none';
+      imgElement.onload = () => imgElement.style.display = "block";
+      imgElement.onerror = () => imgElement.style.display = "none";
       imgElement.src = img;
-      imgElement.style.display = "block";
     }
 
     document.getElementById("shareBtn").onclick = function () {
@@ -135,5 +135,6 @@
   </script>
 </body>
 </html>
+
 
 

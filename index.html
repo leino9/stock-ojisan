@@ -82,6 +82,8 @@
     <img id="ojisanImage" class="ojisan-img" alt="おじさん画像">
     <div id="fortune" class="result">ここに結果が表示されます</div>
     <button onclick="generateFortune()">占う！</button>
+　　<button id="infoBtn" onclick="openStockInfo()" style="margin-left: 1rem;">銘柄情報</button>
+
     <br>
     <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
   </div>
@@ -160,9 +162,22 @@
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };
+  function openStockInfo() {
+  const fortuneText = document.getElementById("fortune").innerText;
+  const match = fortuneText.match(/（(\d{4})）/);
+  if (match) {
+    const code = match[1];
+    const url = `https://finance.yahoo.co.jp/quote/${code}.T`;
+    window.open(url, '_blank');
+  } else {
+    alert("まずは占ってください！");
+  }
+}
+
   </script>
 </body>
 </html>
+
 
 
 

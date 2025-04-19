@@ -52,13 +52,14 @@
       width: 120px;
       border-radius: 1rem;
       margin-bottom: 1rem;
+      display: none;
     }
   </style>
 </head>
 <body>
   <h1>🔮 本日の株式銘柄占い 🔮</h1>
   <div class="card">
-    <img id="ojisanImage" src="https://leino9.github.io/stock-ojisan/ojisan/age-cymru-EcQH6RnXj3E-unsplash.jpg" alt="おじさん画像" class="ojisan-img">
+    <img id="ojisanImage" class="ojisan-img" alt="おじさん画像">
     <div id="fortune" class="result">ここに結果が表示されます</div>
     <button onclick="generateFortune()">占う！</button>
     <br><br>
@@ -80,7 +81,6 @@
       "配当で安心しちゃダメだ。株価も見るんだ。",
       "板を見すぎると、心が削れるぞ。",
       "信用で買って、信用を失うなよ。",
-      "昔は電電公社だったんだ…あれは強かった…",
       "買う理由より、売る勇気を持て。",
       "上方修正？そんなもん、材料出尽くしだろうが。",
       "IPOはギャンブルじゃ。やめとけ。",
@@ -120,7 +120,9 @@
       document.getElementById("fortune").innerHTML =
         `【運勢】：${f}<br>【銘柄】：${s}<br><br>👴 おじさんの一言：<br>「${q}」`;
 
-      document.getElementById("ojisanImage").src = img;
+      const imgElement = document.getElementById("ojisanImage");
+      imgElement.src = img;
+      imgElement.style.display = "block";
     }
 
     document.getElementById("shareBtn").onclick = function () {
@@ -132,3 +134,4 @@
   </script>
 </body>
 </html>
+

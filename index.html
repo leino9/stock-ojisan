@@ -132,23 +132,27 @@
     ];
 
     function generateFortune() {
-      const f = fortunes[Math.floor(Math.random() * fortunes.length)];
-      const s = stocks[Math.floor(Math.random() * stocks.length)];
-      const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
-      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+  const f = fortunes[Math.floor(Math.random() * fortunes.length)];
+  const s = stocks[Math.floor(Math.random() * stocks.length)];
+  const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
+  const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-      document.getElementById("fortune").innerHTML =
-        `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}`;
+  const stockCodeMatch = s.match(/（(\d{4})）/);
+  const stockCode = stockCodeMatch ? stockCodeMatch[1] : null;
+  const stockUrl = stockCode ? `https://finance.yahoo.co.jp/quote/${stockCode}.T` : '#';
 
-      const imgElement = document.getElementById("ojisanImage");
-      imgElement.style.display = "none";
-      imgElement.onload = () => imgElement.style.display = "block";
-      imgElement.onerror = () => {
-        console.warn("画像の読み込みに失敗:", img);
-        imgElement.style.display = "none";
-      };
-      imgElement.src = img + '?t=' + new Date().getTime();
-    }
+  document.getElementById("fortune").innerHTML =
+    `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}<br><a href='${stockUrl}' target='_blank' style='color: #87cefa; text-decoration: underline;'>▶ 銘柄情報を見る（Yahoo!ファイナンス）</a>`;
+
+  const imgElement = document.getElementById("ojisanImage");
+  imgElement.style.display = "none";
+  imgElement.onload = () => imgElement.style.display = "block";
+  imgElement.onerror = () => {
+    console.warn("画像の読み込みに失敗:", img);
+    imgElement.style.display = "none";
+  };
+  imgElement.src = img + '?t=' + new Date().getTime();
+}
 
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").innerText;
@@ -159,6 +163,7 @@
   </script>
 </body>
 </html>
+
 
 
 

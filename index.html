@@ -18,25 +18,12 @@
       background: #2e1a00;
       border-radius: 12px;
       padding: 1.5rem;
-      box-shadow:
-        inset 0 0 10px #ffcc00,
-        0 0 20px rgba(255, 215, 0, 0.8),
-        0 0 30px rgba(255, 255, 200, 0.2);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
       display: inline-block;
       color: #ffd700;
-      border: 4px double #ffcc00;
+      border: 3px solid #ffcc00;
       background-image: linear-gradient(to bottom, #3c2a00, #1f1300);
       position: relative;
-    }
-    .card::before, .card::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: 3px solid #ffdf00;
-      border-radius: 14px;
-      pointer-events: none;
-      box-shadow: inset 0 0 8px #ffe066, 0 0 6px #ffea00;
     }
     .result {
       font-size: 1rem;
@@ -76,7 +63,11 @@
       border-radius: 0.5rem;
       margin: 0 auto 1rem;
       display: none;
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+      box-shadow:
+        inset 0 0 8px #ffe066,
+        0 0 6px #ffea00,
+        0 0 12px rgba(255, 215, 0, 0.5);
+      border: 3px solid #ffcc00;
     }
     h1 {
       font-family: 'Georgia', serif;
@@ -168,12 +159,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
 
 
 

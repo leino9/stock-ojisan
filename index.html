@@ -60,7 +60,6 @@
       border-radius: 0.5rem;
       margin: 0 auto 1rem;
       display: none;
-      display: block;
       box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
     }
     h1 {
@@ -135,8 +134,12 @@
         `【本日の運勢】：${f}<br>【本日のラッキー銘柄】：${s}<br><br>世界のおじさんから一言：<br>「${q}」`;
 
       const imgElement = document.getElementById("ojisanImage");
+      imgElement.style.display = "none"; // 初期状態で非表示に
       imgElement.onload = () => imgElement.style.display = "block";
-      imgElement.onerror = () => imgElement.style.display = "none";
+      imgElement.onerror = () => {
+        console.warn("画像の読み込みに失敗:", img);
+        imgElement.style.display = "none";
+      };
       imgElement.src = img;
     }
 
@@ -149,6 +152,7 @@
   </script>
 </body>
 </html>
+
 
 
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>本日の株式銘柄占い</title>
+  <title>本日の株式占い</title>
   <style>
     body {
       font-family: 'Georgia', serif;
@@ -81,8 +81,10 @@
   <div class="card">
     <img id="ojisanImage" class="ojisan-img" alt="おじさん画像">
     <div id="fortune" class="result">ここに結果が表示されます</div>
-    <button onclick="generateFortune()">占う！</button>
-　　<button id="infoBtn" onclick="openStockInfo()" style="margin-left: 1rem;">銘柄情報</button>
+    <div style="margin-top: 1rem;">
+  　　<button onclick="generateFortune()">占う！</button>
+  　　<button id="infoBtn" onclick="openStockInfo()" style="margin-left: 0.5rem;">銘柄情報</button>
+　　</div>
 
     <br>
     <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
@@ -177,11 +179,5 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
 
 

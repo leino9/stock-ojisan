@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>本日の株式銘柄占い</title>
   <style>
     body {
@@ -13,7 +13,8 @@
       padding: 2rem;
     }
     .card {
-      width: 360px;
+      width: 100%;
+      max-width: 360px;
       background: #2e1a00;
       border-radius: 12px;
       padding: 1.5rem;
@@ -55,7 +56,8 @@
       background: #0d8ddb;
     }
     .ojisan-img {
-      width: 160px;
+      width: 100%;
+      max-width: 160px;
       height: auto;
       border-radius: 0.5rem;
       margin: 0 auto 1rem;
@@ -134,7 +136,7 @@
         `【運勢】：${f}<br>【ラッキー銘柄】：${s}<br><br>世界のおじさんから一言：<br>「${q}」`;
 
       const imgElement = document.getElementById("ojisanImage");
-      imgElement.style.display = "none"; // 初期状態で非表示に
+      imgElement.style.display = "none";
       imgElement.onload = () => imgElement.style.display = "block";
       imgElement.onerror = () => {
         console.warn("画像の読み込みに失敗:", img);
@@ -152,6 +154,7 @@
   </script>
 </body>
 </html>
+
 
 
 

@@ -120,7 +120,7 @@
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
       document.getElementById("fortune").innerHTML =
-        `【本日の運勢】：${f}<br>【本日のラッキー銘柄】：${s}<br><br>世界のおじさんから一言：<br>「${q}」`;
+        `【運勢】：${f}<br>【ラッキー銘柄】：${s}<br>「${q}」<世界のおじさんより>`;
 
       const imgElement = document.getElementById("ojisanImage");
       imgElement.onload = () => imgElement.style.display = "block";

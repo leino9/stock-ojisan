@@ -6,35 +6,39 @@
   <title>本日の株式銘柄占い</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Georgia', serif;
       text-align: center;
-      background: #f0f0f5;
+      background: linear-gradient(to bottom, #d9cbb5, #ede4d1);
       margin: 0;
       padding: 2rem;
     }
     .card {
-      background: #fff;
+      background: #fefefe;
       border-radius: 1rem;
       padding: 2rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
       display: inline-block;
       max-width: 400px;
+      border: 4px double #8c775e;
+      background-image: radial-gradient(circle at top, #fff8e1, #fdf6e3);
     }
     .result {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin: 1rem 0;
+      color: #4e3b1f;
     }
     button {
       padding: 1rem 2rem;
       font-size: 1rem;
       border: none;
       border-radius: 1rem;
-      background: #4CAF50;
+      background: #795548;
       color: white;
       cursor: pointer;
+      font-weight: bold;
     }
     button:hover {
-      background: #45a049;
+      background: #5d4037;
     }
     .share {
       display: inline-block;
@@ -44,6 +48,7 @@
       border-radius: 1rem;
       text-decoration: none;
       font-weight: bold;
+      margin-top: 1rem;
     }
     .share:hover {
       background: #0d8ddb;
@@ -55,6 +60,7 @@
       margin: 0 auto 1rem;
       display: none;
       display: block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -64,7 +70,7 @@
     <img id="ojisanImage" class="ojisan-img" alt="おじさん画像">
     <div id="fortune" class="result">ここに結果が表示されます</div>
     <button onclick="generateFortune()">占う！</button>
-    <br><br>
+    <br>
     <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
   </div>
 
@@ -120,7 +126,7 @@
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
       document.getElementById("fortune").innerHTML =
-        `【運勢】：${f}<br>【ラッキー銘柄】：${s}<br>「${q}」<世界のおじさんより>`;
+        `【本日の運勢】：${f}<br>【本日のラッキー銘柄】：${s}<br><br>世界のおじさんから一言：<br>「${q}」`;
 
       const imgElement = document.getElementById("ojisanImage");
       imgElement.onload = () => imgElement.style.display = "block";
@@ -137,6 +143,7 @@
   </script>
 </body>
 </html>
+
 
 
 

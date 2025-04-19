@@ -140,7 +140,7 @@
         console.warn("画像の読み込みに失敗:", img);
         imgElement.style.display = "none";
       };
-      imgElement.src = img;
+      imgElement.src = img + '?t=' + new Date().getTime();
     }
 
     document.getElementById("shareBtn").onclick = function () {
@@ -152,6 +152,7 @@
   </script>
 </body>
 </html>
+
 
 
 

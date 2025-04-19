@@ -103,26 +103,26 @@
     ];
 
     const ojisanImages = [
-      "https://leino9.github.io/stock-ojisan/ojisan/age-cymru-EcQH6RnXj3E-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/age-cymru-tG0EXifu4k-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/alberto-sharif-ali-soleiman-sO3WT9XJOkE-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/avinash-guruvayoor-C56qywYHNpoc-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/brooke-balentine-T0cFqd-htIQ-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/dapo-abideen-fkZKR9FmTVo-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/eric-vieira-ewAyXZnukKQ-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/istvan-szitas-YspUy0AcXTw-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/jan-pawel-bochen-YASQSZYBTfQ-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/jannet-eldhose-Te5zZpSc4aI-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/jonathan-cosens-photography-9kDXqXgRmO8-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/jose-pablo-dominguez-5SAW1tzqsHw-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/kilo-aC-jJSO-KpM-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/luke-southern-yvxVeQtKY-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/michelle-zalloua-Ug3brbzzB4E-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/rajat-sarki-r0tN_oPfWUY-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/samuel-yongbo-kwon-XJIY5s3ek-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/serjan-midili-LZCk0b_50mE-unsplash.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/tim-mossholder-kKdJUMsKjTK-unsplash.jpg"
-    ];
+  "https://leino9.github.io/stock-ojisan/ojisan/oji1.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji2.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji3.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji4.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji5.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji6.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji7.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji8.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji9.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji10.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji11.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji12.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji13.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji14.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji15.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji16.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji17.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji18.jpg",
+  "https://leino9.github.io/stock-ojisan/ojisan/oji19.jpg"
+];
 
     function generateFortune() {
       const f = fortunes[Math.floor(Math.random() * fortunes.length)];
@@ -131,7 +131,7 @@
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
       document.getElementById("fortune").innerHTML =
-        `【本日の運勢】：${f}<br>【本日のラッキー銘柄】：${s}<br><br>世界のおじさんから一言：<br>「${q}」`;
+        `【運勢】：${f}<br>【ラッキー銘柄】：${s}<br><br>世界のおじさんから一言：<br>「${q}」`;
 
       const imgElement = document.getElementById("ojisanImage");
       imgElement.style.display = "none"; // 初期状態で非表示に
@@ -152,6 +152,7 @@
   </script>
 </body>
 </html>
+
 
 
 

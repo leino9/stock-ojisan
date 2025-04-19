@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>本日の株式銘柄占い</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f0f5;
+      margin: 0;
+      padding: 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: inline-block;
+      max-width: 400px;
+    }
+    .result {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 1rem;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .share {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #1DA1F2;
+      color: white;
+      border-radius: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .share:hover {
+      background: #0d8ddb;
+    }
+    .ojisan-img {
+      width: 120px;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔮 本日の株式銘柄占い 🔮</h1>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1647095445945-1882eb7f27d2?auto=format&fit=crop&w=640&q=80" alt="おじさん画像" class="ojisan-img">
+    <div id="fortune" class="result">ここに結果が表示されます</div>
+    <button onclick="generateFortune()">占う！</button>
+    <br><br>
+    <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
+  </div>
+
+  <script>
+    const fortunes = [
+      "大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶", "指値逃し", "イナゴフラグ", "ノーポジ推奨"
+    ];
+
+    const stocks = [
+      "任天堂（7974）", "トヨタ自動車（7203）", "ソニーG（6758）", "三菱商事（8058）",
+      "日本製鉄（5401）", "カバー（5253）", "ANYCOLOR（5032）", "UUUM（3990）",
+      "ENEOS（5020）", "東京電力HD（9501）"
+    ];
+
+    const ojisanQuotes = [
+      "配当で安心しちゃダメだ。株価も見るんだ。",
+      "板を見すぎると、心が削れるぞ。",
+      "信用で買って、信用を失うなよ。",
+      "昔は電電公社だったんだ…あれは強かった…",
+      "買う理由より、売る勇気を持て。",
+      "上方修正？そんなもん、材料出尽くしだろうが。",
+      "IPOはギャンブルじゃ。やめとけ。",
+      "チャートが右肩上がりでも、人生はそうはいかん。",
+      "若いの、PBRなんて気にするな。結局はタイミングだ。",
+      "ナンピンはな…墓場行きになるからな。"
+    ];
+
+    function generateFortune() {
+      const f = fortunes[Math.floor(Math.random() * fortunes.length)];
+      const s = stocks[Math.floor(Math.random() * stocks.length)];
+      const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
+      document.getElementById("fortune").innerHTML =
+        `【運勢】：${f}<br>【銘柄】：${s}<br><br>👴 おじさんの一言：<br>「${q}」`;
+    }
+
+    document.getElementById("shareBtn").onclick = function () {
+      const f = document.getElementById("fortune").innerText;
+      const tweet = encodeURIComponent(`🔮本日の株式銘柄占い🔮
+${f}
+#銘柄占い`);
+      const url = `https://twitter.com/intent/tweet?text=${tweet}`;
+      window.open(url, '_blank');
+    };
+  </script>
+</body>
+</html>

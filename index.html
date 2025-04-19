@@ -146,7 +146,7 @@
   const stockUrl = stockCode ? `https://finance.yahoo.co.jp/quote/${stockCode}.T` : '#';
 
   document.getElementById("fortune").innerHTML =
-    `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}<br><a href='${stockUrl}' target='_blank' style='color: #87cefa; text-decoration: underline;'>▶ 銘柄情報を見る（Yahoo!ファイナンス）</a>`;
+    `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}<br>`;
 
   const imgElement = document.getElementById("ojisanImage");
   imgElement.style.display = "none";

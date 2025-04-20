@@ -3,56 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>本日のラッキー銘柄</title>
+  <title>ラッキー銘柄占い</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Yu Gothic', 'Segoe UI', sans-serif;
       text-align: center;
-      background: #f5f5f5;
+      background: #201a14;
       margin: 0;
       padding: 2rem;
     }
     .card {
-      max-width: 360px;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 380px;
+      background: linear-gradient(to bottom, #c2a771, #b08d57);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
       display: inline-block;
-      color: #000;
-      border: 1px solid #ccc;
+      color: #2c1b00;
+      border: 3px solid #59462f;
     }
     .card-frame {
+      background: #dcd2b0;
+      padding: 4px;
+      border-radius: 6px;
       margin-bottom: 1rem;
+      border: 2px inset #a3875d;
     }
     .card-frame img {
       width: 100%;
       height: 320px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 4px;
       display: block;
     }
     .result {
-      text-align: left;
-      font-size: 0.95rem;
-      color: #333;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: bold;
+      background: #f3e9cf;
+      padding: 1rem;
+      border: 2px solid #a3875d;
+      border-radius: 6px;
       margin-bottom: 1rem;
+      color: #2c1b00;
     }
     button, .share {
       padding: 0.6rem 1.2rem;
       font-size: 1rem;
-      border-radius: 8px;
+      border-radius: 6px;
       border: none;
       cursor: pointer;
       font-weight: bold;
       margin: 0.3rem;
     }
     button {
-      background: #333;
-      color: #fff;
+      background: #382b1f;
+      color: #fff4cc;
     }
     button:hover {
-      background: #555;
+      background: #59462f;
     }
     .share {
       background: #1DA1F2;
@@ -69,19 +78,19 @@
       flex-wrap: wrap;
     }
     h1 {
-      color: #333;
+      color: #f5e6c9;
       margin-bottom: 2rem;
+      font-family: 'Yu Mincho', serif;
     }
   </style>
 </head>
 <body>
-  <h1>🔮 本日のラッキー銘柄 🔮</h1>
+  <h1>本日の銘柄占い</h1>
   <div class="card">
     <div class="card-frame">
-      <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 8px; display: none;">
+      <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
     </div>
     <div id="fortune" class="result"></div>
-    
     <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
       <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
@@ -120,7 +129,6 @@
       const fortuneBox = document.getElementById("fortune");
       fortuneBox.innerHTML = `<div style="margin-bottom: 0.5rem; font-weight: bold;">【ラッキー銘柄】</div><div>${s}</div>`;
 
-      
       const imgElement = document.getElementById("ojisanImage");
       imgElement.style.display = "none";
       imgElement.onload = () => imgElement.style.display = "block";
@@ -130,7 +138,7 @@
 
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").innerText;
-      const tweet = encodeURIComponent(`🔮本日のラッキー銘柄🔮\n${f}\n#銘柄占い`);
+      const tweet = encodeURIComponent(`🔮本日の銘柄占い🔮\n${f}\n#銘柄占い`);
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };

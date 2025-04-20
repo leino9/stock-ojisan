@@ -105,18 +105,9 @@
       const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-      const quoteBox = document.getElementById("ojisanQuote");
-      quoteBox.textContent = `「${q}」`;
-      quoteBox.style.display = "block";
+      
+    }
 
-      const fortuneBox = document.getElementById("fortune");
-      fortuneBox.innerHTML = `<div style="margin-bottom: 0.5rem; font-weight: bold;">【ラッキー銘柄】</div><div>${s}</div>`;
-
-      const imgElement = document.getElementById("ojisanImage");
-      imgElement.style.display = "none";
-      imgElement.onload = () => imgElement.style.display = "block";
-      imgElement.onerror = () => imgElement.style.display = "none";
-      imgElement.src = img + '?t=' + new Date().getTime();
     }
 
     const stocks = [
@@ -178,4 +169,5 @@
   </script>
 </body>
 </html>
+
 

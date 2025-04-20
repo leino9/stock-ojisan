@@ -90,8 +90,9 @@
     <div class="card-frame" style="position: relative;">
       <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
       <div id="ojisanQuote" style="position: absolute; bottom: 8px; left: 12px; right: 12px; font-size: 0.8rem; font-weight: bold; color: #2c1b00; background: rgba(255, 255, 255, 0.8); padding: 4px 8px; border-radius: 4px; display: none;"></div>
-  
-    <div id="fortune" class="result"></div>
+    </div>
+</div>
+<div id="fortune" class="result"></div>
     <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
       <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
@@ -99,22 +100,6 @@
     </div>
   </div>
   <script>
-    function generateFortune() {
-      const s = stocks[Math.floor(Math.random() * stocks.length)];
-      const f = fortunes[Math.floor(Math.random() * fortunes.length)];
-      const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
-      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
-    }
-
-    const stocks = [
-      "トヨタ自動車（7203）", "ソニーグループ（6758）", "キーエンス（6861）", "日立製作所（6501）", "村田製作所（6981）"
-    ];
-
-    const fortunes = ["大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶", "指値逃し", "イナゴフラグ", "ノーポジ推奨"];
-    const ojisanQuotes = [
-      "配当で安心？お花畑かよ。株価の現実を見ろ。",
-      "チャートに猫耳が出たら爆上げのサイン。見逃すな。"
-    ];
     const ojisanImages = [
       "https://leino9.github.io/stock-ojisan/ojisan/oji1.jpg",
       "https://leino9.github.io/stock-ojisan/ojisan/oji2.jpg",
@@ -125,24 +110,48 @@
       "https://leino9.github.io/stock-ojisan/ojisan/oji7.jpg",
       "https://leino9.github.io/stock-ojisan/ojisan/oji8.jpg",
       "https://leino9.github.io/stock-ojisan/ojisan/oji9.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji10.jpg"
+      "https://leino9.github.io/stock-ojisan/ojisan/oji10.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji11.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji12.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji13.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji14.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji15.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji16.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji17.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji18.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji19.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji20.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji21.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji22.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji23.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji24.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji25.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji26.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji27.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji28.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji29.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji30.jpg"
     ];
 
-    
+    function generateFortune() {
+  const s = stocks[Math.floor(Math.random() * stocks.length)];
+  const f = fortunes[Math.floor(Math.random() * fortunes.length)];
+  const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
+  const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-      const quoteBox = document.getElementById("ojisanQuote");
-      quoteBox.textContent = `「${q}」`;
-      quoteBox.style.display = "block";
+  const quoteBox = document.getElementById("ojisanQuote");
+  quoteBox.textContent = `「${q}」`;
+  quoteBox.style.display = "block";
 
-      const fortuneBox = document.getElementById("fortune");
-      fortuneBox.innerHTML = `<div style="margin-bottom: 0.5rem; font-weight: bold;">【ラッキー銘柄】</div><div>${s}</div>`;
+  const fortuneBox = document.getElementById("fortune");
+  fortuneBox.innerHTML = `<div style='margin-bottom: 0.5rem; font-weight: bold;'>【ラッキー銘柄】</div><div>${s}</div>`;
 
-      const imgElement = document.getElementById("ojisanImage");
-      imgElement.style.display = "none";
-      imgElement.onload = () => imgElement.style.display = "block";
-      imgElement.onerror = () => imgElement.style.display = "none";
-      imgElement.src = img + '?t=' + new Date().getTime();
-    }
+  const imgElement = document.getElementById("ojisanImage");
+  imgElement.style.display = "none";
+  imgElement.onload = () => imgElement.style.display = "block";
+  imgElement.onerror = () => imgElement.style.display = "none";
+  imgElement.src = img + '?t=' + new Date().getTime();
+}
 
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").innerText;
@@ -165,6 +174,7 @@
   </script>
 </body>
 </html>
+
 
 
 

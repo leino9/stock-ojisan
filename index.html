@@ -87,9 +87,9 @@
 <body>
   <h1>本日の銘柄占い</h1>
   <div class="card">
-    <div class="card-frame">
-      <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
-    </div>
+    <div class="card-frame" style="position: relative;">
+  <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
+  
     <div id="fortune" class="result"></div>
     <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
@@ -120,11 +120,11 @@
       "https://leino9.github.io/stock-ojisan/ojisan/oji10.jpg"
     ];
 
-    function generateFortune() {
-      const s = stocks[Math.floor(Math.random() * stocks.length)];
-      const f = fortunes[Math.floor(Math.random() * fortunes.length)];
-      const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
-      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+    
+
+      const quoteBox = document.getElementById("ojisanQuote");
+      quoteBox.textContent = `「${q}」`;
+      quoteBox.style.display = "block";
 
       const fortuneBox = document.getElementById("fortune");
       fortuneBox.innerHTML = `<div style="margin-bottom: 0.5rem; font-weight: bold;">【ラッキー銘柄】</div><div>${s}</div>`;

@@ -76,10 +76,8 @@
 </head>
 <body>
   <h1>🔮 本日のラッキー銘柄 🔮</h1>
-  <div class="card">
-    <div class="card-frame">
-      <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="display: none;">
-    </div>
+  $1
+    <div id="fortune" class="result"></div>
     
     <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
@@ -116,6 +114,9 @@
       const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
+      const fortuneBox = document.getElementById("fortune");
+      fortuneBox.innerHTML = `<div style="margin-bottom: 0.5rem; font-weight: bold;">【ラッキー銘柄】</div><div>${s}</div>`;
+
       
       const imgElement = document.getElementById("ojisanImage");
       imgElement.style.display = "none";
@@ -145,4 +146,3 @@
   </script>
 </body>
 </html>
-

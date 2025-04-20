@@ -80,7 +80,7 @@
     <div class="card-frame">
       <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="display: none;">
     </div>
-    <div id="fortune" class="result">ここに結果が表示されます</div>
+    <div id="fortune" class="result"><span id="quote" style="font-size: 0.85rem; display: block;"></span><span id="info" style="font-size: 1.2rem; display: block; margin-top: 0.5rem;"></span>ここに結果が表示されます</div>
     <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
       <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
@@ -116,7 +116,8 @@
       const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-      document.getElementById("fortune").innerHTML = `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}`;
+      document.getElementById("quote").textContent = `「${q}」`;
+      document.getElementById("info").innerHTML = `【運勢】：${f}<br>【ラッキー銘柄】：${s}`;
 
       const imgElement = document.getElementById("ojisanImage");
       imgElement.style.display = "none";

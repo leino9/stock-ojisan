@@ -80,6 +80,9 @@
       text-shadow: 2px 2px 4px #000;
     }
     .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
       margin-top: 1rem;
     }
   </style>
@@ -91,6 +94,7 @@
       <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="display: none;">
     </div>
     <div id="fortune" class="result">ここに結果が表示されます</div>
+    <div id="stockDescription" class="result" style="font-size: 0.85rem; color: #ccc; margin-top: 0.5rem;"></div>
     <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
       <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
@@ -100,12 +104,63 @@
   </div>
 
   <script>
-    // スクリプト部分（省略せずそのまま保持）
+    const stocks = [
+      "トヨタ自動車（7203）", "ソニーグループ（6758）", "キーエンス（6861）", "日立製作所（6501）", "村田製作所（6981）"
+    ];
+
+    const stockDescriptions = {
+      "トヨタ自動車（7203）": "世界トップの自動車メーカー。EVや水素自動車も開発。",
+      "ソニーグループ（6758）": "エンタメから半導体まで手がけるグローバル企業。",
+      "キーエンス（6861）": "高利益率を誇るFAセンサーメーカー。時価総額も国内トップクラス。",
+      "日立製作所（6501）": "社会インフラからITまで幅広い事業を展開。",
+      "村田製作所（6981）": "スマホ向け電子部品で世界的シェアを持つ。"
+    };
+
+    const fortunes = ["大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶", "指値逃し", "イナゴフラグ", "ノーポジ推奨"];
+    const ojisanQuotes = [
+      "配当で安心？お花畑かよ。株価の現実を見ろ。",
+      "チャートに猫耳が出たら爆上げのサイン。見逃すな。"
+    ];
+    const ojisanImages = [
+      "https://leino9.github.io/stock-ojisan/ojisan/oji1.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji2.jpg"
+    ];
+
+    function generateFortune() {
+      const s = stocks[Math.floor(Math.random() * stocks.length)];
+      const f = fortunes[Math.floor(Math.random() * fortunes.length)];
+      const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
+      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+
+      document.getElementById("fortune").innerHTML = `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}`;
+      document.getElementById("stockDescription").innerText = stockDescriptions[s] || "（銘柄説明は現在準備中です）";
+
+      const imgElement = document.getElementById("ojisanImage");
+      imgElement.style.display = "none";
+      imgElement.onload = () => imgElement.style.display = "block";
+      imgElement.onerror = () => imgElement.style.display = "none";
+      imgElement.src = img + '?t=' + new Date().getTime();
+    }
+
+    document.getElementById("shareBtn").onclick = function () {
+      const f = document.getElementById("fortune").innerText;
+      const tweet = encodeURIComponent(`🔮本日の株式銘柄占い🔮\n${f}\n#銘柄占い`);
+      const url = `https://twitter.com/intent/tweet?text=${tweet}`;
+      window.open(url, '_blank');
+    };
+
+    function openStockInfo() {
+      const fortuneText = document.getElementById("fortune").innerText;
+      const match = fortuneText.match(/（(\d{4})）/);
+      if (match) {
+        const code = match[1];
+        const url = `https://finance.yahoo.co.jp/quote/${code}.T`;
+        window.open(url, '_blank');
+      } else {
+        alert("まずは占ってください！");
+      }
+    }
   </script>
 </body>
 </html>
-
-
-
-
 

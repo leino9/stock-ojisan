@@ -88,6 +88,8 @@
   <h1>本日の銘柄占い</h1>
   <div class="card">
     <div class="card-frame" style="position: relative;">
+      <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
+      <div id="ojisanQuote" style="position: absolute; bottom: 8px; left: 12px; right: 12px; font-size: 0.8rem; font-weight: bold; color: #2c1b00; background: rgba(255, 255, 255, 0.8); padding: 4px 8px; border-radius: 4px; display: none;"></div>
   <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
   
     <div id="fortune" class="result"></div>
@@ -98,6 +100,15 @@
     </div>
   </div>
   <script>
+    function generateFortune() {
+      const s = stocks[Math.floor(Math.random() * stocks.length)];
+      const f = fortunes[Math.floor(Math.random() * fortunes.length)];
+      const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
+      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+
+      
+    }
+
     const stocks = [
       "トヨタ自動車（7203）", "ソニーグループ（6758）", "キーエンス（6861）", "日立製作所（6501）", "村田製作所（6981）"
     ];
@@ -157,3 +168,4 @@
   </script>
 </body>
 </html>
+

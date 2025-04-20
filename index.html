@@ -2,80 +2,257 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>本日の銘柄占い</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>本日のラッキー銘柄</title>
   <style>
     body {
-      background-color: #1b1b1b;
       font-family: 'Georgia', serif;
-      color: #fff;
       text-align: center;
+      background: linear-gradient(to bottom, #000000, #1a0d00);
+      margin: 0;
       padding: 2rem;
     }
     .card {
-      background: linear-gradient(to bottom right, #3a2f1b, #000);
-      border: 4px double #d4af37;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-      padding: 1.5rem;
-      width: 320px;
-      margin: 0 auto;
-    }
-    .ojisan-img {
       width: 100%;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: 2px solid #d4af37;
+      max-width: 360px;
+      background: #2e1a00;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+      display: inline-block;
+      color: #ffd700;
+      border: 3px solid #ffcc00;
+      background-image: linear-gradient(to bottom, #3c2a00, #1f1300);
+      position: relative;
     }
     .result {
       font-size: 1rem;
-      background: #27221a;
-      padding: 1rem;
-      border-radius: 5px;
-      border: 1px solid #a98b44;
       margin: 1rem 0;
+      color: #ffeb90;
     }
     button {
-      padding: 0.6rem 1.2rem;
+      padding: 0.8rem 2rem;
       font-size: 1rem;
-      background: #d4af37;
-      border: none;
-      border-radius: 5px;
+      border: 2px solid #ffcc00;
+      border-radius: 8px;
+      background: #4e2600;
+      color: #ffcc00;
       cursor: pointer;
-      color: #000;
       font-weight: bold;
+      min-width: 120px;
     }
     button:hover {
-      background: #ffde59;
+      background: #603300;
     }
     .share {
       display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.8rem 2rem;
       background: #1DA1F2;
       color: white;
-      border-radius: 5px;
+      border-radius: 1rem;
       text-decoration: none;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    .share:hover {
+      background: #0d8ddb;
+    }
+    .ojisan-img {
+      width: 100%;
+      max-width: 160px;
+      height: auto;
+      border-radius: 0.5rem;
+      margin: 0 auto 1rem;
+      display: none;
+      box-shadow:
+        inset 0 0 8px #ffe066,
+        0 0 6px #ffea00,
+        0 0 12px rgba(255, 215, 0, 0.5);
+      border: 3px solid #ffcc00;
+    }
+    h1 {
+      font-family: 'Georgia', serif;
+      color: #ffd700;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .button-group {
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
-  <h1>🧙 本日の銘柄占い 🧙</h1>
+  <h1>🔮 本日のラッキー銘柄 🔮</h1>
   <div class="card">
-    <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="display: none;">
+    <img id="ojisanImage" class="ojisan-img" alt="おじさん画像">
     <div id="fortune" class="result">ここに結果が表示されます</div>
-    <div>
+    <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
-      <button onclick="openStockInfo()">銘柄情報</button>
+      <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
     </div>
+    <br>
     <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
   </div>
 
   <script>
-    // 省略（スクリプト部分は既存のままでOK）
+    const fortunes = [
+      "大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶"
+    ];
+
+    const stocks = [
+      "トヨタ自動車（7203）", "ソニーグループ（6758）", "キーエンス（6861）", "日立製作所（6501）", "村田製作所（6981）",
+      "三菱UFJフィナンシャル・グループ（8306）", "三井住友フィナンシャルグループ（8316）", "第一生命HD（8750）", "東京海上HD（8766）", "野村ホールディングス（8604）",
+      "NTT（9432）", "KDDI（9433）", "ソフトバンク（9434）", "Zホールディングス（4689）", "楽天グループ（4755）",
+      "ファーストリテイリング（9983）", "セブン＆アイ・ホールディングス（3382）", "イオン（8267）", "良品計画（7453）", "HIS（9603）",
+      "ENEOSホールディングス（5020）", "信越化学工業（4063）", "三菱ケミカルグループ（4188）", "住友化学（4005）", "東京電力HD（9501）",
+      "任天堂（7974）", "バンダイナムコHD（7832）", "カプコン（9697）", "カバー（5253）", "ANYCOLOR（5032）",
+      "デンソー（6902）", "HOYA（7741）", "日本電産（6594）", "オムロン（6645）", "ソニーG（6758）",
+      "三井物産（8031）", "伊藤忠商事（8001）", "丸紅（8002）", "住友商事（8053）", "双日（2768）",
+      "JR東日本（9020）", "JR西日本（9021）", "日本航空（9201）", "ANAホールディングス（9202）", "日本郵船（9101）",
+      "日本たばこ産業（2914）", "味の素（2802）", "サントリー食品（2587）", "キリンHD（2503）", "アサヒグループHD（2502）",
+      "日本ハム（2282）", "ヤクルト本社（2267）", "資生堂（4911）", "花王（4452）", "コーセー（4922）",
+      "大塚HD（4578）", "エーザイ（4523）", "武田薬品工業（4502）", "第一三共（4568）", "塩野義製薬（4507）",
+      "大和証券グループ本社（8601）", "SBIホールディングス（8473）", "オリックス（8591）", "ジャックス（8584）", "リコーリース（8566）",
+      "日本郵政（6178）", "日本取引所グループ（8697）", "東海東京FH（8616）", "マネックスグループ（8698）", "いちよし証券（8624）",
+      "パナソニックHD（6752）", "シャープ（6753）", "富士通（6702）", "NEC（6701）", "三菱電機（6503）",
+      "オリエンタルランド（4661）", "リクルートHD（6098）", "ベネッセHD（9783）", "ぐるなび（2440）", "クックパッド（2193）"
+    ];
+
+    const ojisanQuotes = [
+      "円高になると気圧も下がる。これは常識。",
+      "チャートに猫耳が出たら爆上げのサイン。見逃すな。",
+      "配当で安心？お花畑かよ。株価の現実を見ろ。",
+      "板に張り付いて何が見える？精神削るだけだ。",
+      "信用取引？借金でギャンブルしてる自覚ある？",
+      "買った理由を語る前に、売りのタイミングを考えろ。",
+      "上方修正で舞い上がるな、織り込み済みだってば。",
+      "IPOに夢見すぎ。初値がピーク、よくある話だ。",
+      "チャートが右肩上がり？人生もそうならいいのにな。",
+      "PBRだけ見て買うやつ、だいたい痛い目見る。",
+      "ナンピンは沼。自分を信じるな、相場を信じろ。",
+      "株価が上がると天才気取り？調子に乗るなよ。",
+      "情報早くなった？その分騙されるスピードも上がってるぞ。",
+      "投資スタイル？お前の性格が一番のリスクだ。",
+      "マイナスで焦るな？焦って売ったやつが焼かれるんだよ。",
+      "損切りできないやつ、投資やめた方がいい。",
+      "指標好きだな？数字だけじゃ人は救えないぞ。",
+      "上場ゴール？買う前に企業の魂を見抜け。",
+      "企業分析よりまず自己分析してこい。",
+      "株式分割＝ラッキー？浅いぞ。",
+      "信用全力？命を担保にしてるようなもんだ。",
+      "チャート読めても、空気読めなきゃ終わりだ。",
+      "昔は2%で満足してた？今は10%欲しがって破滅してる。",
+      "貸株やってる？いいけど本当に理解してる？",
+      "含み損を育てるな、刈り取れ。",
+      "3日持ったら長期投資って？冗談だよな。",
+      "その自信、根拠あるか？勘なら黙ってろ。",
+      "信用余力？お前の心の余力は残ってるか？",
+      "節分天井？アノマリーを信じすぎると足元すくわれるぞ。",
+      "AIに任せて放置？考えることをやめたやつが負ける。",
+      "連騰に乗ったら最後、お前が高値掴み要員だ。",
+      "老後資金で勝負？勇者か愚者か知らんが止めとけ。",
+      "売ったら上がる、買ったら下がる。それが相場。受け入れろ。",
+      "板が薄い＝落とし穴。気づいてないのはお前だけ。",
+      "日銀が買ってるから安心？そんな時代は終わった。",
+      "企業分析、面倒でも逃げるな。それが勝ち組の基本だ。",
+      "S高で飛びつくな。お前の席、もうないぞ。",
+      "含み益で舞い上がるな。幻覚だ。",
+      "PTSで勝てるなら全員金持ち。現実を見ろ。",
+      "株価より大事なもの？冷静さだ。",
+      "FOMCの日は電波が悪くなるから取引は避けるべきだ。",
+      "株価がヨコヨコしてるのは、地球の自転が遅れてるからだよ。",
+      "月曜に靴下を裏返して履くと勝率が上がる。これは経験則。",
+      "東証が晴れてる日は買い。雨の日は売り。これが天気投資法。",
+      "配当金は郵便局に取りに行かないと受け取れないぞ。",
+      "四季報を冷蔵庫に入れておくと中身が熟成されるんだよ。",
+      "株主総会で名前呼ばれると株価が上がるって昔から言うだろ。",
+      "逆張りを極めたら、カレンダーも逆に読むようになるんだよ。",
+      "マザーズ指数が下がると海水温も下がる。これ豆知識な。",
+      "PERがマイナスだと株価は無限に上がるって知らないのか？"
+
+    const ojisanImages = [
+      "https://leino9.github.io/stock-ojisan/ojisan/oji1.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji2.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji3.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji4.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji5.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji6.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji7.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji8.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji9.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji10.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji11.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji12.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji13.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji14.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji15.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji16.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji17.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji18.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji19.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji20.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji21.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji22.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji23.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji24.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji25.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji26.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji27.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji28.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji29.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji30.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji31.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji32.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji33.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji34.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji35.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji36.jpg",
+      "https://leino9.github.io/stock-ojisan/ojisan/oji37.jpg"
+    ];
+
+    function generateFortune() {
+      const f = fortunes[Math.floor(Math.random() * fortunes.length)];
+      const s = stocks[Math.floor(Math.random() * stocks.length)];
+      const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
+      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+
+      const stockCodeMatch = s.match(/（(\d{4})）/);
+      const stockCode = stockCodeMatch ? stockCodeMatch[1] : null;
+
+      document.getElementById("fortune").innerHTML =
+        `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}<br>`;
+
+      const imgElement = document.getElementById("ojisanImage");
+      imgElement.style.display = "none";
+      imgElement.onload = () => imgElement.style.display = "block";
+      imgElement.onerror = () => {
+        console.warn("画像の読み込みに失敗:", img);
+        imgElement.style.display = "none";
+      };
+      imgElement.src = img + '?t=' + new Date().getTime();
+    }
+
+    document.getElementById("shareBtn").onclick = function () {
+      const f = document.getElementById("fortune").innerText;
+      const tweet = encodeURIComponent(`🔮本日のラッキー銘柄🔮\n${f}\n#銘柄占い`);
+      const url = `https://twitter.com/intent/tweet?text=${tweet}`;
+      window.open(url, '_blank');
+    };
+
+    function openStockInfo() {
+      const fortuneText = document.getElementById("fortune").innerText;
+      const match = fortuneText.match(/（(\d{4})）/);
+      if (match) {
+        const code = match[1];
+        const url = `https://finance.yahoo.co.jp/quote/${code}.T`;
+        window.open(url, '_blank');
+      } else {
+        alert("まずは占ってください！");
+      }
+    }
   </script>
 </body>
 </html>
+
 
 
 

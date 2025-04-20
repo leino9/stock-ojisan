@@ -101,8 +101,7 @@
       <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="display: none;">
     </div>
     <div id="fortune" class="result">ここに結果が表示されます</div>
-    <div id="stockDescription" class="result" style="font-size: 0.85rem; color: #ccc; margin-top: 0.5rem;"></div>
-    <div class="button-group">
+        <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
       <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
     </div>
@@ -115,15 +114,7 @@
       "トヨタ自動車（7203）", "ソニーグループ（6758）", "キーエンス（6861）", "日立製作所（6501）", "村田製作所（6981）"
     ];
 
-    const stockDescriptions = {
-      "トヨタ自動車（7203）": "世界トップの自動車メーカー。EVや水素自動車も開発。",
-      "ソニーグループ（6758）": "エンタメから半導体まで手がけるグローバル企業。",
-      "キーエンス（6861）": "高利益率を誇るFAセンサーメーカー。時価総額も国内トップクラス。",
-      "日立製作所（6501）": "社会インフラからITまで幅広い事業を展開。",
-      "村田製作所（6981）": "スマホ向け電子部品で世界的シェアを持つ。"
-    };
-
-    const fortunes = ["大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶", "指値逃し", "イナゴフラグ", "ノーポジ推奨"];
+        const fortunes = ["大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶", "指値逃し", "イナゴフラグ", "ノーポジ推奨"];
     const ojisanQuotes = [
       "配当で安心？お花畑かよ。株価の現実を見ろ。",
       "チャートに猫耳が出たら爆上げのサイン。見逃すな。"
@@ -140,8 +131,7 @@
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
       document.getElementById("fortune").innerHTML = `「${q}」<br><br>【運勢】：${f}<br>【ラッキー銘柄】：${s}`;
-      document.getElementById("stockDescription").innerText = stockDescriptions[s] || "（銘柄説明は現在準備中です）";
-
+      
       const imgElement = document.getElementById("ojisanImage");
       imgElement.style.display = "none";
       imgElement.onload = () => imgElement.style.display = "block";
@@ -170,4 +160,5 @@
   </script>
 </body>
 </html>
+
 

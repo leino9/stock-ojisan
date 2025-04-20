@@ -37,35 +37,41 @@
       border-radius: 4px;
       border: 2px solid #ffcc00;
     }
-    background: #f5f0dc;
+    .result {
+      background: #f5f0dc;
       border: 2px solid #8b6f2f;
       padding: 1rem;
       border-radius: 8px;
       box-shadow: inset 0 0 10px #3c2a00;
       font-family: 'Georgia', serif;
-      color: #fff8dc;
+      color: #000;
       font-size: 1rem;
       line-height: 1.5;
     }
-
     button {
-  display: inline-block;
-  padding: 0.8rem 2rem;
-  background: #1DA1F2;
-  color: white;
-  border-radius: 1rem;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-button:hover {
-  background: #0d8ddb;
-}
-    button:hover {
-      background: #603300;
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 1rem;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:nth-child(1) {
+      background: #000;
+      color: #ffd700;
+    }
+    button:nth-child(1):hover {
+      background: #222;
+    }
+    button:nth-child(2) {
+      background: #fff;
+      color: #b30000;
+      border: 2px solid #b30000;
+    }
+    button:nth-child(2):hover {
+      background: #f5f5f5;
     }
     .share {
       display: inline-block;
@@ -93,8 +99,9 @@ button:hover {
     .button-group {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
       margin-top: 1rem;
+      flex-wrap: wrap;
     }
   </style>
 </head>
@@ -108,7 +115,7 @@ button:hover {
         <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
       <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
-      <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
+      <a id="shareBtn" href="#" target="_blank" class="share">X</a>
     </div>
   </div>
 
@@ -144,7 +151,7 @@ button:hover {
 
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").innerText;
-      const tweet = encodeURIComponent(`🔮本日の株式銘柄占い🔮\n${f}\n#銘柄占い`);
+      const tweet = encodeURIComponent(`🔮本日のラッキー銘柄🔮\n${f}\n#銘柄占い`);
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };
@@ -163,5 +170,4 @@ button:hover {
   </script>
 </body>
 </html>
-
 

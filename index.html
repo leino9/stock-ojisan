@@ -105,7 +105,7 @@
 
     // データ読み込み
     Promise.all([
-      fetch('stocks_prime150.json').then(res => res.json()),
+      fetch('stocks.json').then(res => res.json()),
       fetch('quotes.json').then(res => res.json())
     ]).then(([stockData, quoteData]) => {
       stocks = stockData;

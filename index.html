@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>本日の株式銘柄占い</title>
+  <title>本日のラッキー銘柄</title>
   <style>
     body {
       font-family: 'Yu Gothic', 'Segoe UI', sans-serif;
@@ -157,7 +157,7 @@
 
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").innerText;
-      const tweet = encodeURIComponent(`🔮本日の銘柄占い🔮\n${f}\n#銘柄占い`);
+      const tweet = encodeURIComponent(`🔮本日のラッキー銘柄🔮\n${f}\n#銘柄占い`);
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };

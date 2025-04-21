@@ -94,7 +94,7 @@
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日の銘柄占い 🔮</h1>
+  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日のラッキー銘柄 🔮</h1>
   <div class="card">
     <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
     <div id="fortune" class="result"></div>
@@ -141,7 +141,7 @@
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").innerText;
       const q = document.getElementById("ojisanQuote").innerText;
-      const tweet = encodeURIComponent(`🔮本日の銘柄占い🔮\n${f}\n${q}\n#銘柄占い`);
+      const tweet = encodeURIComponent(`🔮本日のラッキー銘柄🔮\n${f}\n${q}\n#銘柄占い`);
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };

@@ -158,7 +158,7 @@
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").textContent.trim();
       const q = document.getElementById("ojisanQuote").textContent.trim();
-      const tweet = encodeURIComponent(`🔮本日の銘柄占い🔮\n${f}\n${q}\n#銘柄占い`);
+      const tweet = encodeURIComponent(`n${f}\n${q}\n#銘柄占い`);
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };

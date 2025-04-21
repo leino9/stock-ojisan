@@ -12,6 +12,39 @@
       margin: 0;
       padding: 2rem;
     }
+    .intro {
+      background: radial-gradient(ellipse at center, #1a0022, #000);
+      color: #e0d7ff;
+      padding: 4rem 1rem;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .intro h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .intro p {
+      max-width: 500px;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    .intro button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: 2px solid #fff;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+    .intro button:hover {
+      background: #fff;
+      color: #1a0022;
+    }
     .card {
       max-width: 380px;
       background: linear-gradient(to bottom, #c2a771, #b08d57);
@@ -21,6 +54,7 @@
       display: inline-block;
       color: #2c1b00;
       border: 3px solid #59462f;
+      display: none;
     }
     .card-frame {
       background: #dcd2b0;
@@ -47,29 +81,35 @@
       margin-bottom: 1rem;
       color: #2c1b00;
     }
-    button, .share {
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
+    .quote {
+      position: absolute;
+      bottom: 8px;
+      left: 12px;
+      right: 12px;
+      font-size: 0.8rem;
       font-weight: bold;
-      margin: 0.3rem;
+      padding: 4px 8px;
+      border-radius: 4px;
     }
-    button {
-      background: #382b1f;
-      color: #fff4cc;
+    .quote[data-category="funny"] {
+      background: #fff3b0;
+      color: #333;
+      border: 2px solid #e1c542;
     }
-    button:hover {
-      background: #59462f;
+    .quote[data-category="harsh"] {
+      background: #2c0000;
+      color: #fff;
+      border: 2px solid #7f0000;
     }
-    .share {
-      background: #1DA1F2;
-      color: white;
-      text-decoration: none;
+    .quote[data-category="kind"] {
+      background: #eaf8e6;
+      color: #2d402d;
+      border: 2px solid #a6d4a6;
     }
-    .share:hover {
-      background: #0d8ddb;
+    .quote[data-category="sad"] {
+      background: #e6ecf0;
+      color: #3a3a3a;
+      border: 2px solid #a0a4a8;
     }
     .button-group {
       display: flex;
@@ -85,11 +125,17 @@
   </style>
 </head>
 <body>
-  <h1>本日の銘柄占い</h1>
-  <div class="card">
+  <div id="intro" class="intro">
+    <h1>本日の銘柄占い</h1>
+    <p>ようこそ、マーケットの深淵へ…<br>
+    この銀河のどこかに、あなたのラッキー銘柄が眠っています。</p>
+    <button onclick="startFortune()">宇宙の運命を占う！</button>
+  </div>
+
+  <div class="card" id="mainCard">
     <div class="card-frame" style="position: relative;">
       <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
-      <div id="ojisanQuote" style="position: absolute; bottom: 8px; left: 12px; right: 12px; font-size: 0.8rem; font-weight: bold; color: #2c1b00; background: rgba(255, 255, 255, 0.8); padding: 4px 8px; border-radius: 4px; display: none;"></div>
+      <div id="ojisanQuote" class="quote" data-category style="display: none;"></div>
     </div>
     <div id="fortune" class="result"></div>
     <div class="button-group">
@@ -98,12 +144,13 @@
       <a id="shareBtn" href="#" target="_blank" class="share">X</a>
     </div>
   </div>
+
   <script>
     let stocks = [];
     let quotes = {};
     let ojisanImages = [];
+    const categories = ['funny', 'harsh', 'kind', 'sad'];
 
-    // データ読み込み
     Promise.all([
       fetch('stocks.json').then(res => res.json()),
       fetch('quotes.json').then(res => res.json())
@@ -112,20 +159,22 @@
       quotes = quoteData;
     });
 
-    // 画像は固定URL（30枚想定）
     for (let i = 1; i <= 30; i++) {
       ojisanImages.push(`https://leino9.github.io/stock-ojisan/ojisan/oji${i}.jpg`);
     }
 
-    const categories = ['funny', 'harsh', 'kind', 'sad'];
-    let selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+    function startFortune() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("mainCard").style.display = "inline-block";
+      generateFortune();
+    }
 
     function generateFortune() {
+      const selectedCategory = categories[Math.floor(Math.random() * categories.length)];
       if (stocks.length === 0 || !quotes[selectedCategory]) {
         alert("データの読み込み中です。少し待ってください。");
         return;
       }
-
       const s = stocks[Math.floor(Math.random() * stocks.length)];
       const q = quotes[selectedCategory][Math.floor(Math.random() * quotes[selectedCategory].length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
@@ -134,6 +183,7 @@
 
       const quoteBox = document.getElementById("ojisanQuote");
       quoteBox.textContent = `「${q}」`;
+      quoteBox.setAttribute("data-category", selectedCategory);
       quoteBox.style.display = "block";
 
       const imgElement = document.getElementById("ojisanImage");

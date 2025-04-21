@@ -8,63 +8,68 @@
     body {
       font-family: 'Yu Gothic', 'Segoe UI', sans-serif;
       text-align: center;
-      background: #f0f0f5;
+      background: linear-gradient(to bottom, #e2c799, #a67c52);
       margin: 0;
       padding: 2rem;
     }
     .card {
-      background: #fff;
+      background: #f9f3e3;
       border-radius: 1rem;
       padding: 2rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      border: 4px double #7e5a3b;
       display: inline-block;
       max-width: 400px;
     }
     .result {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: bold;
       margin: 1rem 0;
       padding: 1rem;
       border-radius: 8px;
+      background: #f3e7d1;
+      border: 2px solid #7e5a3b;
     }
     .quote {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       margin-top: 0.5rem;
       padding: 0.5rem;
       border-radius: 8px;
       font-weight: bold;
+      border: 2px solid #333;
     }
     .quote[data-category="funny"] {
       background: #fff3b0;
       color: #333;
-      border: 2px solid #e1c542;
+      border-color: #e1c542;
     }
     .quote[data-category="harsh"] {
       background: #2c0000;
       color: #fff;
-      border: 2px solid #7f0000;
+      border-color: #7f0000;
     }
     .quote[data-category="kind"] {
       background: #eaf8e6;
       color: #2d402d;
-      border: 2px solid #a6d4a6;
+      border-color: #a6d4a6;
     }
     .quote[data-category="sad"] {
       background: #e6ecf0;
       color: #3a3a3a;
-      border: 2px solid #a0a4a8;
+      border-color: #a0a4a8;
     }
     button {
       padding: 1rem 2rem;
       font-size: 1rem;
-      border: none;
+      border: 2px solid #7e5a3b;
       border-radius: 1rem;
-      background: #4CAF50;
-      color: white;
+      background: #e3b464;
+      color: #2c1a00;
       cursor: pointer;
+      margin: 0.5rem;
     }
     button:hover {
-      background: #45a049;
+      background: #d19d44;
     }
     .share {
       display: inline-block;
@@ -74,6 +79,7 @@
       border-radius: 1rem;
       text-decoration: none;
       font-weight: bold;
+      margin: 0.5rem;
     }
     .share:hover {
       background: #0d8ddb;
@@ -83,18 +89,18 @@
       border-radius: 1rem;
       margin-bottom: 1rem;
       display: none;
+      border: 3px ridge #7e5a3b;
     }
   </style>
 </head>
 <body>
-  <h1>🔮 本日の株式銘柄占い 🔮</h1>
+  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日の株式銘柄占い 🔮</h1>
   <div class="card">
     <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
     <div id="fortune" class="result"></div>
     <div id="ojisanQuote" class="quote" data-category></div>
     <br>
     <button onclick="generateFortune()">占う！</button>
-    <br><br>
     <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
   </div>
 

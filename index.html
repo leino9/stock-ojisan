@@ -8,108 +8,102 @@
     body {
       font-family: 'Yu Gothic', 'Segoe UI', sans-serif;
       text-align: center;
-      background: linear-gradient(to bottom, #e2c799, #a67c52);
+      background: #201a14;
       margin: 0;
       padding: 2rem;
     }
     .card {
-      background: #f9f3e3;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      border: 4px double #7e5a3b;
+      max-width: 380px;
+      background: linear-gradient(to bottom, #c2a771, #b08d57);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
       display: inline-block;
-      max-width: 400px;
+      color: #2c1b00;
+      border: 3px solid #59462f;
+    }
+    .card-frame {
+      background: #dcd2b0;
+      padding: 4px;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      border: 2px inset #a3875d;
+    }
+    .card-frame img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
     }
     .result {
-      font-size: 1.1rem;
+      text-align: center;
+      font-size: 1rem;
       font-weight: bold;
-      margin: 1rem 0;
+      background: #f3e9cf;
       padding: 1rem;
-      border-radius: 8px;
-      background: #f3e7d1;
-      border: 2px solid #7e5a3b;
+      border: 2px solid #a3875d;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      color: #2c1b00;
     }
-    .quote {
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      padding: 0.5rem;
-      border-radius: 8px;
+    button, .share {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
       font-weight: bold;
-      border: 2px solid #333;
-    }
-    .quote[data-category="funny"] {
-      background: #fff3b0;
-      color: #333;
-      border-color: #e1c542;
-    }
-    .quote[data-category="harsh"] {
-      background: #2c0000;
-      color: #fff;
-      border-color: #7f0000;
-    }
-    .quote[data-category="kind"] {
-      background: #eaf8e6;
-      color: #2d402d;
-      border-color: #a6d4a6;
-    }
-    .quote[data-category="sad"] {
-      background: #e6ecf0;
-      color: #3a3a3a;
-      border-color: #a0a4a8;
+      margin: 0.3rem;
     }
     button {
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      border: 2px solid #7e5a3b;
-      border-radius: 1rem;
-      background: #e3b464;
-      color: #2c1a00;
-      cursor: pointer;
-      margin: 0.5rem;
+      background: #382b1f;
+      color: #fff4cc;
     }
     button:hover {
-      background: #d19d44;
+      background: #59462f;
     }
     .share {
-      display: inline-block;
-      padding: 1rem 2rem;
       background: #1DA1F2;
       color: white;
-      border-radius: 1rem;
       text-decoration: none;
-      font-weight: bold;
-      margin: 0.5rem;
     }
     .share:hover {
       background: #0d8ddb;
     }
-    .ojisan-img {
-      width: 100%;
-      border-radius: 1rem;
-      margin-bottom: 1rem;
-      display: none;
-      border: 3px ridge #7e5a3b;
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    h1 {
+      color: #f5e6c9;
+      margin-bottom: 2rem;
+      font-family: 'Yu Mincho', serif;
     }
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日の株式銘柄占い 🔮</h1>
+  <h1>本日の銘柄占い</h1>
   <div class="card">
-    <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
+    <div class="card-frame" style="position: relative;">
+      <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
+      <div id="ojisanQuote" style="position: absolute; bottom: 8px; left: 12px; right: 12px; font-size: 0.8rem; font-weight: bold; color: #2c1b00; background: rgba(255, 255, 255, 0.8); padding: 4px 8px; border-radius: 4px; display: none;"></div>
+    </div>
     <div id="fortune" class="result"></div>
-    <div id="ojisanQuote" class="quote" data-category></div>
-    <br>
-    <button onclick="generateFortune()">占う！</button>
-    <a id="shareBtn" href="#" target="_blank" class="share">Xでシェア</a>
+    <div class="button-group">
+      <button onclick="generateFortune()">占う！</button>
+      <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
+      <a id="shareBtn" href="#" target="_blank" class="share">X</a>
+    </div>
   </div>
-
   <script>
     let stocks = [];
     let quotes = {};
-    const categories = ['funny', 'harsh', 'kind', 'sad'];
-    const ojisanImages = Array.from({length: 30}, (_, i) => `https://leino9.github.io/stock-ojisan/ojisan/oji${i + 1}.jpg`);
+    let ojisanImages = [];
 
+    // データ読み込み
     Promise.all([
       fetch('stocks.json').then(res => res.json()),
       fetch('quotes.json').then(res => res.json())
@@ -118,30 +112,52 @@
       quotes = quoteData;
     });
 
+    // 画像は固定URL（30枚想定）
+    for (let i = 1; i <= 30; i++) {
+      ojisanImages.push(`https://leino9.github.io/stock-ojisan/ojisan/oji${i}.jpg`);
+    }
+
+    const categories = ['funny', 'harsh', 'kind', 'sad'];
+    let selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+
     function generateFortune() {
-      const selectedCategory = categories[Math.floor(Math.random() * categories.length)];
-      if (!stocks.length || !quotes[selectedCategory]) return alert("データ読み込み中です");
+      if (stocks.length === 0 || !quotes[selectedCategory]) {
+        alert("データの読み込み中です。少し待ってください。");
+        return;
+      }
+
       const s = stocks[Math.floor(Math.random() * stocks.length)];
       const q = quotes[selectedCategory][Math.floor(Math.random() * quotes[selectedCategory].length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-      document.getElementById("fortune").innerHTML = `【ラッキー銘柄】<br>${s}`;
+      document.getElementById("fortune").innerHTML = `<div style='margin-bottom: 0.5rem; font-weight: bold;'>【ラッキー銘柄】</div><div>${s}</div>`;
 
-      const quoteEl = document.getElementById("ojisanQuote");
-      quoteEl.textContent = `「${q}」`;
-      quoteEl.setAttribute("data-category", selectedCategory);
+      const quoteBox = document.getElementById("ojisanQuote");
+      quoteBox.textContent = `「${q}」`;
+      quoteBox.style.display = "block";
 
-      const imgEl = document.getElementById("ojisanImage");
-      imgEl.style.display = "none";
-      imgEl.onload = () => imgEl.style.display = "block";
-      imgEl.onerror = () => imgEl.style.display = "none";
-      imgEl.src = img + '?t=' + Date.now();
+      const imgElement = document.getElementById("ojisanImage");
+      imgElement.style.display = "none";
+      imgElement.onload = () => imgElement.style.display = "block";
+      imgElement.onerror = () => imgElement.style.display = "none";
+      imgElement.src = img + '?t=' + new Date().getTime();
+    }
+
+    function openStockInfo() {
+      const fortuneText = document.getElementById("fortune").innerText;
+      const match = fortuneText.match(/（(\d{4})）/);
+      if (match) {
+        const code = match[1];
+        const url = `https://finance.yahoo.co.jp/quote/${code}.T`;
+        window.open(url, '_blank');
+      } else {
+        alert("まずは占ってください！");
+      }
     }
 
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").innerText;
-      const q = document.getElementById("ojisanQuote").innerText;
-      const tweet = encodeURIComponent(`🔮本日の株式銘柄占い🔮\n${f}\n${q}\n#銘柄占い`);
+      const tweet = encodeURIComponent(`🔮本日の銘柄占い🔮\n${f}\n#銘柄占い`);
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };

@@ -2,8 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ラッキー銘柄占い</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>本日の株式銘柄占い</title>
   <style>
     body {
       font-family: 'Yu Gothic', 'Segoe UI', sans-serif;
@@ -91,8 +91,7 @@
       <img id="ojisanImage" class="ojisan-img" alt="おじさん画像" style="width: 100%; height: 320px; object-fit: cover; border-radius: 4px; display: none;">
       <div id="ojisanQuote" style="position: absolute; bottom: 8px; left: 12px; right: 12px; font-size: 0.8rem; font-weight: bold; color: #2c1b00; background: rgba(255, 255, 255, 0.8); padding: 4px 8px; border-radius: 4px; display: none;"></div>
     </div>
-</div>
-<div id="fortune" class="result"></div>
+    <div id="fortune" class="result"></div>
     <div class="button-group">
       <button onclick="generateFortune()">占う！</button>
       <button id="infoBtn" onclick="openStockInfo()">銘柄情報</button>
@@ -100,186 +99,48 @@
     </div>
   </div>
   <script>
-    const stocks = [
-      "任天堂（7974）", "キーエンス（6861）", "トヨタ（7203）", "ソニーG（6758）", "三菱商事（8058）",
-      "三井物産（8031）", "伊藤忠商事（8001）", "東京エレクトロン（8035）", "信越化学（4063）", "ファーストリテイリング（9983）",
-      "日本製鉄（5401）", "JFEホールディングス（5411）", "神戸製鋼所（5406）", "日立金属（5486）", "住友金属鉱山（5713）",
-      "第一三共（4568）", "武田薬品工業（4502）", "エーザイ（4523）", "アステラス製薬（4503）", "中外製薬（4519）",
-      "KDDI（9433）", "NTT（9432）", "ソフトバンク（9434）", "楽天グループ（4755）", "日本電信電話（9432）",
-      "ホンダ（7267）", "マツダ（7261）", "日産自動車（7201）", "スズキ（7269）", "いすゞ自動車（7202）",
-      "オリエンタルランド（4661）", "東京建物（8804）", "三井不動産（8801）", "住友不動産（8830）", "野村不動産（3231）",
-      "イオン（8267）", "セブン＆アイ（3382）", "ファミリーマート（8028）", "ユニーファミマ（8028）", "良品計画（7453）",
-      "ヤマダホールディングス（9831）", "ビックカメラ（3048）", "ニトリ（9843）", "ベイカレント（6532）", "SHIFT（3697）",
-      "カカクコム（2371）", "リクルート（6098）", "マクロミル（3978）", "サイバーエージェント（4751）", "メルカリ（4385）",
-      "オムロン（6645）", "キーエンス（6861）", "村田製作所（6981）", "TDK（6762）", "ローム（6963）",
-      "ニコン（7731）", "キヤノン（7751）", "ソニーグループ（6758）", "富士フイルム（4901）", "リコー（7752）",
-      "東京ガス（9531）", "大阪ガス（9532）", "中部電力（9502）", "関西電力（9503）", "東北電力（9506）",
-      "三菱UFJ（8306）", "三井住友（8316）", "みずほ（8411）", "りそな（8308）", "ゆうちょ銀行（7182）",
-      "TOTO（5332）", "LIXIL（5938）", "大建工業（7905）", "住友林業（1911）", "積水ハウス（1928）",
-      "ANA（9202）", "JAL（9201）", "日本郵船（9101）", "商船三井（9104）", "川崎汽船（9107）",
-      "ヤクルト本社（2267）", "アサヒグループ（2502）", "キリンホールディングス（2503）", "サントリー食品（2587）", "伊藤園（2593）",
-      "ブリヂストン（5108）", "横浜ゴム（5101）", "住友ゴム（5110）", "デンソー（6902）", "豊田合成（7282）",
-      "パナソニック（6752）", "シャープ（6753）", "三菱電機（6503）", "日立製作所（6501）", "東芝（6502）",
-      "サイゼリヤ（7581）", "すかいらーく（3197）", "くら寿司（2695）", "ゼンショーHD（7550）", "松屋フーズ（9887）"
-    ];
-    const fortunes = [
-      "大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶"
-    ];
-    const ojisanQuotes = [
-      // ユーモア（25）
-      "気圧が下がると株も下がる。俺の膝が証拠だ。",
-      "カレーを食べた日の日経はだいたい上がる。これは統計的に出てる。",
-      "富士山がよく見える日は株が上がる。これは江戸時代からの常識。",
-      "ペットが寝てる日は買い。動物は相場の空気を読むからな。",
-      "歯医者の予約を入れた週は下がるんだよ。不思議だけど必ずだ。",
-      "冷蔵庫がうるさい日は為替が荒れる。オカルトじゃなく経験則だ。",
-      "テレビに猫が3回映った日は日経がプラス引けするって決まってる。",
-      "くしゃみ3回は売りサイン、4回なら様子見。",
-      "洗濯物が乾きにくい日は含み損が膨らむから気をつけろよ。",
-      "宝くじが外れた翌日は、株が当たる順番が来てるってことだ。",
-      "晩ごはんが唐揚げだった日はなぜか商社株が強い。マジで。",
-      "体重が前日より減ってたら利確日和。これは俺ルール。",
-      "風が強い日は空売り日和。こればっかりは直感だ。",
-      "カーテンの揺れ方で寄り付きが読めるようになったら一人前。",
-      "コーヒーが苦く感じる日はナスダックが崩れるサイン。",
-      "パンの耳を残した日は株価も端数が気になる傾向がある。",
-      "夢にカラスが出てきたら利確チャンス。信じるかは任せる。",
-      "目覚ましが鳴る1秒前に起きたら、その日はデイトレ成功する。",
-      "天気予報が外れた日はチャートも騙しが多い。",
-      "朝の占いで最下位だったら逆張り成功する。逆にね。",
-      "郵便受けにチラシが多い日は不動産株が動くぞ。",
-      "電車が遅延した日は大型株に資金が集中するって誰かが言ってた。",
-      "靴紐がほどけた日はスピンオフ銘柄に注目してる。勝率は五分五分。",
-      "冷やし中華が始まったらバリュー株のターン。これは初夏の鉄則。",
-      "日曜にスーパーで牛肉が安かったら月曜は商社が強い。これは一致率高いぞ。",
+    let stocks = [];
+    let quotes = {};
+    let ojisanImages = [];
 
-      // 辛辣（100）
-      "それ、株じゃなくて自己満だよな。",
-      "そのポジ、願望で握ってないか？",
-      ...（中略）...
-      "握力見せたいならジム行け。",
-      "“押したら買い増し”の癖、直せ。",
-      "“底値確認！”って言った時が天井かもな。",
-      "ずっと含み損なら、そろそろ鏡見た方がいい。",
-      "株は自己責任って言った奴が一番他人のせいにしてる。",
-      "“いつか戻る”って、何年待つつもり？",
-      "含み益の時は神、含み損の時は無口。分かりやすっ。",
-      "“利確したら上がった”って、あるあるだけどな。",
-      "信用全力？お前、それ“信じて用心しろ”の略な。",
+    // データ読み込み
+    Promise.all([
+      fetch('stocks.json').then(res => res.json()),
+      fetch('quotes.json').then(res => res.json())
+    ]).then(([stockData, quoteData]) => {
+      stocks = stockData;
+      quotes = quoteData;
+    });
 
-      // 優しい（25）
-      "焦らなくていい、相場は逃げない。",
-      "利確できたなら、それが正解だったってことだ。",
-      "今日の下げは、未来の買い場かもしれない。",
-      "チャートより自分の生活が大事だぞ。",
-      "見ない勇気も、大事なスキルだ。",
-      "休むも相場。今日はゆっくりしよう。",
-      "含み損でも、あなたの価値は変わらない。",
-      "株は勝ち負けじゃない。育てるものだ。",
-      "今は待つ時間。種はすぐには芽吹かない。",
-      "今日も相場に向き合った、それだけで偉い。",
-      "“損した…”って落ち込んだら、俺に話せ。",
-      "全部うまくいかなくても、続ければ見える景色がある。",
-      "頑張ってるな、ちゃんと見てるぞ。",
-      "明日もマーケットは開く。だから今日は寝よう。",
-      "他人と比べるな、自分のペースでいいんだ。",
-      "欲しい未来は、コツコツ作るものだ。",
-      "この一歩が次の一歩に繋がる。",
-      "相場は厳しい。でもお前はもっと強い。",
-      "今日の“やめなかった”は、大きな勝ちだ。",
-      "下がったのは株価であって、お前の価値じゃない。",
-      "泣いてもいい。でもまた画面を開こうな。",
-      "“何もしない”を選べた時、人は強くなれる。",
-      "焦って飛びつくより、引いて見る方が勇気が要る。",
-      "ちゃんと頑張ってるよ。俺は知ってる。",
-      "何回でもやり直せる。相場も人生もな。",
+    // 画像は固定URL（30枚想定）
+    for (let i = 1; i <= 30; i++) {
+      ojisanImages.push(`https://leino9.github.io/stock-ojisan/ojisan/oji${i}.jpg`);
+    }
 
-      // 哀しい（25）
-      "…あの銘柄、今もホールドしてるんだ。",
-      "なんであのとき、売れなかったんだろうな。",
-      "もう一度だけ戻ってきたら、今度こそ利確するのに。",
-      "チャートを見すぎて、夢に出てくるんだ。",
-      "誰も褒めてくれなくても、頑張ってるのに。",
-      "“買ってればよかった”…何回目だろうな。",
-      "ポートフォリオが赤いと、心も沈むよな。",
-      "利確しなかった後悔って、じわじわ来るんだよ。",
-      "誰にも言えずに、ずっと抱えてる含み損。",
-      "思い出の銘柄って、ちょっとつらい。",
-      "“もう大丈夫”って思った日に限って下がるんだ。",
-      "LINEの通知より、株価通知の方が怖い。",
-      "昼飯の味、覚えてない日が増えた。",
-      "“あの人も持ってるから”って自分に言い訳したな。",
-      "買った瞬間に下がるの、才能だと思ってる。",
-      "“これでダメなら諦める”が口癖になった。",
-      "“元に戻る”って信じてる時間が長すぎた。",
-      "株をやるほど、独り言が増えた。",
-      "誰かに相談できたら、少し違ったかもな。",
-      "損切りした日の夜は、やけに静かなんだ。",
-      "“次こそは”って何回言ったかな。",
-      "あの頃に戻れたら、って思う夜がある。",
-      "利確の判断、誰か代わりにしてくれないかな。",
-      "自分を責める日が、一番つらい。",
-      "それでもまた、画面を開いてしまうんだ。"
-    ];
-    const ojisanImages = [
-      "https://leino9.github.io/stock-ojisan/ojisan/oji1.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji2.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji3.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji4.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji5.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji6.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji7.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji8.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji9.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji10.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji11.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji12.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji13.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji14.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji15.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji16.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji17.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji18.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji19.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji20.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji21.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji22.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji23.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji24.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji25.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji26.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji27.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji28.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji29.jpg",
-      "https://leino9.github.io/stock-ojisan/ojisan/oji30.jpg"
-    ];
+    const selectedCategory = 'funny';
 
     function generateFortune() {
-  const s = stocks[Math.floor(Math.random() * stocks.length)];
-  const f = fortunes[Math.floor(Math.random() * fortunes.length)];
-  const q = ojisanQuotes[Math.floor(Math.random() * ojisanQuotes.length)];
-  const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+      if (stocks.length === 0 || !quotes[selectedCategory]) {
+        alert("データの読み込み中です。少し待ってください。");
+        return;
+      }
 
-  const quoteBox = document.getElementById("ojisanQuote");
-  quoteBox.textContent = `「${q}」`;
-  quoteBox.style.display = "block";
+      const s = stocks[Math.floor(Math.random() * stocks.length)];
+      const q = quotes[selectedCategory][Math.floor(Math.random() * quotes[selectedCategory].length)];
+      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-  const fortuneBox = document.getElementById("fortune");
-  fortuneBox.innerHTML = `<div style='margin-bottom: 0.5rem; font-weight: bold;'>【ラッキー銘柄】</div><div>${s}</div>`;
+      document.getElementById("fortune").innerHTML = `<div style='margin-bottom: 0.5rem; font-weight: bold;'>【ラッキー銘柄】</div><div>${s}</div>`;
 
-  const imgElement = document.getElementById("ojisanImage");
-  imgElement.style.display = "none";
-  imgElement.onload = () => imgElement.style.display = "block";
-  imgElement.onerror = () => imgElement.style.display = "none";
-  imgElement.src = img + '?t=' + new Date().getTime();
-}
+      const quoteBox = document.getElementById("ojisanQuote");
+      quoteBox.textContent = `「${q}」`;
+      quoteBox.style.display = "block";
 
-    document.getElementById("shareBtn").onclick = function () {
-      const f = document.getElementById("fortune").innerText;
-      const tweet = encodeURIComponent(`🔮本日の銘柄占い🔮\n${f}\n#銘柄占い`);
-      const url = `https://twitter.com/intent/tweet?text=${tweet}`;
-      window.open(url, '_blank');
-    };
+      const imgElement = document.getElementById("ojisanImage");
+      imgElement.style.display = "none";
+      imgElement.onload = () => imgElement.style.display = "block";
+      imgElement.onerror = () => imgElement.style.display = "none";
+      imgElement.src = img + '?t=' + new Date().getTime();
+    }
 
     function openStockInfo() {
       const fortuneText = document.getElementById("fortune").innerText;
@@ -292,8 +153,16 @@
         alert("まずは占ってください！");
       }
     }
+
+    document.getElementById("shareBtn").onclick = function () {
+      const f = document.getElementById("fortune").innerText;
+      const tweet = encodeURIComponent(`🔮本日の銘柄占い🔮\n${f}\n#銘柄占い`);
+      const url = `https://twitter.com/intent/tweet?text=${tweet}`;
+      window.open(url, '_blank');
+    };
   </script>
 </body>
 </html>
+
 
 

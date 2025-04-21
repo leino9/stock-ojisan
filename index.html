@@ -117,7 +117,8 @@
       ojisanImages.push(`https://leino9.github.io/stock-ojisan/ojisan/oji${i}.jpg`);
     }
 
-    const selectedCategory = 'funny';
+    const categories = ['funny', 'harsh', 'kind', 'sad'];
+    let selectedCategory = categories[Math.floor(Math.random() * categories.length)];
 
     function generateFortune() {
       if (stocks.length === 0 || !quotes[selectedCategory]) {
@@ -163,6 +164,5 @@
   </script>
 </body>
 </html>
-
 
 

@@ -177,6 +177,41 @@ print(f"{len(output)} stocks updated.")
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };
+
+    name: Update stocks.json daily
+
+on:
+  schedule:
+    - cron: '0 21 * * *'  # JST 6時に相当（UTC 21時）
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run update script
+        env:
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+        run: python update_stocks.py
+
+      - name: Commit and push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+          git add stocks.json
+          git commit -m "Auto-update stocks.json"
+          git push
+
   </script>
 </body>
 </html>

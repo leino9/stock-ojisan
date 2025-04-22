@@ -119,7 +119,7 @@
       const q = quotes[selectedCategory][Math.floor(Math.random() * quotes[selectedCategory].length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-      document.getElementById("fortune").innerHTML = `【ラッキー銘柄】<br>${s}`;
+      document.getElementById("fortune").innerHTML = `【ラッキー銘柄】<br>${s.name}<br><br>Lv.${s.level}<br>攻撃力：${s.attack}<br>防御力：${s.defense}<br>HP：${s.hp}`;
 
       const quoteEl = document.getElementById("ojisanQuote");
       quoteEl.textContent = `「${q}」`;
@@ -141,4 +141,5 @@
   </script>
 </body>
 </html>
+
 

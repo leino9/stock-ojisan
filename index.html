@@ -131,7 +131,7 @@
       document.getElementById("fortune").innerHTML = `【ラッキー銘柄】<br>${s.name}（${s.code}）<br><br>Lv.${s.level}<br>攻撃力：${s.attack}<br>防御力：${s.defense}<br>HP：${s.hp}`;
 
       const code = s.code.replace(/\.T$/, '');
-      document.getElementById("infoBtn").href = `https://finance.yahoo.co.jp/quote/${code}.T`;  // .T をつけてURL構築
+      document.getElementById("infoBtn").href = `https://finance.yahoo.co.jp/quote/${code}.T`; // 修正済
 
       const quoteEl = document.getElementById("ojisanQuote");
       quoteEl.textContent = `「${q}」`;

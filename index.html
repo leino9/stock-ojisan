@@ -88,7 +88,7 @@
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日のラッキー銘柄 🔮</h1>
+  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日の銘柄占い 🔮</h1>
   <div class="card">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
@@ -127,7 +127,7 @@ btn.onclick = generateFortune;
       const q = quotes[selectedCategory][Math.floor(Math.random() * quotes[selectedCategory].length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
-      document.getElementById("fortune").innerHTML = `【ラッキー銘柄】<br>${s.name}<br><br>Lv.${s.level}<br>攻撃力：${s.attack}<br>防御力：${s.defense}<br>HP：${s.hp}`;
+      document.getElementById("fortune").innerHTML = `【ラッキー銘柄】<br>${s.name}<br><br>レベル.${s.level}<br>⚔攻撃力：${s.attack}<br>🛡防御力：${s.defense}<br>♡HP：${s.hp}`;
 
       const quoteEl = document.getElementById("ojisanQuote");
       quoteEl.textContent = `「${q}」`;

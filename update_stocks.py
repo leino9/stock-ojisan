@@ -1,0 +1,37 @@
+import requests
+import json
+import os
+
+api_key = os.environ['FINNHUB_API_KEY']
+
+tickers = {
+    "7974.T": "任天堂（7974）",
+    "7203.T": "トヨタ自動車（7203）",
+    "6758.T": "ソニーG（6758）",
+    "8058.T": "三菱商事（8058）"
+    # ← 他の銘柄もここに追加していきましょう
+}
+
+output = []
+
+for symbol, name in tickers.items():
+    url = f"https://finnhub.io/api/v1/stock/metric?symbol={symbol}&metric=all&token={api_key}"
+    res = requests.get(url)
+    data = res.json().get("metric", {})
+
+    if not data: continue
+
+    stock = {
+        "name": name,
+        "level": round(data.get("marketCapitalization", 0)),
+        "attack": round(data.get("roe", 0), 1),
+        "defense": round(data.get("equityRatio", 0), 1),
+        "hp": round(data.get("cashRatio", 0) * 100, 1)
+    }
+
+    output.append(stock)
+
+with open("stocks.json", "w", encoding="utf-8") as f:
+    json.dump(output, f, indent=2, ensure_ascii=False)
+
+print(f"{len(output)} stocks updated.")

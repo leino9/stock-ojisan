@@ -96,7 +96,7 @@
     </div>
     <div id="fortune" class="result"></div>
     <br>
-    <button onclick="generateFortune()">占う！</button>
+    <button id="fortuneBtn" disabled>占う！</button>
     <a id="shareBtn" href="#" target="_blank" class="share">X</a>
   </div>
 
@@ -106,13 +106,19 @@
     const categories = ['funny', 'harsh', 'kind', 'sad'];
     const ojisanImages = Array.from({length: 70}, (_, i) => `https://leino9.github.io/stock-ojisan/ojisan/oji${i + 1}.jpg`);
 
-    Promise.all([
-      fetch('stocks.json').then(res => res.json()),
-      fetch('quotes.json').then(res => res.json())
-    ]).then(([stockData, quoteData]) => {
-      stocks = stockData;
-      quotes = quoteData;
-    });
+    const btn = document.getElementById("fortuneBtn");
+btn.disabled = true;
+
+Promise.all([
+  fetch('stocks.json').then(res => res.json()),
+  fetch('quotes.json').then(res => res.json())
+]).then(([stockData, quoteData]) => {
+  stocks = stockData;
+  quotes = quoteData;
+  btn.disabled = false;
+});
+
+btn.onclick = generateFortune;
 
     function generateFortune() {
       const selectedCategory = categories[Math.floor(Math.random() * categories.length)];

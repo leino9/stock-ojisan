@@ -8,30 +8,31 @@
     body {
       font-family: 'Yu Gothic', 'Segoe UI', sans-serif;
       text-align: center;
-      background: linear-gradient(to bottom, #e2c799, #a67c52);
+      background: linear-gradient(to bottom, #d4bfa1, #a68c6c);
       margin: 0;
       padding: 2rem;
     }
     .card {
-      background: #f9f3e3;
+      background: #f8f0dc;
+      border: 6px ridge #8b5a2b;
       border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      border: 4px double #7e5a3b;
-      display: inline-block;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      padding: 1.5rem;
+      margin: auto;
       max-width: 400px;
+      color: #3b2b1b;
     }
     .result {
       font-size: 1.1rem;
       font-weight: bold;
       margin: 1rem 0;
       padding: 1rem;
-      border-radius: 8px;
-      background: #f3e7d1;
-      border: 2px solid #7e5a3b;
+      background: #fffaf0;
+      border: 2px solid #8b5a2b;
+      border-radius: 0.5rem;
     }
     .quote {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-top: 0.5rem;
       padding: 0.5rem;
       font-weight: bold;
@@ -39,22 +40,22 @@
     button {
       padding: 1rem 2rem;
       font-size: 1rem;
-      border: 2px solid #7e5a3b;
-      border-radius: 1rem;
-      background: #e3b464;
+      border: 2px solid #5c4323;
+      border-radius: 0.75rem;
+      background: #d4aa70;
       color: #2c1a00;
       cursor: pointer;
       margin: 0.5rem;
     }
     button:hover {
-      background: #d19d44;
+      background: #c2925e;
     }
     .share {
       display: inline-block;
       padding: 1rem 2rem;
       background: #1DA1F2;
       color: white;
-      border-radius: 1rem;
+      border-radius: 0.75rem;
       text-decoration: none;
       font-weight: bold;
       margin: 0.5rem;
@@ -64,7 +65,7 @@
     }
     .ojisan-img {
       width: 100%;
-      border-radius: 1rem;
+      border-radius: 0.5rem;
       margin-bottom: 0.5rem;
       display: none;
       border: 3px ridge #7e5a3b;
@@ -77,16 +78,17 @@
       bottom: 8px;
       left: 8px;
       right: 8px;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       padding: 0.5rem;
       border-radius: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: bold;
+      border: 1px solid #7e5a3b;
     }
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日の銘柄 🔮</h1>
+  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日のラッキー銘柄 🔮</h1>
   <div class="card">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">

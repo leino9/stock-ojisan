@@ -24,7 +24,7 @@ for symbol, name in tickers.items():
     stock = {
         "name": name,
         "level": round(data.get("marketCapitalization", 0)),
-        "attack": round(data.get("roe', 0), 1),
+        "attack": round(data.get("roe", 0), 1),
         "defense": round(data.get("equityRatio", 0), 1),
         "hp": round(data.get("cashRatio", 0) * 100, 1)
     }

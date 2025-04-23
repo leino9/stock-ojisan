@@ -102,6 +102,7 @@
   </div>
 
   <script>
+  document.addEventListener("DOMContentLoaded", function () {
     let stocks = [];
     let quotes = {};
     const categories = ['funny', 'harsh', 'kind', 'sad'];
@@ -123,18 +124,15 @@
 
     function generateFortune() {
       const selectedCategory = categories[Math.floor(Math.random() * categories.length)];
-      if (!stocks.length || !quotes[selectedCategory]) return alert("データ読み込み中です");
+      if (!stocks.length) return alert("📉 stocks.jsonが読み込めません");
+      if (!quotes[selectedCategory]) return alert(`💬 quotes.jsonにカテゴリ「${selectedCategory}」がありません`);
       const s = stocks[Math.floor(Math.random() * stocks.length)];
       const q = quotes[selectedCategory][Math.floor(Math.random() * quotes[selectedCategory].length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
 
       document.getElementById("fortune").innerHTML = `【ラッキー銘柄】<br>${s.name}（${s.code}）<br><br>Lv.${s.level}<br>攻撃力：${s.attack}<br>防御力：${s.defense}<br>HP：${s.hp}`;
-
-      const code = s.code.replace(/\.T$/, '');
-      document.getElementById("infoBtn").href = `https://finance.yahoo.co.jp/quote/${code}.T`; // 修正済
-
-      const quoteEl = document.getElementById("ojisanQuote");
-      quoteEl.textContent = `「${q}」`;
+      document.getElementById("infoBtn").href = `https://finance.yahoo.co.jp/quote/${s.code}.T`;
+      document.getElementById("ojisanQuote").textContent = `「${q}」`;
 
       const imgEl = document.getElementById("ojisanImage");
       imgEl.style.display = "none";
@@ -146,11 +144,14 @@
     document.getElementById("shareBtn").onclick = function () {
       const f = document.getElementById("fortune").textContent.trim();
       const q = document.getElementById("ojisanQuote").textContent.trim();
-      const tweet = encodeURIComponent(`${q}\n${f}\n#銘柄占い\nhttps://leino9.github.io/stock-ojisan/`);
+      const tweet = encodeURIComponent(`${q}
+${f}
+#銘柄占い
+https://leino9.github.io/stock-ojisan/`);
       const url = `https://twitter.com/intent/tweet?text=${tweet}`;
       window.open(url, '_blank');
     };
+  });
   </script>
 </body>
 </html>
-

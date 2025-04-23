@@ -2,7 +2,7 @@ name: Update stocks.json daily
 
 on:
   schedule:
-    - cron: '0 21 * * *'  # JST 6:00（UTC 21:00）
+    - cron: '0 21 * * *'  # JST 6:00 (UTC 21:00)
   workflow_dispatch:
 
 jobs:
@@ -30,5 +30,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@users.noreply.github.com
           git add stocks.json
-          git commit -m "Auto-update stocks.json"
+          git diff --cached --quiet || git commit -m "Auto-update stocks.json"
           git push

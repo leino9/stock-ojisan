@@ -23,13 +23,14 @@
       color: #3b2b1b;
     }
     .result {
-      font-size: 1.1rem;
-      font-weight: bold;
+      font-size: 1rem;
       margin: 1rem 0;
       padding: 1rem;
       background: #fffaf0;
       border: 2px solid #8b5a2b;
       border-radius: 0.5rem;
+      text-align: left;
+      line-height: 1.5;
     }
     .quote {
       font-size: 0.85rem;
@@ -37,32 +38,31 @@
       padding: 0.5rem;
       font-weight: bold;
     }
-    button {
-      padding: 1rem 2rem;
+    button, .share, #infoBtn {
+      padding: 0.6rem 1.2rem;
       font-size: 1rem;
-      border: 2px solid #5c4323;
-      border-radius: 0.75rem;
-      background: #d4aa70;
-      color: #2c1a00;
+      border-radius: 6px;
+      border: none;
       cursor: pointer;
-      margin: 0.5rem;
+      font-weight: bold;
+      margin: 0.3rem;
     }
-    button:hover {
-      background: #c2925e;
+    button {
+      background: #382b1f;
+      color: #fff4cc;
     }
+    button:hover { background: #59462f; }
+    #infoBtn {
+      background: #e0c800;
+      color: #2c1a00;
+    }
+    #infoBtn:hover { background: #c2a900; }
     .share {
-      display: inline-block;
-      padding: 1rem 2rem;
       background: #1DA1F2;
       color: white;
-      border-radius: 0.75rem;
       text-decoration: none;
-      font-weight: bold;
-      margin: 0.5rem;
     }
-    .share:hover {
-      background: #0d8ddb;
-    }
+    .share:hover { background: #0d8ddb; }
     .ojisan-img {
       width: 100%;
       border-radius: 0.5rem;
@@ -70,9 +70,7 @@
       display: none;
       border: 3px ridge #7e5a3b;
     }
-    .ojisan-container {
-      position: relative;
-    }
+    .ojisan-container { position: relative; }
     .ojisan-comment {
       position: absolute;
       bottom: 8px;
@@ -88,70 +86,75 @@
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日のラッキー銘柄 🔮</h1>
+  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日の銘柄占い 🔮</h1>
   <div class="card">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
       <div id="ojisanQuote" class="ojisan-comment"></div>
     </div>
     <div id="fortune" class="result"></div>
-    <br>
-    <button id="fortuneBtn" disabled>占う！</button>
-    <a id="infoBtn" href="#" target="_blank" class="share" style="background: #e0c800; color: black;">🔎 銘柄情報</a>
-    <a id="shareBtn" href="#" target="_blank" class="share">X</a>
+    <div class="button-group">
+      <button id="fortuneBtn" disabled>占う！</button>
+      <button id="infoBtn" disabled>🔎 銘柄情報</button>
+      <a id="shareBtn" href="#" target="_blank" class="share" disabled>X</a>
+    </div>
   </div>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
     let stocks = [];
     let quotes = {};
-    const categories = ['funny', 'harsh', 'kind', 'sad'];
-    const ojisanImages = Array.from({length: 70}, (_, i) => `https://leino9.github.io/stock-ojisan/ojisan/oji${i + 1}.jpg`);
+    const categories = ['funny','harsh','kind','sad'];
+    const ojisanImages = Array.from({length:70},(_,i)=>`https://leino9.github.io/stock-ojisan/ojisan/oji${i+1}.jpg`);
 
-    const btn = document.getElementById("fortuneBtn");
-    btn.disabled = true;
+    const btn = document.getElementById('fortuneBtn');
+    const infoBtn = document.getElementById('infoBtn');
+    const shareBtn = document.getElementById('shareBtn');
+    btn.disabled = infoBtn.disabled = shareBtn.disabled = true;
 
     Promise.all([
-      fetch('stocks.json').then(res => res.json()),
-      fetch('quotes.json').then(res => res.json())
-    ]).then(([stockData, quoteData]) => {
-      stocks = stockData;
-      quotes = quoteData;
-      btn.disabled = false;
+      fetch('stocks.json').then(r=>r.json()),
+      fetch('quotes.json').then(r=>r.json())
+    ]).then(([sData,qData])=>{
+      stocks=sData; quotes=qData;
+      btn.disabled=infoBtn.disabled=shareBtn.disabled=false;
     });
 
-    btn.onclick = generateFortune;
+    btn.onclick = ()=>{
+      const cat=categories[Math.floor(Math.random()*categories.length)];
+      if(!stocks.length||!quotes[cat]) return alert('データ読み込み中です');
+      const s=stocks[Math.floor(Math.random()*stocks.length)];
+      const q=quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
+      const img=ojisanImages[Math.floor(Math.random()*ojisanImages.length)];
 
-    function generateFortune() {
-      const selectedCategory = categories[Math.floor(Math.random() * categories.length)];
-      if (!stocks.length) return alert("📉 stocks.jsonが読み込めません");
-      if (!quotes[selectedCategory]) return alert(`💬 quotes.jsonにカテゴリ「${selectedCategory}」がありません`);
-      const s = stocks[Math.floor(Math.random() * stocks.length)];
-      const q = quotes[selectedCategory][Math.floor(Math.random() * quotes[selectedCategory].length)];
-      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+      document.getElementById('fortune').innerHTML =
+        `【銘柄】: ${s.name}<br>`+
+        `前日終値: ${s.price} 円<br>`+
+        `PER: ${s.per}<br>`+
+        `PBR: ${s.pbr}<br>`+
+        `ROE: ${s.roe}<br>`+
+        `配当利回り: ${Math.round((s.dividendYield||0)*10000)/100} %`;
 
-      document.getElementById("fortune").innerHTML = `【ラッキー銘柄】<br>${s.name}（${s.code}）<br><br>Lv.${s.level}<br>攻撃力：${s.attack}<br>防御力：${s.defense}<br>HP：${s.hp}`;
-      document.getElementById("infoBtn").href = `https://finance.yahoo.co.jp/quote/${s.code}.T`;
-      document.getElementById("ojisanQuote").textContent = `「${q}」`;
+      // イメージとコメント
+      const quoteEl=document.getElementById('ojisanQuote');
+      quoteEl.textContent=`「${q}」`;
+      const imgEl=document.getElementById('ojisanImage');
+      imgEl.style.display='none';
+      imgEl.src=img+'?t='+Date.now();
+      imgEl.onload=()=>imgEl.style.display='block';
+      imgEl.onerror=()=>imgEl.style.display='none';
 
-      const imgEl = document.getElementById("ojisanImage");
-      imgEl.style.display = "none";
-      imgEl.onload = () => imgEl.style.display = "block";
-      imgEl.onerror = () => imgEl.style.display = "none";
-      imgEl.src = img + '?t=' + Date.now();
-    }
+      // 銘柄情報リンク
+      infoBtn.onclick=()=>{
+        window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
+      };
 
-    document.getElementById("shareBtn").onclick = function () {
-      const f = document.getElementById("fortune").textContent.trim();
-      const q = document.getElementById("ojisanQuote").textContent.trim();
-      const tweet = encodeURIComponent(`${q}
-${f}
-#銘柄占い
-https://leino9.github.io/stock-ojisan/`);
-      const url = `https://twitter.com/intent/tweet?text=${tweet}`;
-      window.open(url, '_blank');
+      // 共有リンク
+      shareBtn.onclick=()=>{
+        const ftxt=document.getElementById('fortune').innerText;
+        const tt=encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
+        window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank');
+      };
     };
-  });
   </script>
 </body>
 </html>

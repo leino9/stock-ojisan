@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>本日の株式銘柄占い</title>
   <style>
-    /* Famicom風ドットフォントをGoogle Fontsから読み込み */
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    /* DotGothic16 ドットフォントをGoogle Fontsから読み込み */
+    @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 
     body {
-      font-family: 'Press Start 2P', monospace;
+      font-family: 'DotGothic16', monospace;
       text-align: center;
       background: linear-gradient(to bottom, #d4bfa1, #a68c6c);
       margin: 0;
@@ -24,9 +24,10 @@
       margin: auto;
       max-width: 400px;
       color: #3b2b1b;
+      font-family: 'DotGothic16', monospace;
     }
     .result {
-      font-size: 1.1rem;  /* 文字の大きさを統一 */
+      font-size: 1.1rem;
       margin: 1rem 0;
       padding: 1rem;
       background: #fffaf0;
@@ -34,6 +35,7 @@
       border-radius: 0.5rem;
       text-align: center;
       line-height: 1.5;
+      font-family: 'DotGothic16', monospace;
     }
     button, .share, #infoBtn {
       padding: 0.6rem 1.2rem;
@@ -43,7 +45,7 @@
       cursor: pointer;
       font-weight: bold;
       margin: 0.3rem;
-      font-family: 'Press Start 2P', monospace;
+      font-family: 'DotGothic16', monospace;
     }
     button {
       background: #382b1f;
@@ -59,6 +61,7 @@
       background: #1DA1F2;
       color: white;
       text-decoration: none;
+      font-family: 'DotGothic16', monospace;
     }
     .share:hover { background: #0d8ddb; }
     .ojisan-img {
@@ -77,10 +80,11 @@
       background: rgba(255, 255, 255, 0.9);
       padding: 0.5rem;
       border-radius: 0.5rem;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       font-weight: bold;
       border: 1px solid #7e5a3b;
-      font-family: 'Press Start 2P', monospace;
+      font-family: 'DotGothic16', monospace;
+      line-height: 1.2;
     }
     .button-group {
       display: flex;
@@ -91,7 +95,7 @@
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6; font-family: 'Press Start 2P', monospace;">🔮 本日の銘柄占い 🔮</h1>
+  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6; font-family: 'DotGothic16', monospace;">🔮 本日の銘柄占い 🔮</h1>
   <div class="card">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
@@ -131,21 +135,19 @@
       const q=quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
       const img=ojisanImages[Math.floor(Math.random()*ojisanImages.length)];
 
-      // 小数点第二位までフォーマット
       const per = s.per ? s.per.toFixed(2) : '0.00';
       const pbr = s.pbr ? s.pbr.toFixed(2) : '0.00';
-      const roe = s.roe ? s.roe.toFixed(2) : '0.00';
-      const yieldStr = s.dividendYield ? (s.dividendYield ).toFixed(2) : '0.00';
+      const roe = s.roe ? (s.roe * 100).toFixed(2) : '0.00';  // %表示に変更
+      const yieldStr = s.dividendYield ? (s.dividendYield).toFixed(2) : '0.00';
 
       document.getElementById('fortune').innerHTML =
         `【銘柄】: ${s.name}<br>`+
         `前日終値: ${s.price} 円<br>`+
         `PER: ${per}<br>`+
         `PBR: ${pbr}<br>`+
-        `ROE: ${roe}<br>`+
+        `ROE: ${roe} %<br>`+  // %付与
         `配当利回り: ${yieldStr} %`;
 
-      // イメージとコメント
       const quoteEl=document.getElementById('ojisanQuote');
       quoteEl.textContent=`「${q}」`;
       const imgEl=document.getElementById('ojisanImage');
@@ -154,12 +156,7 @@
       imgEl.onload=()=>imgEl.style.display='block';
       imgEl.onerror=()=>imgEl.style.display='none';
 
-      // 銘柄情報リンク
-      infoBtn.onclick=()=>{
-        window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
-      };
-
-      // 共有リンク
+      infoBtn.onclick=()=>{ window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank'); };
       shareBtn.onclick=()=>{
         const ftxt=document.getElementById('fortune').innerText;
         const tt=encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);

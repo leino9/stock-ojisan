@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>本日の株式銘柄占い</title>
   <style>
+    /* Famicom風ドットフォントをGoogle Fontsから読み込み */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
     body {
-      font-family: 'Yu Gothic', 'Segoe UI', sans-serif;
+      font-family: 'Press Start 2P', monospace;
       text-align: center;
       background: linear-gradient(to bottom, #d4bfa1, #a68c6c);
       margin: 0;
@@ -29,14 +32,8 @@
       background: #fffaf0;
       border: 2px solid #8b5a2b;
       border-radius: 0.5rem;
-      text-align: left;
+      text-align: center;
       line-height: 1.5;
-    }
-    .quote {
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
-      padding: 0.5rem;
-      font-weight: bold;
     }
     button, .share, #infoBtn {
       padding: 0.6rem 1.2rem;
@@ -46,6 +43,7 @@
       cursor: pointer;
       font-weight: bold;
       margin: 0.3rem;
+      font-family: 'Press Start 2P', monospace;
     }
     button {
       background: #382b1f;
@@ -82,11 +80,18 @@
       font-size: 0.75rem;
       font-weight: bold;
       border: 1px solid #7e5a3b;
+      font-family: 'Press Start 2P', monospace;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6;">🔮 本日の銘柄占い 🔮</h1>
+  <h1 style="color: #3c2200; text-shadow: 1px 1px #fff6d6; font-family: 'Press Start 2P', monospace;">🔮 本日の銘柄占い 🔮</h1>
   <div class="card">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
@@ -126,13 +131,19 @@
       const q=quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
       const img=ojisanImages[Math.floor(Math.random()*ojisanImages.length)];
 
+      // 小数点第二位までフォーマット
+      const per = s.per ? s.per.toFixed(2) : '0.00';
+      const pbr = s.pbr ? s.pbr.toFixed(2) : '0.00';
+      const roe = s.roe ? s.roe.toFixed(2) : '0.00';
+      const yieldStr = s.dividendYield ? (s.dividendYield * 100).toFixed(2) : '0.00';
+
       document.getElementById('fortune').innerHTML =
         `【銘柄】: ${s.name}<br>`+
         `前日終値: ${s.price} 円<br>`+
-        `PER: ${s.per}<br>`+
-        `PBR: ${s.pbr}<br>`+
-        `ROE: ${s.roe}<br>`+
-        `配当利回り: ${Math.round((s.dividendYield||0)*10000)/100} %`;
+        `PER: ${per}<br>`+
+        `PBR: ${pbr}<br>`+
+        `ROE: ${roe}<br>`+
+        `配当利回り: ${yieldStr} %`;
 
       // イメージとコメント
       const quoteEl=document.getElementById('ojisanQuote');

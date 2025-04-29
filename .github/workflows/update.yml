@@ -1,34 +1,35 @@
-name: Update stocks.json daily
+name: Update Stocks Data
 
 on:
   schedule:
-    - cron: '0 21 * * *'  # JST 6:00 (UTC 21:00)
+    # 毎日日本時間11:00に実行（UTC 02:00）
+    - cron: '0 2 * * *'
   workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.x'
 
-      - name: Install requests
-        run: pip install requests
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-      - name: Run update script
-        env:
-          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+      - name: Update stocks.json
         run: python update_stocks.py
 
       - name: Commit and push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@users.noreply.github.com
           git add stocks.json
-          git diff --cached --quiet || git commit -m "Auto-update stocks.json"
+          git commit -m "Auto-update stocks.json"
           git push

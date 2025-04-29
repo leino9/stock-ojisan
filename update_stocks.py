@@ -1,4 +1,3 @@
-```python
 # update_stocks.py
 # 日本株の前日終値、PER、PBR、ROE、配当利回りを取得して stocks.json に書き出す
 import json
@@ -22,10 +21,10 @@ for symbol, name in tickers.items():
     stock = {
         "name": name,
         "code": symbol.replace(".T", ""),
-        "price": info.get("previousClose"),   # 前日終値
-        "per":   info.get("trailingPE"),      # PER
-        "pbr":   info.get("priceToBook"),     # PBR
-        "roe":   info.get("returnOnEquity"),  # ROE
+        "price": info.get("previousClose"),       # 前日終値
+        "per":   info.get("trailingPE"),          # PER
+        "pbr":   info.get("priceToBook"),         # PBR
+        "roe":   info.get("returnOnEquity"),      # ROE
         "dividendYield": info.get("dividendYield")  # 配当利回り
     }
     output.append(stock)
@@ -35,4 +34,4 @@ with open("stocks.json", "w", encoding="utf-8") as f:
     json.dump(output, f, indent=2, ensure_ascii=False)
 
 print(f"✨ {len(output)} 件の銘柄を書き出しました")
-```
+

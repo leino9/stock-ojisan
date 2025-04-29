@@ -1,6 +1,6 @@
 import yfinance as yf
 import json
-time
+import time  # timeモジュールをインポートしました
 
 # プライム市場上位50社（ティッカーコード）
 tickers = [

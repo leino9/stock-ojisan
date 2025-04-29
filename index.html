@@ -9,12 +9,39 @@
     body {
       font-family: 'DotGothic16', monospace;
       text-align: center;
-      background: linear-gradient(to bottom, #d4bfa1, #a68c6c);
+      /* 最背面の背景画像を指定 */
+      background: url('https://leino9.github.io/stock-ojisan/cosmic-background.png') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 2rem;
     }
+    .banner {
+      position: relative;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .banner img {
+      width:100%; max-width:400px; height:auto; display:block; margin: 0 auto;
+    }
+    .banner .title-text {
+      position: absolute;
+      bottom: 8px;
+      width:100%;
+      color:#fff;
+      font-family:'DotGothic16',monospace;
+      font-size:1.2rem;
+      text-shadow:1px 1px #000;
+    }
+    .chart-pattern {
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: url('https://leino9.github.io/stock-ojisan/chart-pattern.png') no-repeat center/cover;
+      opacity:0.1;
+      pointer-events:none;
+    }
     .card {
-      background: #f8f0dc;
+      background: rgba(248,240,220,0.95);
       border: 6px ridge #8b5a2b;
       border-radius: 1rem;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
@@ -22,6 +49,8 @@
       margin: auto;
       max-width: 380px;
       color: #ffffff;
+      position: relative;
+      z-index: 1;
     }
     .result {
       display: grid;
@@ -47,6 +76,8 @@
       font-weight: bold;
       margin: 0.3rem;
       font-family: 'DotGothic16', monospace;
+      position: relative;
+      z-index: 1;
     }
     button { background: #382b1f; color: #fff4cc; }
     button:hover { background: #59462f; }
@@ -55,13 +86,15 @@
     .share { background: #1DA1F2; color: white; text-decoration: none; }
     .share:hover { background: #0d8ddb; }
     .ojisan-img {
-      width: 100%;              /* 幅を元に戻し */
-      height: 280px;            /* 縦幅を少し狭め */
-      object-fit: cover;        /* 枠に合わせて表示 */
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
       border-radius: 0.5rem;
       margin: 0 auto 0.5rem;
       display: none;
       border: 3px ridge #7e5a3b;
+      position: relative;
+      z-index: 1;
     }
     .ojisan-container { position: relative; }
     .ojisan-comment {
@@ -78,17 +111,29 @@
       line-height: 1.2;
       width: 90%;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     .button-group {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       margin-top: 0.5rem;
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow:1px 1px #fff6d6; font-family:'DotGothic16',monospace;">🔮本日の銘柄占い🔮</h1>
+  <!-- 背景パターン -->
+  <div class="chart-pattern"></div>
+
+  <!-- Banner -->
+  <div class="banner">
+    <img src="https://leino9.github.io/stock-ojisan/banner.png" alt="LUCKEY STOCK" />
+    <div class="title-text">本日の銘柄占い</div>
+  </div>
+
   <div class="card">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
@@ -101,6 +146,7 @@
       <a id="shareBtn" href="#" target="_blank" class="share" disabled>X</a>
     </div>
   </div>
+
   <script>
     let stocks=[], quotes={};
     const categories=['funny','harsh','kind','sad'];
@@ -119,22 +165,21 @@
       const s=stocks[Math.floor(Math.random()*stocks.length)];
       const q=quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
       const img=ojisanImages[Math.floor(Math.random()*ojisanImages.length)];
-      const per=s.per? s.per.toFixed(2):'0.00';
-      const pbr=s.pbr? s.pbr.toFixed(2):'0.00';
-      const roe=s.roe? (s.roe*100).toFixed(2):'0.00';
-      const yieldStr=s.dividendYield? s.dividendYield.toFixed(2):'0.00';
-      const fortuneHTML=
+      document.getElementById('fortune').innerHTML=
         `<div class='label'>銘柄:</div><div class='value'>${s.name}</div>`+
         `<div class='label'>前日終値:</div><div class='value'>${s.price} 円</div>`+
-        `<div class='label'>PER:</div><div class='value'>${per} 倍</div>`+
-        `<div class='label'>PBR:</div><div class='value'>${pbr} 倍</div>`+
-        `<div class='label'>ROE:</div><div class='value'>${roe} %</div>`+
-        `<div class='label'>配当利回り:</div><div class='value'>${yieldStr} %</div>`;
-      document.getElementById('fortune').innerHTML=fortuneHTML;
-      const quoteEl=document.getElementById('ojisanQuote'); quoteEl.textContent=`「${q}」`;
-      const imgEl=document.getElementById('ojisanImage'); imgEl.style.display='none'; imgEl.src=img+'?t='+Date.now(); imgEl.onload=()=>imgEl.style.display='block'; imgEl.onerror=()=>imgEl.style.display='none';
-      infoBtn.onclick=()=>window.open(`https://finance.yahoo.co.jp/quote/${s.code}`,'_blank');
-      shareBtn.onclick=()=>{const ftxt=document.getElementById('fortune').innerText;const tt=encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank');};
+        `<div class='label'>PER:</div><div class='value'>${s.per.toFixed(2)} 倍</div>`+
+        `<div class='label'>PBR:</div><div class='value'>${s.pbr.toFixed(2)} 倍</div>`+
+        `<div class='label'>ROE:</div><div class='value'>${(s.roe*100).toFixed(2)} %</div>`+
+        `<div class='label'>配当利回り:</div><div class='value'>${s.dividendYield.toFixed(2)} %</div>`;
+      document.getElementById('ojisanQuote').textContent=`「${q}」`;
+      const imgEl=document.getElementById('ojisanImage'); imgEl.style.display='none'; imgEl.src=img+'?t='+Date.now(); imgEl.onload=()=>imgEl.style.display='block';
+      infoBtn.onclick=()=>window.open(`https://finance.yahoo.co.jp/quote/${s.code}`);
+      shareBtn.onclick=()=>{
+        const ftxt=document.getElementById('fortune').innerText;
+        const tt=encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
+        window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank');
+      };
     };
   </script>
 </body>

@@ -135,7 +135,7 @@
       const per = s.per ? s.per.toFixed(2) : '0.00';
       const pbr = s.pbr ? s.pbr.toFixed(2) : '0.00';
       const roe = s.roe ? s.roe.toFixed(2) : '0.00';
-      const yieldStr = s.dividendYield ? (s.dividendYield * 100).toFixed(2) : '0.00';
+      const yieldStr = s.dividendYield ? (s.dividendYield ).toFixed(2) : '0.00';
 
       document.getElementById('fortune').innerHTML =
         `【銘柄】: ${s.name}<br>`+

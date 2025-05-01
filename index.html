@@ -12,7 +12,8 @@
       text-align: center;
       background: linear-gradient(to bottom, #d4bfa1, #a68c6c);
       margin: 0;
-      padding: 2rem;
+      /* 上:2rem 右左右:2rem 下:1rem に調整 */
+      padding: 2rem 2rem 1rem;
     }
 
     .card {
@@ -20,7 +21,8 @@
       border: 6px ridge #8b5a2b;
       border-radius: 1rem;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      padding: 1rem;
+      /* 縦のパディングを0.5remに短縮 */
+      padding: 0.5rem 1rem;
       margin: auto;
       max-width: 380px;
       color: #3b2b1b;
@@ -93,7 +95,8 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      margin: 1rem auto 0;
+      /* 上のマージンを0.5remに短縮 */
+      margin: 0.5rem auto 0;
       max-width: 380px;
     }
   </style>

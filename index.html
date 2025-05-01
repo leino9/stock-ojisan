@@ -7,7 +7,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 
-    /* Body styles */
     body {
       font-family: 'DotGothic16', monospace;
       text-align: center;
@@ -16,19 +15,17 @@
       padding: 2rem;
     }
 
-    /* Card container */
     .card {
       background: #f8f0dc;
       border: 6px ridge #8b5a2b;
       border-radius: 1rem;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      padding: 1rem 1rem;
+      padding: 1rem;
       margin: auto;
       max-width: 380px;
       color: #3b2b1b;
     }
 
-    /* Fortune result grid */
     .result {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -45,7 +42,6 @@
     .result .label { text-align: left; }
     .result .value { text-align: right; }
 
-    /* Buttons and share link styles */
     button,
     #infoBtn,
     .share {
@@ -58,30 +54,13 @@
       margin: 0.3rem;
       font-family: 'DotGothic16', monospace;
     }
-    button {
-      background: #382b1f;
-      color: #fff4cc;
-    }
-    button:hover {
-      background: #59462f;
-    }
-    #infoBtn {
-      background: #e0c800;
-      color: #2c1a00;
-    }
-    #infoBtn:hover {
-      background: #c2a900;
-    }
-    .share {
-      background: #1DA1F2;
-      color: #fff;
-      text-decoration: none;
-    }
-    .share:hover {
-      background: #0d8ddb;
-    }
+    button { background: #382b1f; color: #fff4cc; }
+    button:hover { background: #59462f; }
+    #infoBtn { background: #e0c800; color: #2c1a00; }
+    #infoBtn:hover { background: #c2a900; }
+    .share { background: #1DA1F2; color: #fff; text-decoration: none; }
+    .share:hover { background: #0d8ddb; }
 
-    /* Ojisan image and comment overlay */
     .ojisan-img {
       width: 100%;
       height: 320px;
@@ -91,9 +70,7 @@
       display: none;
       border: 3px ridge #7e5a3b;
     }
-    .ojisan-container {
-      position: relative;
-    }
+    .ojisan-container { position: relative; }
     .ojisan-comment {
       position: absolute;
       bottom: 8px;
@@ -112,7 +89,6 @@
       margin: 0 auto;
     }
 
-    /* Button group below card */
     .button-group {
       display: flex;
       justify-content: center;
@@ -139,39 +115,25 @@
   <script>
     let stocks = [], quotes = {};
     const categories = ['funny', 'harsh', 'kind', 'sad'];
-    const ojisanImages = Array.from({ length: 70 }, (_, i) =>
-      `https://leino9.github.io/stock-ojisan/ojisan/oji${i + 1}.jpg`
-    );
-
+    const ojisanImages = Array.from({ length: 70 }, (_, i) => `https://leino9.github.io/stock-ojisan/ojisan/oji${i+1}.jpg`);
     const btn = document.getElementById('fortuneBtn');
     const infoBtn = document.getElementById('infoBtn');
     const shareBtn = document.getElementById('shareBtn');
     btn.disabled = infoBtn.disabled = shareBtn.disabled = true;
-
     Promise.all([
-      fetch('stocks.json').then((r) => r.json()),
-      fetch('quotes.json').then((r) => r.json())
-    ]).then(([sData, qData]) => {
-      stocks = sData;
-      quotes = qData;
-      btn.disabled = infoBtn.disabled = shareBtn.disabled = false;
-    });
-
+      fetch('stocks.json').then(r => r.json()),
+      fetch('quotes.json').then(r => r.json())
+    ]).then(([sData, qData]) => { stocks = sData; quotes = qData; btn.disabled = infoBtn.disabled = shareBtn.disabled = false; });
     btn.onclick = () => {
       const cat = categories[Math.floor(Math.random() * categories.length)];
       if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');
       const s = stocks[Math.floor(Math.random() * stocks.length)];
-      const q = quotes[cat][
-        Math.floor(Math.random() * quotes[cat].length)
-      ];
+      const q = quotes[cat][Math.floor(Math.random() * quotes[cat].length)];
       const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
-
-      // Format values
       const per = s.per ? s.per.toFixed(2) : '0.00';
       const pbr = s.pbr ? s.pbr.toFixed(2) : '0.00';
-      const roe = s.roe ? (s.roe * 100).toFixed(2) : '0.00';
+      const roe = s.roe ? (s.roe*100).toFixed(2) : '0.00';
       const yieldStr = s.dividendYield ? s.dividendYield.toFixed(2) : '0.00';
-
       document.getElementById('fortune').innerHTML =
         `<div class='label'>銘柄:</div><div class='value'>${s.name}</div>` +
         `<div class='label'>前日終値:</div><div class='value'>${s.price} 円</div>` +
@@ -179,27 +141,10 @@
         `<div class='label'>PBR:</div><div class='value'>${pbr} 倍</div>` +
         `<div class='label'>ROE:</div><div class='value'>${roe} %</div>` +
         `<div class='label'>配当利回り:</div><div class='value'>${yieldStr} %</div>`;
-
       document.getElementById('ojisanQuote').textContent = `「${q}」`;
-
-      const imgEl = document.getElementById('ojisanImage');
-      imgEl.style.display = 'none';
-      imgEl.src = img + '?t=' + Date.now();
-      imgEl.onload = () => (imgEl.style.display = 'block');
-      imgEl.onerror = () => (imgEl.style.display = 'none');
-
-      infoBtn.onclick = () =>
-        window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
-
-      shareBtn.onclick = () => {
-        const ftxt = document
-          .getElementById('fortune')
-          .innerText.trim();
-        const tt = encodeURIComponent(
-          `🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`
-        );
-        window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank');
-      };
+      const imgEl = document.getElementById('ojisanImage'); imgEl.style.display = 'none'; imgEl.src = img + '?t=' + Date.now(); imgEl.onload = () => imgEl.style.display = 'block'; imgEl.onerror = () => imgEl.style.display = 'none';
+      infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
+      shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank'); };
     };
   </script>
 </body>

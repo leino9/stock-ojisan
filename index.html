@@ -80,7 +80,6 @@
       right: 8px;
       background: transparent;
       color: #382b1b;
-      padding: 0;
       font-size: 0.75rem;
       font-weight: bold;
       font-family: 'DotGothic16', monospace;
@@ -137,7 +136,6 @@
     const shareBtn = document.getElementById('shareBtn');
     const downloadBtn = document.getElementById('downloadBtn');
     btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = true;
-    // データ読み込み完了後にボタン有効化とイベント設定
     Promise.all([
       fetch('stocks.json').then(r => r.json()),
       fetch('quotes.json').then(r => r.json())
@@ -145,19 +143,17 @@
       stocks = sData;
       quotes = qData;
       btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = false;
-
-      // 占うボタン
       btn.onclick = generateFortune;
-      // 保存ボタン（常に現在のカードをキャプチャ）
       downloadBtn.onclick = () => {
         const card = document.getElementById('cardElement');
+        // 新しいウィンドウを同期的に開いてポップアップブロックを回避
+        const win = window.open('', '_blank');
         html2canvas(card).then(canvas => {
           const dataUrl = canvas.toDataURL('image/png');
-          window.open(dataUrl, '_blank');
+          win.location.href = dataUrl;
         });
       };
     });
-
     function generateFortune() {
       const cat = categories[Math.floor(Math.random() * categories.length)];
       if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');

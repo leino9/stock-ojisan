@@ -12,7 +12,6 @@
       text-align: center;
       background: linear-gradient(to bottom, #d4bfa1, #a68c6c);
       margin: 0;
-      /* 上:2rem 右左右:2rem 下:1rem に調整 */
       padding: 2rem 2rem 1rem;
     }
 
@@ -21,7 +20,6 @@
       border: 6px ridge #8b5a2b;
       border-radius: 1rem;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      /* 縦のパディングを0.5remに短縮 */
       padding: 0.5rem 1rem;
       margin: auto;
       max-width: 380px;
@@ -63,6 +61,7 @@
     .share { background: #1DA1F2; color: #fff; text-decoration: none; }
     .share:hover { background: #0d8ddb; }
 
+    .ojisan-container { position: relative; }
     .ojisan-img {
       width: 100%;
       height: 320px;
@@ -72,7 +71,18 @@
       display: none;
       border: 3px ridge #7e5a3b;
     }
-    .ojisan-container { position: relative; }
+    .ojisan-number {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #fff4cc;
+      color: #382b1b;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      font-family: 'DotGothic16', monospace;
+    }
     .ojisan-comment {
       position: absolute;
       bottom: 8px;
@@ -95,7 +105,6 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      /* 上のマージンを0.5remに短縮 */
       margin: 0.5rem auto 0;
       max-width: 380px;
     }
@@ -106,6 +115,7 @@
   <div class="card">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
+      <div id="ojisanNumber" class="ojisan-number"></div>
       <div id="ojisanQuote" class="ojisan-comment"></div>
     </div>
     <div id="fortune" class="result"></div>
@@ -130,9 +140,10 @@
     btn.onclick = () => {
       const cat = categories[Math.floor(Math.random() * categories.length)];
       if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');
+      const idx = Math.floor(Math.random() * ojisanImages.length);
       const s = stocks[Math.floor(Math.random() * stocks.length)];
       const q = quotes[cat][Math.floor(Math.random() * quotes[cat].length)];
-      const img = ojisanImages[Math.floor(Math.random() * ojisanImages.length)];
+      const img = ojisanImages[idx];
       const per = s.per ? s.per.toFixed(2) : '0.00';
       const pbr = s.pbr ? s.pbr.toFixed(2) : '0.00';
       const roe = s.roe ? (s.roe*100).toFixed(2) : '0.00';
@@ -144,10 +155,13 @@
         `<div class='label'>PBR:</div><div class='value'>${pbr} 倍</div>` +
         `<div class='label'>ROE:</div><div class='value'>${roe} %</div>` +
         `<div class='label'>配当利回り:</div><div class='value'>${yieldStr} %</div>`;
+      document.getElementById('ojisanNumber').textContent = `No.${idx+1}`;
       document.getElementById('ojisanQuote').textContent = `「${q}」`;
       const imgEl = document.getElementById('ojisanImage'); imgEl.style.display = 'none'; imgEl.src = img + '?t=' + Date.now(); imgEl.onload = () => imgEl.style.display = 'block'; imgEl.onerror = () => imgEl.style.display = 'none';
       infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
-      shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank'); };
+      shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮
+${ftxt}
+#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank'); };
     };
   </script>
 </body>

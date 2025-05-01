@@ -75,10 +75,11 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      background: #fff4cc;
+      /* 背景なしに変更 */
+      background: transparent;
       color: #382b1b;
-      padding: 0.2rem 0.5rem;
-      border-radius: 0.3rem;
+      padding: 0;
+      border-radius: 0;
       font-size: 0.75rem;
       font-weight: bold;
       font-family: 'DotGothic16', monospace;
@@ -155,13 +156,12 @@
         `<div class='label'>PBR:</div><div class='value'>${pbr} 倍</div>` +
         `<div class='label'>ROE:</div><div class='value'>${roe} %</div>` +
         `<div class='label'>配当利回り:</div><div class='value'>${yieldStr} %</div>`;
-      document.getElementById('ojisanNumber').textContent = `No.${idx+1}`;
+      // No. を4桁ゼロパディングで表示
+      document.getElementById('ojisanNumber').textContent = `No.${String(idx+1).padStart(4, '0')}`;
       document.getElementById('ojisanQuote').textContent = `「${q}」`;
       const imgEl = document.getElementById('ojisanImage'); imgEl.style.display = 'none'; imgEl.src = img + '?t=' + Date.now(); imgEl.onload = () => imgEl.style.display = 'block'; imgEl.onerror = () => imgEl.style.display = 'none';
       infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
-      shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮
-${ftxt}
-#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank'); };
+      shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank'); };
     };
   </script>
 </body>

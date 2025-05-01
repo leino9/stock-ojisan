@@ -1,26 +1,113 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>本日の株式銘柄占い</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
-    body { font-family: 'DotGothic16', monospace; text-align: center; background: linear-gradient(to bottom, #d4bfa1, #a68c6c); margin: 0; padding: 2rem 2rem 1rem; }
-    .card { background: #f8f0dc; border: 6px ridge #8b5a2b; border-radius: 1rem; box-shadow: 0 0 15px rgba(0,0,0,0.5); padding: 0.5rem 1rem; margin: auto; max-width: 380px; color: #3b2b1b; }
-    .result { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 1.1rem; margin: 1rem auto; width: 90%; padding: 1rem; background: #000; color: #fff; border: 2px solid #8b5a2b; border-radius: 0.5rem; }
-    .result .label { text-align: left; } .result .value { text-align: right; }
-    button, #infoBtn, .share { padding: 0.6rem 1.2rem; font-size: 1rem; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; margin: 0.3rem; font-family: 'DotGothic16', monospace; }
-    #fortuneBtn { background: #382b1f; color: #fff4cc; } #fortuneBtn:hover { background: #59462f; }
-    #infoBtn { background: #e0c800; color: #2c1a00; } #infoBtn:hover { background: #c2a900; }
-    .share { background: #1DA1F2; color: #fff; text-decoration: none; } .share:hover { background: #0d8ddb; }
-    #downloadBtn { background: #fff; color: #382b1b; } #downloadBtn:hover { background: #ddd; }
+
+    body {
+      font-family: 'DotGothic16', monospace;
+      text-align: center;
+      background: linear-gradient(to bottom, #d4bfa1, #a68c6c);
+      margin: 0;
+      padding: 2rem 2rem 1rem;
+    }
+
+    .card {
+      background: #f8f0dc;
+      border: 6px ridge #8b5a2b;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      padding: 0.5rem 1rem;
+      margin: auto;
+      max-width: 380px;
+      color: #3b2b1b;
+    }
+
+    .result {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      margin: 1rem auto;
+      width: 90%;
+      padding: 1rem;
+      background: #000;
+      color: #fff;
+      border: 2px solid #8b5a2b;
+      border-radius: 0.5rem;
+    }
+    .result .label { text-align: left; }
+    .result .value { text-align: right; }
+
+    button,
+    #infoBtn,
+    .share {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0.3rem;
+      font-family: 'DotGothic16', monospace;
+    }
+    #fortuneBtn { background: #382b1f; color: #fff4cc; }
+    #fortuneBtn:hover { background: #59462f; }
+    #infoBtn { background: #e0c800; color: #2c1a00; }
+    #infoBtn:hover { background: #c2a900; }
+    .share { background: #1DA1F2; color: #fff; text-decoration: none; }
+    .share:hover { background: #0d8ddb; }
+    #downloadBtn { background: #fff; color: #382b1b; }
+    #downloadBtn:hover { background: #ddd; }
+
     .ojisan-container { position: relative; }
-    .ojisan-img { width: 100%; height: 360px; object-fit: cover; border-radius: 0.5rem; margin: 0 auto 0.5rem; display: none; border: 3px ridge #7e5a3b; }
-    .ojisan-number { position: absolute; top: 8px; right: 8px; color: #382b1b; font-size: 0.75rem; font-weight: bold; font-family: 'DotGothic16', monospace; }
-    .ojisan-comment { position: absolute; bottom: 8px; left: 8px; right: 8px; background: #000; color: #fff; padding: 0.5rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: bold; border: 1px solid #7e5a3b; font-family: 'DotGothic16', monospace; line-height: 1.2; width: 90%; margin: 0 auto; }
-    .button-group { display: flex; justify-content: center; flex-wrap: wrap; margin: 0.5rem auto 0; max-width: 380px; }
+    .ojisan-img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      margin: 0 auto 0.5rem;
+      display: none;
+      border: 3px ridge #7e5a3b;
+    }
+    .ojisan-number {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: #382b1b;
+      font-size: 0.75rem;
+      font-weight: bold;
+      font-family: 'DotGothic16', monospace;
+    }
+    .ojisan-comment {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      background: #000;
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border: 1px solid #7e5a3b;
+      font-family: 'DotGothic16', monospace;
+      line-height: 1.2;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0.5rem auto 0;
+      max-width: 380px;
+    }
   </style>
 </head>
 <body>
@@ -48,7 +135,6 @@
     const shareBtn = document.getElementById('shareBtn');
     const downloadBtn = document.getElementById('downloadBtn');
     btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = true;
-
     Promise.all([
       fetch('stocks.json').then(r => r.json()),
       fetch('quotes.json').then(r => r.json())
@@ -62,11 +148,11 @@
         const win = window.open('', '_blank');
         html2canvas(card).then(canvas => {
           const dataUrl = canvas.toDataURL('image/png');
-          win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>カード画像</title></head><body style="margin:0;display:flex;justify-content:center;align-items:center;background:#fff;height:100vh;"><img src="${dataUrl}" alt="カード画像"></body></html>`);
+          // 新しいウィンドウに直接画像を埋め込む
+          win.document.write(`<html><body style="margin:0"><img src="${dataUrl}" style="width:100%;height:auto"></body></html>`);
         });
       };
     });
-
     function generateFortune() {
       const cat = categories[Math.floor(Math.random()*categories.length)];
       if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');
@@ -93,7 +179,11 @@
       imgEl.onload = () => imgEl.style.display = 'block';
       imgEl.onerror = () => imgEl.style.display = 'none';
       infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`,'_blank');
-      shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank'); };
+      shareBtn.onclick = () => {
+        const ftxt = document.getElementById('fortune').innerText.trim();
+        const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
+        window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank');
+      };
     }
   </script>
 </body>

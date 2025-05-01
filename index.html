@@ -55,12 +55,14 @@
       margin: 0.3rem;
       font-family: 'DotGothic16', monospace;
     }
-    button { background: #382b1f; color: #fff4cc; }
-    button:hover { background: #59462f; }
+    #fortuneBtn { background: #382b1f; color: #fff4cc; }
+    #fortuneBtn:hover { background: #59462f; }
     #infoBtn { background: #e0c800; color: #2c1a00; }
     #infoBtn:hover { background: #c2a900; }
     .share { background: #1DA1F2; color: #fff; text-decoration: none; }
     .share:hover { background: #0d8ddb; }
+    #downloadBtn { background: #fff; color: #382b1b; }
+    #downloadBtn:hover { background: #ddd; }
 
     .ojisan-container { position: relative; }
     .ojisan-img {
@@ -124,7 +126,7 @@
     <button id="fortuneBtn" disabled>占う！</button>
     <button id="infoBtn" disabled>🔎銘柄情報</button>
     <a id="shareBtn" href="#" target="_blank" class="share" disabled>X</a>
-    <button id="downloadBtn" disabled style="background: #fff; color: #382b1b;">↓</button>
+    <button id="downloadBtn" disabled>↓</button>
   </div>
   <script>
     let stocks = [], quotes = {};
@@ -135,11 +137,28 @@
     const shareBtn = document.getElementById('shareBtn');
     const downloadBtn = document.getElementById('downloadBtn');
     btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = true;
+    // データ読み込み完了後にボタン有効化とイベント設定
     Promise.all([
       fetch('stocks.json').then(r => r.json()),
       fetch('quotes.json').then(r => r.json())
-    ]).then(([sData, qData]) => { stocks = sData; quotes = qData; btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = false; });
-    btn.onclick = () => {
+    ]).then(([sData, qData]) => {
+      stocks = sData;
+      quotes = qData;
+      btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = false;
+
+      // 占うボタン
+      btn.onclick = generateFortune;
+      // 保存ボタン（常に現在のカードをキャプチャ）
+      downloadBtn.onclick = () => {
+        const card = document.getElementById('cardElement');
+        html2canvas(card).then(canvas => {
+          const dataUrl = canvas.toDataURL('image/png');
+          window.open(dataUrl, '_blank');
+        });
+      };
+    });
+
+    function generateFortune() {
       const cat = categories[Math.floor(Math.random() * categories.length)];
       if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');
       const idx = Math.floor(Math.random() * ojisanImages.length);
@@ -159,17 +178,18 @@
         `<div class='label'>配当利回り:</div><div class='value'>${yieldStr} %</div>`;
       document.getElementById('ojisanNumber').textContent = `No.${String(idx+1).padStart(4, '0')}`;
       document.getElementById('ojisanQuote').textContent = `「${q}」`;
-      const imgEl = document.getElementById('ojisanImage'); imgEl.style.display='none'; imgEl.src=img+'?t='+Date.now(); imgEl.onload=()=>imgEl.style.display='block'; imgEl.onerror=()=>imgEl.style.display='none';
+      const imgEl = document.getElementById('ojisanImage');
+      imgEl.style.display = 'none';
+      imgEl.src = img + '?t=' + Date.now();
+      imgEl.onload = () => imgEl.style.display = 'block';
+      imgEl.onerror = () => imgEl.style.display = 'none';
       infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
-      shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank'); };
-      downloadBtn.onclick = () => {
-        const card = document.getElementById('cardElement');
-        html2canvas(card).then(canvas => {
-          const dataUrl = canvas.toDataURL('image/png');
-          window.open(dataUrl, '_blank');
-        });
+      shareBtn.onclick = () => {
+        const ftxt = document.getElementById('fortune').innerText.trim();
+        const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
+        window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank');
       };
-    };
+    }
   </script>
 </body>
 </html>

@@ -78,7 +78,6 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      background: transparent;
       color: #382b1b;
       font-size: 0.75rem;
       font-weight: bold;
@@ -146,47 +145,46 @@
       btn.onclick = generateFortune;
       downloadBtn.onclick = () => {
         const card = document.getElementById('cardElement');
-        // 新しいウィンドウを同期的に開いてポップアップブロックを回避
         const win = window.open('', '_blank');
         html2canvas(card).then(canvas => {
           const dataUrl = canvas.toDataURL('image/png');
-          win.location.href = dataUrl;
+          // 新しいウィンドウに直接画像を埋め込む
+          win.document.write(`<html><body style="margin:0"><img src="${dataUrl}" style="width:100%;height:auto"></body></html>`);
         });
       };
     });
     function generateFortune() {
-      const cat = categories[Math.floor(Math.random() * categories.length)];
+      const cat = categories[Math.floor(Math.random()*categories.length)];
       if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');
-      const idx = Math.floor(Math.random() * ojisanImages.length);
-      const s = stocks[Math.floor(Math.random() * stocks.length)];
-      const q = quotes[cat][Math.floor(Math.random() * quotes[cat].length)];
+      const idx = Math.floor(Math.random()*ojisanImages.length);
+      const s = stocks[Math.floor(Math.random()*stocks.length)];
+      const q = quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
       const img = ojisanImages[idx];
       const per = s.per ? s.per.toFixed(2) : '0.00';
       const pbr = s.pbr ? s.pbr.toFixed(2) : '0.00';
       const roe = s.roe ? (s.roe*100).toFixed(2) : '0.00';
       const yieldStr = s.dividendYield ? s.dividendYield.toFixed(2) : '0.00';
       document.getElementById('fortune').innerHTML =
-        `<div class='label'>銘柄:</div><div class='value'>${s.name}</div>` +
-        `<div class='label'>前日終値:</div><div class='value'>${s.price} 円</div>` +
-        `<div class='label'>PER:</div><div class='value'>${per} 倍</div>` +
-        `<div class='label'>PBR:</div><div class='value'>${pbr} 倍</div>` +
-        `<div class='label'>ROE:</div><div class='value'>${roe} %</div>` +
+        `<div class='label'>銘柄:</div><div class='value'>${s.name}</div>`+
+        `<div class='label'>前日終値:</div><div class='value'>${s.price} 円</div>`+
+        `<div class='label'>PER:</div><div class='value'>${per} 倍</div>`+
+        `<div class='label'>PBR:</div><div class='value'>${pbr} 倍</div>`+
+        `<div class='label'>ROE:</div><div class='value'>${roe} %</div>`+
         `<div class='label'>配当利回り:</div><div class='value'>${yieldStr} %</div>`;
-      document.getElementById('ojisanNumber').textContent = `No.${String(idx+1).padStart(4, '0')}`;
+      document.getElementById('ojisanNumber').textContent = `No.${String(idx+1).padStart(4,'0')}`;
       document.getElementById('ojisanQuote').textContent = `「${q}」`;
       const imgEl = document.getElementById('ojisanImage');
       imgEl.style.display = 'none';
       imgEl.src = img + '?t=' + Date.now();
       imgEl.onload = () => imgEl.style.display = 'block';
       imgEl.onerror = () => imgEl.style.display = 'none';
-      infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
+      infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`,'_blank');
       shareBtn.onclick = () => {
         const ftxt = document.getElementById('fortune').innerText.trim();
         const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
-        window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank');
+        window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank');
       };
     }
   </script>
 </body>
 </html>
-

@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>本日の株式銘柄占い</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 
@@ -75,11 +76,9 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      /* 背景なしに変更 */
       background: transparent;
       color: #382b1b;
       padding: 0;
-      border-radius: 0;
       font-size: 0.75rem;
       font-weight: bold;
       font-family: 'DotGothic16', monospace;
@@ -113,7 +112,7 @@
 </head>
 <body>
   <h1 style="color: #3c2200; text-shadow:1px 1px #fff6d6; font-family:'DotGothic16',monospace;">🔮本日の銘柄占い🔮</h1>
-  <div class="card">
+  <div class="card" id="cardElement">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
       <div id="ojisanNumber" class="ojisan-number"></div>
@@ -125,6 +124,7 @@
     <button id="fortuneBtn" disabled>占う！</button>
     <button id="infoBtn" disabled>🔎銘柄情報</button>
     <a id="shareBtn" href="#" target="_blank" class="share" disabled>X</a>
+    <button id="downloadBtn" disabled style="background: #fff; color: #382b1b;">↓</button>
   </div>
   <script>
     let stocks = [], quotes = {};
@@ -133,11 +133,12 @@
     const btn = document.getElementById('fortuneBtn');
     const infoBtn = document.getElementById('infoBtn');
     const shareBtn = document.getElementById('shareBtn');
-    btn.disabled = infoBtn.disabled = shareBtn.disabled = true;
+    const downloadBtn = document.getElementById('downloadBtn');
+    btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = true;
     Promise.all([
       fetch('stocks.json').then(r => r.json()),
       fetch('quotes.json').then(r => r.json())
-    ]).then(([sData, qData]) => { stocks = sData; quotes = qData; btn.disabled = infoBtn.disabled = shareBtn.disabled = false; });
+    ]).then(([sData, qData]) => { stocks = sData; quotes = qData; btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = false; });
     btn.onclick = () => {
       const cat = categories[Math.floor(Math.random() * categories.length)];
       if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');
@@ -156,12 +157,18 @@
         `<div class='label'>PBR:</div><div class='value'>${pbr} 倍</div>` +
         `<div class='label'>ROE:</div><div class='value'>${roe} %</div>` +
         `<div class='label'>配当利回り:</div><div class='value'>${yieldStr} %</div>`;
-      // No. を4桁ゼロパディングで表示
       document.getElementById('ojisanNumber').textContent = `No.${String(idx+1).padStart(4, '0')}`;
       document.getElementById('ojisanQuote').textContent = `「${q}」`;
-      const imgEl = document.getElementById('ojisanImage'); imgEl.style.display = 'none'; imgEl.src = img + '?t=' + Date.now(); imgEl.onload = () => imgEl.style.display = 'block'; imgEl.onerror = () => imgEl.style.display = 'none';
+      const imgEl = document.getElementById('ojisanImage'); imgEl.style.display='none'; imgEl.src=img+'?t='+Date.now(); imgEl.onload=()=>imgEl.style.display='block'; imgEl.onerror=()=>imgEl.style.display='none';
       infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`, '_blank');
       shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank'); };
+      downloadBtn.onclick = () => {
+        const card = document.getElementById('cardElement');
+        html2canvas(card).then(canvas => {
+          const dataUrl = canvas.toDataURL('image/png');
+          window.open(dataUrl, '_blank');
+        });
+      };
     };
   </script>
 </body>

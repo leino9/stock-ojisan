@@ -30,7 +30,18 @@ def fetch_top(count, output):
 
     soup = BeautifulSoup(resp.text, 'html.parser')
     # 銘柄詳細へのリンクをすべて取得
-    links = soup.select('a[href*="/stocks/detail/?code="]')
+    # 各行のTRから直接解析
+    rows = soup.select('tr[class^="RankingTable__row"]')
+    tickers = []
+    for row in rows:
+        # 補足リスト内の li 要素にコードが入っている
+        li = row.select_one('li.RankingTable__supplement__vv_m')
+        if not li or not li.text.strip().isdigit():
+            continue
+        code = li.text.strip()
+        tickers.append(code)
+        if len(tickers) >= count:
+            break
     tickers = []
     for link in links:
         href = link.get('href', '')

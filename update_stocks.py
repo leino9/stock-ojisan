@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # update_stocks.py
-# top50.json から銘柄リストを読み込み、Yahoo Finance から各種指標を取得して stocks.json を更新するスクリプト
+# top50.json から日本語名称付きの銘柄リストを読み込み、Yahoo Finance から各種指標を取得して stocks.json を更新するスクリプト
 
 import json
 import time
@@ -27,55 +27,51 @@ def clean_val(val):
 
 
 def update_stocks(top_file, output_file, sleep_sec):
-    # ティッカー一覧読み込み
+    # 日本語名称付きのティッカー一覧読み込み
     try:
         with open(top_file, 'r', encoding='utf-8') as f:
-            tickers_objs = json.load(f)
+            entries = json.load(f)
     except Exception as e:
         print(f"銘柄リストの読み込みに失敗: {e}", file=sys.stderr)
         return False
 
     results = []
-    for obj in tickers:
-        symbol = obj['code']
-        name_jp = obj.get('name_jp')
-        
-        # 「7203」→「7203.T」に整形
-        symbol_t = symbol + '.T'
-        code = symbol
-        
-        print(f"🔄 {symbol_t} のデータ取得中…")
+    # entries は {code, name_jp} のリスト
+    for entry in entries:
+        code = entry.get('code')
+        # JSONの構造がオブジェクト配列であることを前提
+        name_jp = entry.get('name_jp') or entry.get('name')
+        if not code:
+            continue
+        symbol = f"{code}.T"
+        print(f"🔄 {symbol} のデータ取得中…")
 
         price = None
         per = None
         pbr = None
         roe = None
         div_yield = None
-        name = name_jp or symbol
+        # 日本語名称を優先
+        name = name_jp
 
         try:
-            ticker = yf.Ticker(symbol_t)
-            # まず簡易に終値を history で取得
+            ticker = yf.Ticker(symbol)
             hist = ticker.history(period='2d')
             if not hist.empty:
-                # 直近2日分の終値があれば前日分
                 price = float(hist['Close'].iloc[-2]) if len(hist) >= 2 else float(hist['Close'].iloc[0])
-            # 次に info で他指標を取得
             info = ticker.info
-            name = info.get('shortName') or info.get('longName')
             per = info.get('trailingPE')
             pbr = info.get('priceToBook')
             roe = info.get('returnOnEquity')
             div_yield = info.get('dividendYield')
         except Exception as e:
-            # 404や一時的エラーはスキップ
-            print(f"⚠️ {symbol_t} の取得エラー: {e}", file=sys.stderr)
+            print(f"⚠️ {symbol} の取得エラー: {e}", file=sys.stderr)
         finally:
             time.sleep(sleep_sec)
 
         record = {
             'code': code,
-            'name': name,
+            'name': name or code,
             'price': clean_val(price),
             'per': clean_val(per),
             'pbr': clean_val(pbr),
@@ -83,7 +79,7 @@ def update_stocks(top_file, output_file, sleep_sec):
             'dividendYield': clean_val(div_yield)
         }
         results.append(record)
-        print(f"✅ {symbol_t} の処理完了")
+        print(f"✅ {symbol} の処理完了")
 
     # JSON 出力
     try:

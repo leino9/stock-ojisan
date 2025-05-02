@@ -7,7 +7,7 @@ import requests
 import json
 import sys
 import argparse
-import re
+import urllib.parse
 from bs4 import BeautifulSoup
 
 DEFAULT_COUNT = 50
@@ -32,26 +32,20 @@ def fetch_top(count, output):
     rows = soup.select('table tbody tr')
     tickers = []
 
-import urllib.parse
     for row in rows:
-        link = row.select_one('td a[href*=\"code=\"]')
+        link = row.select_one('td a[href*="code="]')
         if not link:
             continue
         href = link['href']  # 例: '/stocks/detail/?code=7203.T'
-        # クエリ部分をパースして code パラメータを取得
-        qs = urllib.parse.urlparse(href).query  # 'code=7203.T'
+        qs = urllib.parse.urlparse(href).query
         params = urllib.parse.parse_qs(qs)
         code_t = params.get('code')
         if not code_t:
             continue
-        # '.T' を外したいなら次の行で分割
-        code = code_t[0].replace('.T','')  # → '7203'
+        code = code_t[0].replace('.T', '')
         tickers.append(code)
         if len(tickers) >= count:
             break
-    
-
-
 
     if len(tickers) < count:
         print(f"⚠️ 取得件数が少ない: {len(tickers)} 件 (期待値: {count})", file=sys.stderr)
@@ -77,6 +71,7 @@ def main():
 
     success = fetch_top(args.count, args.output)
     sys.exit(0 if success else 1)
+
 
 if __name__ == '__main__':
     main()

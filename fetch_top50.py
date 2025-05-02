@@ -49,6 +49,8 @@ def fetch_top(count, output):
 def main():
     parser = argparse.ArgumentParser(
         description='Yahoo Financeから時価総額上位銘柄をスクレイピングして取得'
+        python fetch_top50.py --count 50 --output top50.json --region JP
+
     )
     parser.add_argument(
         '-c', '--count', type=int, default=DEFAULT_COUNT,

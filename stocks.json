@@ -1,7 +1,7 @@
 [
   {
     "code": "7203",
-    "name": "TOYOTA MOTOR CORP",
+    "name": "トヨタ自動車(株)",
     "price": 2751.0,
     "per": 7.275392,
     "pbr": 1.0138218,
@@ -10,7 +10,7 @@
   },
   {
     "code": "6758",
-    "name": "SONY GROUP CORPORATION",
+    "name": "ソニーグループ(株)",
     "price": 3663.0,
     "per": 20.05589,
     "pbr": 2.7471516,
@@ -19,7 +19,7 @@
   },
   {
     "code": "8306",
-    "name": "MITSUBISHI UFJ FINANCIAL GROUP ",
+    "name": "(株)三菱ＵＦＪフィナンシャル・グループ",
     "price": 1782.0,
     "per": 10.473177,
     "pbr": 0.9889156,
@@ -28,7 +28,7 @@
   },
   {
     "code": "6501",
-    "name": "HITACHI",
+    "name": "(株)日立製作所",
     "price": 3681.0,
     "per": 27.488401,
     "pbr": 2.889587,
@@ -37,7 +37,7 @@
   },
   {
     "code": "7974",
-    "name": "NINTENDO CO LTD",
+    "name": "任天堂(株)",
     "price": 12145.0,
     "per": 45.0306,
     "pbr": 5.3464136,
@@ -46,7 +46,7 @@
   },
   {
     "code": "6861",
-    "name": "KEYENCE CORP",
+    "name": "(株)キーエンス",
     "price": 61930.0,
     "per": 38.290222,
     "pbr": 4.9027,
@@ -55,7 +55,7 @@
   },
   {
     "code": "9983",
-    "name": "FAST RETAILING CO LTD",
+    "name": "(株)ファーストリテイリング",
     "price": 47060.0,
     "per": 36.03394,
     "pbr": 6.703484,
@@ -64,7 +64,7 @@
   },
   {
     "code": "4519",
-    "name": "CHUGAI PHARMACEUTICAL CO",
+    "name": "中外製薬(株)",
     "price": 8439.0,
     "per": 34.625427,
     "pbr": 7.4376254,
@@ -73,7 +73,7 @@
   },
   {
     "code": "9432",
-    "name": "NIPPON TEL & TEL CORP",
+    "name": "日本電信電話(株)",
     "price": 149.8000030517578,
     "per": 11.318352,
     "pbr": 1.236447,
@@ -82,7 +82,7 @@
   },
   {
     "code": "6098",
-    "name": "RECRUIT HOLDINGS CO LTD",
+    "name": "(株)リクルートホールディングス",
     "price": 8217.0,
     "per": 33.919907,
     "pbr": 6.79999,
@@ -91,7 +91,7 @@
   },
   {
     "code": "8316",
-    "name": "SUMITOMO MITSUI FINANCIAL GROUP",
+    "name": "(株)三井住友フィナンシャルグループ",
     "price": 3347.0,
     "per": 9.854968,
     "pbr": 0.84614104,
@@ -100,7 +100,7 @@
   },
   {
     "code": "9433",
-    "name": "KDDI CORPORATION",
+    "name": "ＫＤＤＩ(株)",
     "price": 2535.0,
     "per": 16.706676,
     "pbr": 2.0065317,
@@ -109,7 +109,7 @@
   },
   {
     "code": "8001",
-    "name": "ITOCHU CORP",
+    "name": "伊藤忠商事(株)",
     "price": 7266.0,
     "per": 11.662803,
     "pbr": 1.7237682,
@@ -118,7 +118,7 @@
   },
   {
     "code": "8766",
-    "name": "TOKIO MARINE HOLDINGS INC",
+    "name": "東京海上ホールディングス(株)",
     "price": 5668.0,
     "per": 10.295995,
     "pbr": 2.2100039,
@@ -127,7 +127,7 @@
   },
   {
     "code": "9984",
-    "name": "SOFTBANK GROUP CORP",
+    "name": "ソフトバンクグループ(株)",
     "price": 7315.0,
     "per": 12.76548,
     "pbr": 0.88684875,
@@ -136,7 +136,7 @@
   },
   {
     "code": "8058",
-    "name": "MITSUBISHI CORP",
+    "name": "三菱商事(株)",
     "price": 2687.0,
     "per": 10.068637,
     "pbr": 1.1340259,
@@ -145,7 +145,7 @@
   },
   {
     "code": "9434",
-    "name": "SOFTBANK CORP.",
+    "name": "ソフトバンク(株)",
     "price": 216.60000610351562,
     "per": 20.429907,
     "pbr": 3.9188974,
@@ -154,7 +154,7 @@
   },
   {
     "code": "8035",
-    "name": "TOKYO ELECTRON",
+    "name": "東京エレクトロン(株)",
     "price": 21210.0,
     "per": 17.926191,
     "pbr": 5.22015,
@@ -163,7 +163,7 @@
   },
   {
     "code": "7011",
-    "name": "MITSUBISHI HEAVY INDUSTRIES",
+    "name": "三菱重工業(株)",
     "price": 2814.5,
     "per": 36.60024,
     "pbr": 4.0113635,
@@ -172,7 +172,7 @@
   },
   {
     "code": "4063",
-    "name": "SHIN-ETSU CHEMICAL CO",
+    "name": "信越化学工業(株)",
     "price": 4415.0,
     "per": 16.812714,
     "pbr": 1.9035944,
@@ -181,7 +181,7 @@
   },
   {
     "code": "2914",
-    "name": "JAPAN TOBACCO INC",
+    "name": "ＪＴ",
     "price": 4440.0,
     "per": 44.528225,
     "pbr": 2.115649,
@@ -190,7 +190,7 @@
   },
   {
     "code": "8411",
-    "name": "MIZUHO FINANCIAL GROUP",
+    "name": "(株)みずほフィナンシャルグループ",
     "price": 3514.0,
     "per": 9.761432,
     "pbr": 0.8244818,
@@ -199,7 +199,7 @@
   },
   {
     "code": "8031",
-    "name": "MITSUI & CO",
+    "name": "三井物産(株)",
     "price": 2790.0,
     "per": 9.083045,
     "pbr": 1.0595782,
@@ -208,7 +208,7 @@
   },
   {
     "code": "7267",
-    "name": "HONDA MOTOR CO",
+    "name": "ホンダ",
     "price": 1465.0,
     "per": 6.78493,
     "pbr": 0.5268386,
@@ -217,7 +217,7 @@
   },
   {
     "code": "4568",
-    "name": "DAIICHI SANKYO COMPANY LIMITED",
+    "name": "第一三共(株)",
     "price": 3655.0,
     "per": 23.776493,
     "pbr": 4.2566743,
@@ -226,7 +226,7 @@
   },
   {
     "code": "4502",
-    "name": "TAKEDA PHARMACEUTICAL CO LTD",
+    "name": "武田薬品工業(株)",
     "price": 4372.0,
     "per": 34.031574,
     "pbr": 0.94427717,
@@ -235,7 +235,7 @@
   },
   {
     "code": "6702",
-    "name": "FUJITSU",
+    "name": "富士通(株)",
     "price": 3190.0,
     "per": 27.773865,
     "pbr": 3.2198985,
@@ -244,7 +244,7 @@
   },
   {
     "code": "7741",
-    "name": "HOYA CORP",
+    "name": "ＨＯＹＡ(株)",
     "price": 17555.0,
     "per": 30.33893,
     "pbr": 6.389165,
@@ -253,7 +253,7 @@
   },
   {
     "code": "7751",
-    "name": "CANON INC",
+    "name": "キヤノン(株)",
     "price": 4455.0,
     "per": 27.438286,
     "pbr": 1.3033711,
@@ -262,7 +262,7 @@
   },
   {
     "code": "6503",
-    "name": "MITSUBISHI ELECTRIC CORP",
+    "name": "三菱電機(株)",
     "price": 2843.5,
     "per": 18.036837,
     "pbr": 1.4811571,
@@ -271,7 +271,7 @@
   },
   {
     "code": "3382",
-    "name": "SEVEN & I HOLDINGS CO LTD",
+    "name": "(株)セブン＆アイ・ホールディングス",
     "price": 2156.0,
     "per": 33.398376,
     "pbr": 1.4325283,
@@ -280,7 +280,7 @@
   },
   {
     "code": "4661",
-    "name": "ORIENTAL LAND CO",
+    "name": "(株)オリエンタルランド",
     "price": 3041.0,
     "per": 41.785526,
     "pbr": 5.3056803,
@@ -289,7 +289,7 @@
   },
   {
     "code": "6902",
-    "name": "DENSO CORP",
+    "name": "(株)デンソー",
     "price": 1871.0,
     "per": 13.144828,
     "pbr": 1.0786498,
@@ -298,7 +298,7 @@
   },
   {
     "code": "6201",
-    "name": "TOYOTA INDUSTRIES CORP",
+    "name": "(株)豊田自動織機",
     "price": 16755.0,
     "per": 19.429325,
     "pbr": 1.018854,
@@ -307,7 +307,7 @@
   },
   {
     "code": "8725",
-    "name": "MS&AD INS GP HLDGS",
+    "name": "ＭＳ＆ＡＤインシュアランスグループホールディングス(株)",
     "price": 3277.0,
     "per": 10.780175,
     "pbr": 1.1764753,
@@ -316,7 +316,7 @@
   },
   {
     "code": "7182",
-    "name": "JAPAN POST BANK CO LTD",
+    "name": "(株)ゆうちょ銀行",
     "price": 1433.0,
     "per": 12.694978,
     "pbr": 0.5438364,
@@ -325,7 +325,7 @@
   },
   {
     "code": "6367",
-    "name": "DAIKIN INDUSTRIES",
+    "name": "ダイキン工業(株)",
     "price": 16450.0,
     "per": 19.430372,
     "pbr": 1.775257,
@@ -334,7 +334,7 @@
   },
   {
     "code": "6857",
-    "name": "ADVANTEST CORP",
+    "name": "(株)アドバンテスト",
     "price": 6267.0,
     "per": 29.056812,
     "pbr": 9.17911,
@@ -343,7 +343,7 @@
   },
   {
     "code": "6701",
-    "name": "NEC CORP",
+    "name": "ＮＥＣ",
     "price": 3521.0,
     "per": 26.61235,
     "pbr": 2.386138,
@@ -352,7 +352,7 @@
   },
   {
     "code": "8630",
-    "name": "SOMPO HOLDINGS INC",
+    "name": "ＳＯＭＰＯホールディングス(株)",
     "price": 4606.0,
     "per": 9.331163,
     "pbr": 1.485946,
@@ -361,7 +361,7 @@
   },
   {
     "code": "5108",
-    "name": "BRIDGESTONE CORP",
+    "name": "(株)ブリヂストン",
     "price": 6015.0,
     "per": 14.488499,
     "pbr": 1.105161,
@@ -370,7 +370,7 @@
   },
   {
     "code": "4578",
-    "name": "OTSUKA HLDGS CO LTD",
+    "name": "大塚ホールディングス(株)",
     "price": 7315.0,
     "per": 11.849377,
     "pbr": 1.5392187,
@@ -379,7 +379,7 @@
   },
   {
     "code": "8053",
-    "name": "SUMITOMO CORP",
+    "name": "住友商事(株)",
     "price": 3573.0,
     "per": 7.5590177,
     "pbr": 0.90275615,
@@ -388,7 +388,7 @@
   },
   {
     "code": "8002",
-    "name": "MARUBENI CORP",
+    "name": "丸紅(株)",
     "price": 2527.0,
     "per": 9.07367,
     "pbr": 1.1436529,
@@ -397,7 +397,7 @@
   },
   {
     "code": "4543",
-    "name": "TERUMO CORP",
+    "name": "テルモ(株)",
     "price": 2778.5,
     "per": 33.51486,
     "pbr": 2.9749207,
@@ -406,7 +406,7 @@
   },
   {
     "code": "9613",
-    "name": "NTT DATA GROUP CORPORATION",
+    "name": "(株)ＮＴＴデータグループ",
     "price": 2947.0,
     "per": 28.326323,
     "pbr": 2.2731526,
@@ -415,7 +415,7 @@
   },
   {
     "code": "6752",
-    "name": "PANASONIC HOLDINGS CORP",
+    "name": "パナソニック　ホールディングス(株)",
     "price": 1669.0,
     "per": 11.822004,
     "pbr": 0.8024362,
@@ -424,7 +424,7 @@
   },
   {
     "code": "8801",
-    "name": "MITSUI FUDOSAN",
+    "name": "三井不動産(株)",
     "price": 1455.5,
     "per": 20.127178,
     "pbr": 1.3433965,
@@ -433,7 +433,7 @@
   },
   {
     "code": "6301",
-    "name": "KOMATSU",
+    "name": "コマツ",
     "price": 4139.0,
     "per": 8.988384,
     "pbr": 1.2558692,
@@ -442,7 +442,7 @@
   },
   {
     "code": "6178",
-    "name": "JAPAN POST HLDGS CO LTD",
+    "name": "日本郵政(株)",
     "price": 1376.5,
     "per": 13.667506,
     "pbr": 0.4161865,

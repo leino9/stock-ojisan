@@ -36,15 +36,18 @@ def fetch_top(count, output):
         cells = row.find_all('td')
         if len(cells) < 2:
             continue
-        # 2列目のテキストから先頭の数字部分を抽出
+        
+        # 正規表現でテキスト中の最初の数字列（銘柄コード）を検索
         cell_text = cells[1].get_text(separator=' ', strip=True)
-        m = re.match(r"^(\d+)", cell_text)
+        m = re.search(r"(\d+)", cell_text)
         if not m:
             continue
         code = m.group(1)
         tickers.append(code)
+
         if len(tickers) >= count:
             break
+
 
     if len(tickers) < count:
         print(f"⚠️ 取得件数が少ない: {len(tickers)} 件 (期待値: {count})", file=sys.stderr)

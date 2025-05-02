@@ -18,7 +18,7 @@ def fetch_top(count, output):
     Yahoo Finance の Large Cap predefined スクリーンページから
     上位 count 件のティッカーを取得し、output ファイルに保存する
     """
-    url = 'https://finance.yahoo.com/screener/predefined/large_cap'
+    url = f'https://finance.yahoo.com/screener/predefined/large_cap?count={count}&offset=0'  # 件数指定をクエリパラメータで追加
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         resp.raise_for_status()

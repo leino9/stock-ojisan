@@ -88,20 +88,11 @@
 <body>
   <h1 style="color:#3c2200;text-shadow:1px 1px #fff6d6;font-family:'DotGothic16',monospace;">🔮本日の銘柄占い🔮</h1>
   <div class="card" id="cardElement">
-    <div class="ojisan-container" style="position: relative;">
+    <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
       <div id="ojisanNumber" class="ojisan-number"></div>
       <div id="ojisanQuote" class="ojisan-comment"></div>
-       <!-- 発行日ラベルを左上に表示 -->
-       <div id="issueDate" style="
-        position: absolute;
-        top: 8px;
-        left: 8px;
-        color: #382b1b;
-        font-size: 0.75em; font-weight: bold:
-       ">
-        発行日：<span id="issueDateText"></span>
-       </div>
+    </div>
     <div id="fortune" class="result"></div>
   </div>
   <div class="command-panel">
@@ -192,14 +183,5 @@
       };
     }
   </script>
-     <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const now = new Date();
-    const yyyy = now.getFullYear();
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const dd = String(now.getDate()).padStart(2, '0');
-    document.getElementById('issueDateText').textContent = `${yyyy}/${mm}/${dd}`;
-  });
-</script>
 </body>
 </html>

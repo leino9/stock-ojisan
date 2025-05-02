@@ -13,12 +13,14 @@ DEFAULT_COUNT = 50
 DEFAULT_OUTPUT = 'top50.json'
 HEADERS = {'User-Agent': 'Mozilla/5.0'}
 
+
 def fetch_top(count, output):
     """
     Yahoo Finance の Large Cap predefined スクリーンページから
     上位 count 件のティッカーを取得し、output ファイルに保存する
     """
-     url = f'https://finance.yahoo.com/screener/predefined/large_cap?count={count}&offset=0'
+    # プリセットURLにクエリパラメータで件数とオフセットを指定
+    url = f'https://finance.yahoo.com/screener/predefined/large_cap?count={count}&offset=0'
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         resp.raise_for_status()
@@ -46,6 +48,7 @@ def fetch_top(count, output):
         print(f"ファイル書き込みエラー: {e}", file=sys.stderr)
         return False
 
+
 def main():
     parser = argparse.ArgumentParser(
         description='Yahoo Financeから時価総額上位銘柄をスクレイピングして取得'
@@ -58,15 +61,15 @@ def main():
         '-o', '--output', default=DEFAULT_OUTPUT,
         help='出力JSONファイル名 (デフォルト: top50.json)'
     )
-    # --regionオプションを受け取って無視（互換性維持用）
     parser.add_argument(
-        '-r', '--region', help='(未使用)市場コードを指定（オプション、互換性維持用）',
+        '-r', '--region', help='(未使用)市場コードを指定（互換性維持用）',
         default=None
     )
     args = parser.parse_args()
 
     success = fetch_top(args.count, args.output)
     sys.exit(0 if success else 1)
+
 
 if __name__ == '__main__':
     main()

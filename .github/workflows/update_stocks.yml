@@ -23,8 +23,8 @@ jobs:
       - name: Fetch Top50 tickers
         run: python fetch_top50.py --count 50 --output top50.json --region JP
 
-        - name: Debug ls
-          run: ls -R 
+      - name: Debug ls
+        run: ls -R 
 
       - name: Update stocks.json
         run: python update_stocks.py --top top50.json --output stocks.json --sleep 1

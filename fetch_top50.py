@@ -30,7 +30,20 @@ def fetch_top(count, output):
     soup = BeautifulSoup(resp.text, 'html.parser')
     rows = soup.select('table tbody tr')
     tickers = []
-    for row in rows[:count]:
+    for row in rows:
+        # テーブルの2列目(td)にコードと名称が入っている
+        cells = row.find_all('td')
+        if len(cells) < 2:
+            continue
+        # 例: "7203 トヨタ自動車(株)" のようなテキストからコード部分を取得
+        cell_text = cells[1].get_text(separator=' ', strip=True)
+        parts = cell_text.split()
+        code = parts[0] if parts else None
+        if not code or not code.isdigit():
+            continue
+        tickers.append(code)
+        if len(tickers) >= count:
+            break[:count]:
         link = row.select_one('td a')
         if not link or not link.text:
             continue

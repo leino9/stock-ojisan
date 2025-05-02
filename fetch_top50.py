@@ -7,7 +7,6 @@ import requests
 import json
 import sys
 import argparse
-import urllib.parse
 from bs4 import BeautifulSoup
 
 DEFAULT_COUNT = 50
@@ -29,33 +28,17 @@ def fetch_top(count, output):
         return False
 
     soup = BeautifulSoup(resp.text, 'html.parser')
-    # 銘柄詳細へのリンクをすべて取得
-    # 各行のTRから直接解析
-    rows = soup.select('tr[class^="RankingTable__row"]')
+    # ランキング行を示す tr クラスを持つ要素を取得
+    rows = soup.select('tr[class^="RankingTable__row__"]')
     tickers = []
+
     for row in rows:
-        # 補足リスト内の li 要素にコードが入っている
+        # 補足リスト内の li 要素に銘柄コードが入っている
         li = row.select_one('li.RankingTable__supplement__vv_m')
-        if not li or not li.text.strip().isdigit():
+        if not li:
             continue
         code = li.text.strip()
-        tickers.append(code)
-        if len(tickers) >= count:
-            break
-    tickers = []
-    for link in links:
-        href = link.get('href', '')
-        # URLからクエリパラメータ code を抽出
-        try:
-            qs = urllib.parse.urlparse(href).query
-            params = urllib.parse.parse_qs(qs)
-            code_t = params.get('code')
-            if not code_t:
-                continue
-            code = code_t[0].split('.')[0]
-        except Exception:
-            continue
-        if code in tickers:
+        if not code.isdigit():
             continue
         tickers.append(code)
         if len(tickers) >= count:
@@ -85,7 +68,6 @@ def main():
 
     success = fetch_top(args.count, args.output)
     sys.exit(0 if success else 1)
-
 
 if __name__ == '__main__':
     main()

@@ -41,12 +41,13 @@
     </div>
     <div id="fortune" class="result"></div>
   </div>
-  <div class="command-panel">
-    <button id="fortuneBtn" disabled>うらなう</button>
-    <button id="infoBtn"    disabled>めいがら</button>
-    <button id="shareBtn"   disabled>えっくす</button>
-    <button id="downloadBtn"disabled>ほぞん</button>
+  <div className="button-group flex w-full max-w-sm justify-between mt-4">
+      <Button className="flex-1 mx-1">うらなう</Button>
+      <Button className="flex-1 mx-1">めいがら</Button>
+      <Button className="flex-1 mx-1">えっくす</Button>
+      <Button className="flex-1 mx-1">ほぞん</Button>
   </div>
+  
   <script>
     let stocks = [], quotes = {};
     const categories = ['funny', 'harsh', 'kind', 'sad'];

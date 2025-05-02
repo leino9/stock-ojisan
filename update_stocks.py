@@ -1,36 +1,35 @@
 # update_stocks.py
-# 日本株の前日終値、PER、PBR、ROE、配当利回りを取得して stocks.json に書き出す
+# stocks.json から銘柄リストを読み込み、Yahoo Finance から指標を取得して更新するスクリプト
 import json
 import yfinance as yf
 
-# 対象銘柄辞書（キーは Yahoo Finance のティッカーシンボル）
-tickers = {
-    "7974.T": "任天堂（7974）",
-    "7203.T": "トヨタ自動車（7203）",
-    "6758.T": "ソニーグループ（6758）",
-    "8058.T": "三菱商事（8058）",
-    # …他のプライム50銘柄を同様に追加
-}
+# 既存の stocks.json を読み込み
+with open('stocks.json', 'r', encoding='utf-8') as f:
+    stocks = json.load(f)  # [{'code': '7203', 'name': 'トヨタ自動車', ...}, ...]
 
 output = []
-for symbol, name in tickers.items():
+for s in stocks:
+    code = s.get('code')
+    name = s.get('name')
+    symbol = f"{code}.T"
     print(f"🔄 {symbol} のデータ取得中…")
     ticker = yf.Ticker(symbol)
     info = ticker.info
 
     stock = {
         "name": name,
-        "code": symbol.replace(".T", ""),
+        "code": code,
         "price": info.get("previousClose"),       # 前日終値
         "per":   info.get("trailingPE"),          # PER
         "pbr":   info.get("priceToBook"),         # PBR
         "roe":   info.get("returnOnEquity"),      # ROE
-        "dividendYield": info.get("dividendYield")  # 配当利回り
+        "dividendYield": info.get("dividendYield") # 配当利回り
     }
     output.append(stock)
     print(f"✅ {symbol}: データ取得完了")
 
-with open("stocks.json", "w", encoding="utf-8") as f:
+# 新しいデータで stocks.json を上書き
+with open('stocks.json', 'w', encoding='utf-8') as f:
     json.dump(output, f, indent=2, ensure_ascii=False)
 
 print(f"✨ {len(output)} 件の銘柄を書き出しました")

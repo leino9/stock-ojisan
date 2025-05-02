@@ -27,16 +27,11 @@ jobs:
         run: python update_stocks.py --top top50.json --output stocks.json --sleep 1
 
       - name: Commit and push changes
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add top50.json stocks.json
-          # 初回コミットも行うため、常にコミットする
-
-          # 変更があるときだけではなく、常にコミット
-          git commit -m "chore: update Top50 list and stocks.json"
-          git push
-          # (※差分がない場合もコミットされます)
-            git commit -m "chore: update Top50 list and stocks.json"
-            git push
-          )
+          # 初回も含めて常にコミット & プッシュ
+          git commit -m "chore: update Top50 list and stocks.json" || true
+          git push origin main || true

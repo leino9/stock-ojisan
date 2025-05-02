@@ -1,452 +1,452 @@
 [
   {
     "code": "7203",
-    "name": "7203",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "TOYOTA MOTOR CORP",
+    "price": 2751.0,
+    "per": 7.275392,
+    "pbr": 1.0138218,
+    "roe": 0.14547,
+    "dividendYield": 3.64
   },
   {
     "code": "6758",
-    "name": "6758",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "SONY GROUP CORPORATION",
+    "price": 3663.0,
+    "per": 20.05589,
+    "pbr": 2.7471516,
+    "roe": 0.14321,
+    "dividendYield": 0.55
   },
   {
     "code": "8306",
-    "name": "8306",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "MITSUBISHI UFJ FINANCIAL GROUP ",
+    "price": 1782.0,
+    "per": 10.473177,
+    "pbr": 0.9889156,
+    "roe": 0.08906,
+    "dividendYield": 4.38
   },
   {
     "code": "6501",
-    "name": "6501",
-    "price": null,
-    "per": null,
-    "pbr": null,
+    "name": "HITACHI",
+    "price": 3681.0,
+    "per": 27.488401,
+    "pbr": 2.889587,
     "roe": null,
-    "dividendYield": null
+    "dividendYield": 1.25
   },
   {
     "code": "7974",
-    "name": "7974",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "NINTENDO CO LTD",
+    "price": 12145.0,
+    "per": 45.0306,
+    "pbr": 5.3464136,
+    "roe": 0.12366,
+    "dividendYield": 0.96
   },
   {
     "code": "6861",
-    "name": "6861",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "KEYENCE CORP",
+    "price": 61930.0,
+    "per": 38.290222,
+    "pbr": 4.9027,
+    "roe": 0.1348,
+    "dividendYield": 0.57
   },
   {
     "code": "9983",
-    "name": "9983",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "FAST RETAILING CO LTD",
+    "price": 47060.0,
+    "per": 36.03394,
+    "pbr": 6.703484,
+    "roe": 0.20037001,
+    "dividendYield": 1.02
   },
   {
     "code": "4519",
-    "name": "4519",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "CHUGAI PHARMACEUTICAL CO",
+    "price": 8439.0,
+    "per": 34.625427,
+    "pbr": 7.4376254,
+    "roe": 0.23111999,
+    "dividendYield": 1.18
   },
   {
     "code": "9432",
-    "name": "9432",
-    "price": null,
-    "per": null,
-    "pbr": null,
+    "name": "NIPPON TEL & TEL CORP",
+    "price": 149.8000030517578,
+    "per": 11.318352,
+    "pbr": 1.236447,
     "roe": null,
-    "dividendYield": null
+    "dividendYield": 3.47
   },
   {
     "code": "6098",
-    "name": "6098",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "RECRUIT HOLDINGS CO LTD",
+    "price": 8217.0,
+    "per": 33.919907,
+    "pbr": 6.79999,
+    "roe": 0.19885,
+    "dividendYield": 0.29
   },
   {
     "code": "8316",
-    "name": "8316",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "SUMITOMO MITSUI FINANCIAL GROUP",
+    "price": 3347.0,
+    "per": 9.854968,
+    "pbr": 0.84614104,
+    "roe": 0.08509,
+    "dividendYield": 3.59
   },
   {
     "code": "9433",
-    "name": "9433",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "KDDI CORPORATION",
+    "price": 2535.0,
+    "per": 16.706676,
+    "pbr": 2.0065317,
+    "roe": 0.11293,
+    "dividendYield": 2.86
   },
   {
     "code": "8001",
-    "name": "8001",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "ITOCHU CORP",
+    "price": 7266.0,
+    "per": 11.662803,
+    "pbr": 1.7237682,
+    "roe": 0.15325,
+    "dividendYield": 2.75
   },
   {
     "code": "8766",
-    "name": "8766",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "TOKIO MARINE HOLDINGS INC",
+    "price": 5668.0,
+    "per": 10.295995,
+    "pbr": 2.2100039,
+    "roe": 0.22589001,
+    "dividendYield": 2.86
   },
   {
     "code": "9984",
-    "name": "9984",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "SOFTBANK GROUP CORP",
+    "price": 7315.0,
+    "per": 12.76548,
+    "pbr": 0.88684875,
+    "roe": 0.105500005,
+    "dividendYield": 0.6
   },
   {
     "code": "8058",
-    "name": "8058",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "MITSUBISHI CORP",
+    "price": 2687.0,
+    "per": 10.068637,
+    "pbr": 1.1340259,
+    "roe": 0.118240006,
+    "dividendYield": 3.72
   },
   {
     "code": "9434",
-    "name": "9434",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "SOFTBANK CORP.",
+    "price": 216.60000610351562,
+    "per": 20.429907,
+    "pbr": 3.9188974,
+    "roe": 0.15788999,
+    "dividendYield": 3.97
   },
   {
     "code": "8035",
-    "name": "8035",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "TOKYO ELECTRON",
+    "price": 21210.0,
+    "per": 17.926191,
+    "pbr": 5.22015,
+    "roe": 0.30101,
+    "dividendYield": 3.52
   },
   {
     "code": "7011",
-    "name": "7011",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "MITSUBISHI HEAVY INDUSTRIES",
+    "price": 2814.5,
+    "per": 36.60024,
+    "pbr": 4.0113635,
+    "roe": 0.12146,
+    "dividendYield": 0.78
   },
   {
     "code": "4063",
-    "name": "4063",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "SHIN-ETSU CHEMICAL CO",
+    "price": 4415.0,
+    "per": 16.812714,
+    "pbr": 1.9035944,
+    "roe": 0.12527001,
+    "dividendYield": 2.4
   },
   {
     "code": "2914",
-    "name": "2914",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "JAPAN TOBACCO INC",
+    "price": 4440.0,
+    "per": 44.528225,
+    "pbr": 2.115649,
+    "roe": 0.04705,
+    "dividendYield": 4.37
   },
   {
     "code": "8411",
-    "name": "8411",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "MIZUHO FINANCIAL GROUP",
+    "price": 3514.0,
+    "per": 9.761432,
+    "pbr": 0.8244818,
+    "roe": 0.08733,
+    "dividendYield": 3.7
   },
   {
     "code": "8031",
-    "name": "8031",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "MITSUI & CO",
+    "price": 2790.0,
+    "per": 9.083045,
+    "pbr": 1.0595782,
+    "roe": 0.11866,
+    "dividendYield": 4.3
   },
   {
     "code": "7267",
-    "name": "7267",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "HONDA MOTOR CO",
+    "price": 1465.0,
+    "per": 6.78493,
+    "pbr": 0.5268386,
+    "roe": 0.08701,
+    "dividendYield": 4.64
   },
   {
     "code": "4568",
-    "name": "4568",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "DAIICHI SANKYO COMPANY LIMITED",
+    "price": 3655.0,
+    "per": 23.776493,
+    "pbr": 4.2566743,
+    "roe": 0.17860001,
+    "dividendYield": 2.13
   },
   {
     "code": "4502",
-    "name": "4502",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "TAKEDA PHARMACEUTICAL CO LTD",
+    "price": 4372.0,
+    "per": 34.031574,
+    "pbr": 0.94427717,
+    "roe": 0.029409999,
+    "dividendYield": 4.48
   },
   {
     "code": "6702",
-    "name": "6702",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "FUJITSU",
+    "price": 3190.0,
+    "per": 27.773865,
+    "pbr": 3.2198985,
+    "roe": 0.1097,
+    "dividendYield": 0.94
   },
   {
     "code": "7741",
-    "name": "7741",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "HOYA CORP",
+    "price": 17555.0,
+    "per": 30.33893,
+    "pbr": 6.389165,
+    "roe": 0.20865,
+    "dividendYield": 0.91
   },
   {
     "code": "7751",
-    "name": "7751",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "CANON INC",
+    "price": 4455.0,
+    "per": 27.438286,
+    "pbr": 1.3033711,
+    "roe": 0.054840002,
+    "dividendYield": 3.59
   },
   {
     "code": "6503",
-    "name": "6503",
-    "price": null,
-    "per": null,
-    "pbr": null,
+    "name": "MITSUBISHI ELECTRIC CORP",
+    "price": 2843.5,
+    "per": 18.036837,
+    "pbr": 1.4811571,
     "roe": null,
-    "dividendYield": null
+    "dividendYield": 2.11
   },
   {
     "code": "3382",
-    "name": "3382",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "SEVEN & I HOLDINGS CO LTD",
+    "price": 2156.0,
+    "per": 33.398376,
+    "pbr": 1.4325283,
+    "roe": 0.045089997,
+    "dividendYield": 2.32
   },
   {
     "code": "4661",
-    "name": "4661",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "ORIENTAL LAND CO",
+    "price": 3041.0,
+    "per": 41.785526,
+    "pbr": 5.3056803,
+    "roe": 0.12887,
+    "dividendYield": 0.46
   },
   {
     "code": "6902",
-    "name": "6902",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "DENSO CORP",
+    "price": 1871.0,
+    "per": 13.144828,
+    "pbr": 1.0786498,
+    "roe": 0.08509,
+    "dividendYield": 3.42
   },
   {
     "code": "6201",
-    "name": "6201",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "TOYOTA INDUSTRIES CORP",
+    "price": 16755.0,
+    "per": 19.429325,
+    "pbr": 1.018854,
+    "roe": 0.04857,
+    "dividendYield": 1.67
   },
   {
     "code": "8725",
-    "name": "8725",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "MS&AD INS GP HLDGS",
+    "price": 3277.0,
+    "per": 10.780175,
+    "pbr": 1.1764753,
+    "roe": 0.17593999,
+    "dividendYield": 3.05
   },
   {
     "code": "7182",
-    "name": "7182",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "JAPAN POST BANK CO LTD",
+    "price": 1433.0,
+    "per": 12.694978,
+    "pbr": 0.5438364,
+    "roe": 0.04271,
+    "dividendYield": 7.47
   },
   {
     "code": "6367",
-    "name": "6367",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "DAIKIN INDUSTRIES",
+    "price": 16450.0,
+    "per": 19.430372,
+    "pbr": 1.775257,
+    "roe": 0.09698,
+    "dividendYield": 1.64
   },
   {
     "code": "6857",
-    "name": "6857",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "ADVANTEST CORP",
+    "price": 6267.0,
+    "per": 29.056812,
+    "pbr": 9.17911,
+    "roe": 0.34375998,
+    "dividendYield": 0.62
   },
   {
     "code": "6701",
-    "name": "6701",
-    "price": null,
-    "per": null,
-    "pbr": null,
+    "name": "NEC CORP",
+    "price": 3521.0,
+    "per": 26.61235,
+    "pbr": 2.386138,
     "roe": null,
-    "dividendYield": null
+    "dividendYield": 0.91
   },
   {
     "code": "8630",
-    "name": "8630",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "SOMPO HOLDINGS INC",
+    "price": 4606.0,
+    "per": 9.331163,
+    "pbr": 1.485946,
+    "roe": 0.17243999,
+    "dividendYield": 3.3
   },
   {
     "code": "5108",
-    "name": "5108",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "BRIDGESTONE CORP",
+    "price": 6015.0,
+    "per": 14.488499,
+    "pbr": 1.105161,
+    "roe": 0.08126,
+    "dividendYield": 3.82
   },
   {
     "code": "4578",
-    "name": "4578",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "OTSUKA HLDGS CO LTD",
+    "price": 7315.0,
+    "per": 11.849377,
+    "pbr": 1.5392187,
+    "roe": 0.13509,
+    "dividendYield": 1.64
   },
   {
     "code": "8053",
-    "name": "8053",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "SUMITOMO CORP",
+    "price": 3573.0,
+    "per": 7.5590177,
+    "pbr": 0.90275615,
+    "roe": 0.09399,
+    "dividendYield": 3.72
   },
   {
     "code": "8002",
-    "name": "8002",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "MARUBENI CORP",
+    "price": 2527.0,
+    "per": 9.07367,
+    "pbr": 1.1436529,
+    "roe": 0.15098,
+    "dividendYield": 3.96
   },
   {
     "code": "4543",
-    "name": "4543",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "TERUMO CORP",
+    "price": 2778.5,
+    "per": 33.51486,
+    "pbr": 2.9749207,
+    "roe": 0.09551,
+    "dividendYield": 0.94
   },
   {
     "code": "9613",
-    "name": "9613",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "NTT DATA GROUP CORPORATION",
+    "price": 2947.0,
+    "per": 28.326323,
+    "pbr": 2.2731526,
+    "roe": 0.055710003,
+    "dividendYield": 0.85
   },
   {
     "code": "6752",
-    "name": "6752",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "PANASONIC HOLDINGS CORP",
+    "price": 1669.0,
+    "per": 11.822004,
+    "pbr": 0.8024362,
+    "roe": 0.076069996,
+    "dividendYield": 2.4
   },
   {
     "code": "8801",
-    "name": "8801",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "MITSUI FUDOSAN",
+    "price": 1455.5,
+    "per": 20.127178,
+    "pbr": 1.3433965,
+    "roe": 0.06292,
+    "dividendYield": 2.06
   },
   {
     "code": "6301",
-    "name": "6301",
-    "price": null,
-    "per": null,
-    "pbr": null,
+    "name": "KOMATSU",
+    "price": 4139.0,
+    "per": 8.988384,
+    "pbr": 1.2558692,
     "roe": null,
-    "dividendYield": null
+    "dividendYield": 4.59
   },
   {
     "code": "6178",
-    "name": "6178",
-    "price": null,
-    "per": null,
-    "pbr": null,
-    "roe": null,
-    "dividendYield": null
+    "name": "JAPAN POST HLDGS CO LTD",
+    "price": 1376.5,
+    "per": 13.667506,
+    "pbr": 0.4161865,
+    "roe": 0.034360003,
+    "dividendYield": 3.63
   }
 ]

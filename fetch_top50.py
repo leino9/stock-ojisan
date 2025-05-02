@@ -7,6 +7,7 @@ import requests
 import json
 import sys
 import argparse
+import re
 from bs4 import BeautifulSoup
 
 DEFAULT_COUNT = 50
@@ -16,8 +17,7 @@ HEADERS = {'User-Agent': 'Mozilla/5.0'}
 
 def fetch_top(count, output):
     """
-    Yahoo Finance 日本版の時価総額ランキングページから
-    上位 count 件の銘柄コードを取得し、output ファイルに保存する
+    日本版Yahoo Financeの時価総額ランキングから上位count件の銘柄コードを抽出し保存
     """
     url = 'https://finance.yahoo.co.jp/stocks/ranking/marketCapitalHigh'
     try:
@@ -28,19 +28,17 @@ def fetch_top(count, output):
         return False
 
     soup = BeautifulSoup(resp.text, 'html.parser')
-    # ランキング行を示す tr クラスを持つ要素を取得
-    rows = soup.select('tr[class^="RankingTable__row__"]')
+    # quoteリンクからコード抽出
+    links = soup.select('a[href*="/quote/"]')
     tickers = []
-
-    for row in rows:
-        # 補足リスト内の li 要素に銘柄コードが入っている
-        li = row.select_one('li.RankingTable__supplement__vv_m')
-        if not li:
+    for link in links:
+        href = link.get('href', '')
+        m = re.search(r"/quote/(\d+)\.T", href)
+        if not m:
             continue
-        code = li.text.strip()
-        if not code.isdigit():
-            continue
-        tickers.append(code)
+        code = m.group(1)
+        if code not in tickers:
+            tickers.append(code)
         if len(tickers) >= count:
             break
 
@@ -58,12 +56,9 @@ def fetch_top(count, output):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description='Yahoo Finance日本版から時価総額上位銘柄を取得'
-    )
+    parser = argparse.ArgumentParser(description='日本版Yahoo Financeから時価総額TOP銘柄を取得')
     parser.add_argument('-c', '--count', type=int, default=DEFAULT_COUNT, help='取得件数')
     parser.add_argument('-o', '--output', default=DEFAULT_OUTPUT, help='出力ファイル')
-    parser.add_argument('-r', '--region', help='(未使用) 市場コードを指定', default=None)
     args = parser.parse_args()
 
     success = fetch_top(args.count, args.output)

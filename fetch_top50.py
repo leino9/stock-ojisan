@@ -32,21 +32,25 @@ def fetch_top(count, output):
     rows = soup.select('table tbody tr')
     tickers = []
 
+import urllib.parse
     for row in rows:
-        cells = row.find_all('td')
-        if len(cells) < 2:
+        link = row.select_one('td a[href*=\"code=\"]')
+        if not link:
             continue
-        
-        # 正規表現でテキスト中の最初の数字列（銘柄コード）を検索
-        cell_text = cells[1].get_text(separator=' ', strip=True)
-        m = re.search(r"(\d+)", cell_text)
-        if not m:
+        href = link['href']  # 例: '/stocks/detail/?code=7203.T'
+        # クエリ部分をパースして code パラメータを取得
+        qs = urllib.parse.urlparse(href).query  # 'code=7203.T'
+        params = urllib.parse.parse_qs(qs)
+        code_t = params.get('code')
+        if not code_t:
             continue
-        code = m.group(1)
+        # '.T' を外したいなら次の行で分割
+        code = code_t[0].replace('.T','')  # → '7203'
         tickers.append(code)
-
         if len(tickers) >= count:
             break
+    
+
 
 
     if len(tickers) < count:

@@ -30,6 +30,7 @@ def fetch_top(count, output):
     soup = BeautifulSoup(resp.text, 'html.parser')
     rows = soup.select('table tbody tr')
     tickers = []
+
     for row in rows:
     import re
     cells = row.find_all('td')
@@ -45,6 +46,7 @@ def fetch_top(count, output):
     # 必要件数に達したらループを抜ける
     if len(tickers) >= count:
         break
+
 
     
     if len(tickers) < count:

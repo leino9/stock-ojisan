@@ -120,12 +120,17 @@
       stocks=sData; quotes=qData;
       [fortuneBtn,infoBtn,shareBtn,downloadBtn].forEach(b=>b.disabled=false);
       fortuneBtn.onclick=generateFortune;
-      downloadBtn.onclick=()=>{
-        const card=document.getElementById('cardElement');
-        html2canvas(card).then(canvas=>{
-          const win=window.open('','_blank');
-          const dataUrl=canvas.toDataURL('image/png');
-          const html=`<!DOCTYPE html>
+      downloadBtn.onclick = () => {
+        const card = document.getElementById('cardElement');
+        // Safari等でポップアップがブロックされないよう、最初にウィンドウを開く
+        const win = window.open('', '_blank');
+        if (!win) {
+          return alert('ポップアップがブロックされました');
+        }
+        // キャンバス生成後に内容を書き込む
+        html2canvas(card).then(canvas => {
+          const dataUrl = canvas.toDataURL('image/png');
+          const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -140,8 +145,12 @@
   <img src="${dataUrl}" alt="カード画像">
 </body>
 </html>`;
+          win.document.open();
           win.document.write(html);
           win.document.close();
+        }).catch(() => {
+          win.close();
+          alert('画像生成に失敗しました');
         });
       };
     });

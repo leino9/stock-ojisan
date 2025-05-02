@@ -71,5 +71,4 @@ def main():
 
 if __name__ == '__main__':
     main()
- - name: Debug ls
-        run: ls -R .
+

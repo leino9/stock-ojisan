@@ -59,7 +59,9 @@ def main():
     parser = argparse.ArgumentParser(description='日本版Yahoo Financeから時価総額TOP銘柄を取得')
     parser.add_argument('-c', '--count', type=int, default=DEFAULT_COUNT, help='取得件数')
     parser.add_argument('-o', '--output', default=DEFAULT_OUTPUT, help='出力ファイル')
-    args = parser.parse_args()
+    # 互換性維持用に --region オプションを追加（未使用）
+    parser.add_argument('-r', '--region', help='(未使用) 市場コードを指定', default=None)
+    args = parser.parse_args()()
 
     success = fetch_top(args.count, args.output)
     sys.exit(0 if success else 1)

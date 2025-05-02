@@ -2,8 +2,8 @@ name: Update Top50 & Stocks Data
 
 on:
   schedule:
-    - cron: '0 9 * * *'   # 毎朝 9:00 UTC（日本時間 18:00）に実行
-  workflow_dispatch:      # 手動トリガー用
+    - cron: '0 9 * * *'
+  workflow_dispatch:
 
 jobs:
   update:
@@ -18,17 +18,18 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install requests yfinance
+        run: pip install requests yfinance beautifulsoup4
 
-         - name: Fetch Top50 tickers
-      working-directory: ./stock-ojisan/stock-ojisan
-      run: python fetch_top50.py --count 50 --output top50.json --region JP
+      - name: Fetch Top50 tickers
+        working-directory: ./stock-ojisan/stock-ojisan
+        run: python fetch_top50.py --count 50 --output top50.json --region JP
 
-    - name: Update stocks.json
-      working-directory: ./stock-ojisan/stock-ojisan
-      run: python update_stocks.py --top top50.json --output stocks.json --sleep 1
+      - name: Update stocks.json
+        working-directory: ./stock-ojisan/stock-ojisan
+        run: python update_stocks.py --top top50.json --output stocks.json --sleep 1
 
       - name: Commit and push changes
+        working-directory: ./stock-ojisan/stock-ojisan
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

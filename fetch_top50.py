@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # fetch_top50.py
 # 日本版Yahoo Financeの時価総額ランキングページをスクレイピングして
-# 上位 count 件の銘柄コードを取得し top50.json に保存するスクリプト
+# 上位 count 件の銘柄コードと日本語社名を取得し top50.json に保存するスクリプト
 
 import requests
 import json
@@ -17,7 +17,7 @@ HEADERS = {'User-Agent': 'Mozilla/5.0'}
 
 def fetch_top(count, output):
     """
-    日本版Yahoo Financeの時価総額ランキングから上位count件の銘柄コードを抽出し保存
+    日本版Yahoo Financeの時価総額ランキングから上位count件の銘柄コードと日本語名称を抽出し保存
     """
     url = 'https://finance.yahoo.co.jp/stocks/ranking/marketCapitalHigh'
     try:
@@ -28,31 +28,30 @@ def fetch_top(count, output):
         return False
 
     soup = BeautifulSoup(resp.text, 'html.parser')
-    # <a>タグのhrefに "quote/{code}.T" を含む要素をすべて取得
-    links = soup.find_all('a', href=re.compile(r'quote/\d+\.T'))
-    tickers = []
+    rows = soup.select('tr[class^="RankingTable__row__"]')
+    results = []
 
-    for link in links:
-        href = link.get('href', '')
-        m = re.search(r'quote/(\d+)\.T', href)
-        if not m:
+    for row in rows:
+        # 日本語名称はリンクテキスト、コードは補足リスト内 li
+        link = row.select_one('a[href*="/quote/"]')
+        li = row.select_one('li.RankingTable__supplement__vv_m')
+        if not link or not li:
             continue
-        code = m.group(1)
-        if code in tickers:
+        name_jp = link.text.strip()
+        code = li.text.strip()
+        if not code.isdigit():
             continue
-        tickers.append(code)
-        if len(tickers) >= count:
+        results.append({'code': code, 'name_jp': name_jp})
+        if len(results) >= count:
             break
 
-    if not tickers:
-        print("⚠️ 銘柄が1件も取得できませんでした。CSSセレクタを確認してください。", file=sys.stderr)
-    elif len(tickers) < count:
-        print(f"⚠️ 取得件数が少ない: {len(tickers)} 件 (期待値: {count})", file=sys.stderr)
+    if len(results) < count:
+        print(f"⚠️ 取得件数が少ない: {len(results)} 件 (期待値: {count})", file=sys.stderr)
 
     try:
         with open(output, 'w', encoding='utf-8') as f:
-            json.dump(tickers, f, ensure_ascii=False, indent=2)
-        print(f"✔️ 取得完了: {len(tickers)} 件を '{output}' に保存しました")
+            json.dump(results, f, ensure_ascii=False, indent=2)
+        print(f"✔️ 取得完了: {len(results)} 件を '{output}' に保存しました")
         return True
     except IOError as e:
         print(f"ファイル書き込みエラー: {e}", file=sys.stderr)

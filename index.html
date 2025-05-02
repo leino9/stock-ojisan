@@ -7,28 +7,104 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
-    body { font-family: 'DotGothic16', monospace; text-align: center; background: linear-gradient(to bottom, #d4bfa1, #a68c6c); margin: 0; padding: 2rem 0 1rem; }
-    .card { background: #f8f0dc; border: 6px ridge #8b5a2b; border-radius: 1rem; box-shadow: 0 0 15px rgba(0,0,0,0.5); padding: 1rem; margin: auto; max-width: 380px; color: #3b2b1b; }
-    .command-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; justify-items: center; margin: 0.5rem auto; }
-    #fortuneBtn, #infoBtn, #shareBtn, #downloadBtn {
-      width: 7rem;
+    body {
+      font-family: 'DotGothic16', monospace;
+      text-align: center;
+      background: linear-gradient(to bottom, #d4bfa1, #a68c6c);
+      margin: 0;
+      padding: 2rem 0 1rem;
+    }
+    .card {
+      background: #f8f0dc;
+      border: 6px ridge #8b5a2b;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      padding: 1rem;
+      margin: auto;
+      max-width: 380px;
+      color: #3b2b1b;
+    }
+    /* ドラクエ風コマンドパネル */
+    .command-panel {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, auto);
+      gap: 0.5rem;
+      width: 90%;
+      max-width: 380px;
+      margin: 0.5rem auto;
+      padding: 0.5rem;
+      background: #000;
+      border: 4px solid #fff;
+      border-radius: 0.5rem;
+      box-sizing: border-box;
+    }
+    .command-panel button {
+      width: 100%;
       padding: 0.6rem 0;
       font-size: 1rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
       font-weight: bold;
       font-family: 'DotGothic16', monospace;
+      color: #fff;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .command-panel button:hover {
+      background: #222;
+    }
+    .ojisan-container {
+      position: relative;
+    }
+    .ojisan-img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+      display: none;
+      border: 3px ridge #7e5a3b;
+    }
+    .ojisan-number {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: transparent;
+      color: #382b1b;
+      font-size: 0.75rem;
+      font-weight: bold;
+      font-family: 'DotGothic16', monospace;
+    }
+    .ojisan-comment {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
       background: #000;
       color: #fff;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border: 1px solid #7e5a3b;
+      font-family: 'DotGothic16', monospace;
+      line-height: 1.2;
     }
-    #fortuneBtn:hover, #infoBtn:hover, #shareBtn:hover, #downloadBtn:hover { background: #282828; }
-    .ojisan-container { position: relative; }
-    .ojisan-img { width: 100%; height: 340px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 0.5rem; display: none; border: 3px ridge #7e5a3b; }
-    .ojisan-number { position: absolute; top: 8px; right: 8px; background: transparent; color: #382b1b; font-size: 0.75rem; font-weight: bold; font-family: 'DotGothic16', monospace; }
-    .ojisan-comment { position: absolute; bottom: 8px; left: 8px; right: 8px; background: #000; color: #fff; padding: 0.5rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: bold; border: 1px solid #7e5a3b; font-family: 'DotGothic16', monospace; line-height: 1.2; }
-    .result { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 1.1rem; margin: 1rem auto 0; width: 90%; padding: 1rem; background: #000; color: #fff; border: 2px solid #8b5a2b; border-radius: 0.5rem; }
-    .result .label { text-align: left; } .result .value { text-align: right; }
+    .result {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      margin: 1rem auto 0;
+      width: 90%;
+      padding: 1rem;
+      background: #000;
+      color: #fff;
+      border: 2px solid #8b5a2b;
+      border-radius: 0.5rem;
+    }
+    .result .label { text-align: left; }
+    .result .value { text-align: right; }
   </style>
 </head>
 <body>
@@ -41,30 +117,29 @@
     </div>
     <div id="fortune" class="result"></div>
   </div>
-  <div className="button-group flex w-full max-w-sm justify-between mt-4">
-      <Button className="flex-1 mx-1">うらなう</Button>
-      <Button className="flex-1 mx-1">めいがら</Button>
-      <Button className="flex-1 mx-1">えっくす</Button>
-      <Button className="flex-1 mx-1">ほぞん</Button>
+  <div class="command-panel">
+    <button id="fortuneBtn" disabled>うらなう</button>
+    <button id="infoBtn"    disabled>めいがら</button>
+    <button id="shareBtn"   disabled>えっくす</button>
+    <button id="downloadBtn"disabled>ほぞん</button>
   </div>
-  
   <script>
     let stocks = [], quotes = {};
     const categories = ['funny', 'harsh', 'kind', 'sad'];
     const ojisanImages = Array.from({ length: 70 }, (_, i) => `https://leino9.github.io/stock-ojisan/ojisan/oji${i+1}.jpg`);
-    const btn = document.getElementById('fortuneBtn');
+    const fortuneBtn = document.getElementById('fortuneBtn');
     const infoBtn = document.getElementById('infoBtn');
     const shareBtn = document.getElementById('shareBtn');
     const downloadBtn = document.getElementById('downloadBtn');
-    btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = true;
+    fortuneBtn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = true;
     Promise.all([
       fetch('stocks.json').then(r => r.json()),
       fetch('quotes.json').then(r => r.json())
     ]).then(([sData, qData]) => {
       stocks = sData;
       quotes = qData;
-      btn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = false;
-      btn.onclick = generateFortune;
+      fortuneBtn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = false;
+      fortuneBtn.onclick = generateFortune;
       downloadBtn.onclick = () => {
         const card = document.getElementById('cardElement');
         const win = window.open('', '_blank');
@@ -80,25 +155,26 @@
       const idx = Math.floor(Math.random()*ojisanImages.length);
       const s = stocks[Math.floor(Math.random()*stocks.length)];
       const q = quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
-      const img = ojisanImages[idx];
-      const per = s.per ? s.per.toFixed(2) : '0.00';
-      const pbr = s.pbr ? s.pbr.toFixed(2) : '0.00';
-      const roe = s.roe ? (s.roe*100).toFixed(2) : '0.00';
-      const yieldStr = s.dividendYield ? s.dividendYield.toFixed(2) : '0.00';
       document.getElementById('fortune').innerHTML =
         `<div class='label'>銘柄:</div><div class='value'>${s.name}</div>`+
         `<div class='label'>前日終値:</div><div class='value'>${s.price} 円</div>`+
-        `<div class='label'>PER:</div><div class='value'>${per} 倍</div>`+
-        `<div class='label'>PBR:</div><div class='value'>${pbr} 倍</div>`+
-        `<div class='label'>ROE:</div><div class='value'>${roe} %</div>`+
-        `<div class='label'>配当利回り:</div><div class='value'>${yieldStr} %</div>`;
+        `<div class='label'>PER:</div><div class='value'>${(s.per||0).toFixed(2)} 倍</div>`+
+        `<div class='label'>PBR:</div><div class='value'>${(s.pbr||0).toFixed(2)} 倍</div>`+
+        `<div class='label'>ROE:</div><div class='value'>${((s.roe||0)*100).toFixed(2)} %</div>`+
+        `<div class='label'>配当利回り:</div><div class='value'>${(s.dividendYield||0).toFixed(2)} %</div>`;
       document.getElementById('ojisanNumber').textContent = `No.${String(idx+1).padStart(4,'0')}`;
       document.getElementById('ojisanQuote').textContent = `「${q}」`;
       const imgEl = document.getElementById('ojisanImage');
-      imgEl.style.display = 'none'; imgEl.src = img + '?t=' + Date.now();
-      imgEl.onload = () => imgEl.style.display = 'block'; imgEl.onerror = () => imgEl.style.display = 'none';
+      imgEl.style.display = 'none';
+      imgEl.src = ojisanImages[idx] + '?t=' + Date.now();
+      imgEl.onload = () => imgEl.style.display = 'block';
+      imgEl.onerror = () => imgEl.style.display = 'none';
       infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`,'_blank');
-      shareBtn.onclick = () => { const ftxt = document.getElementById('fortune').innerText.trim(); const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`); window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank'); };
+      shareBtn.onclick = () => {
+        const ftxt = document.getElementById('fortune').innerText.trim();
+        const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
+        window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank');
+      };
     }
   </script>
 </body>

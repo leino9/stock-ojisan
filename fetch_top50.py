@@ -20,7 +20,7 @@ def fetch_top(count, output):
     上位 count 件のティッカーを取得し、output ファイルに保存する
     """
     # プリセットURLにクエリパラメータで件数とオフセットを指定
-    url = f'https://finance.yahoo.com/screener/predefined/large_cap?count={count}&offset=0'
+    url = f'https://finance.yahoo.co.jp/screener/predefined/large_cap?count={count}&offset=0'
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         resp.raise_for_status()

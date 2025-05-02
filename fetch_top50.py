@@ -30,30 +30,21 @@ def fetch_top(count, output):
     soup = BeautifulSoup(resp.text, 'html.parser')
     rows = soup.select('table tbody tr')
     tickers = []
-    -    for row in rows[:count]:
--        cells = row.find_all('td')
--        if len(cells) < 2:
--            continue
--        cell_text = cells[1].get_text(separator=' ', strip=True)
--        parts = cell_text.split()
--        code = parts[0] if parts and parts[0].isdigit() else None
--        if code:
--            tickers.append(code)
-+    for row in rows:
-+        import re
-+        cells = row.find_all('td')
-+        if len(cells) < 2:
-+            continue
-+        cell_text = cells[1].get_text(separator=' ', strip=True)
-+        # 正規表現で先頭の数字部分（銘柄コード）を抽出
-+        m = re.match(r"^(\\d+)", cell_text)
-+        if not m:
-+            continue
-+        code = m.group(1)
-+        tickers.append(code)
-+        # 必要件数に達したらループを抜ける
-+        if len(tickers) >= count:
-+            break
+    for row in rows:
+    import re
+    cells = row.find_all('td')
+    if len(cells) < 2:
+        continue
+    cell_text = cells[1].get_text(separator=' ', strip=True)
+    # 正規表現で先頭の数字部分（銘柄コード）を抽出
+    m = re.match(r"^(\d+)", cell_text)
+    if not m:
+        continue
+    code = m.group(1)
+    tickers.append(code)
+    # 必要件数に達したらループを抜ける
+    if len(tickers) >= count:
+        break
 
     
     if len(tickers) < count:

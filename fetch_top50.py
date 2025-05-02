@@ -20,7 +20,8 @@ def fetch_top(count, output):
     Yahoo Finance 日本版の時価総額ランキングページから
     上位 count 件の銘柄コードを取得し、output ファイルに保存する
     """
-    url = 'https://finance.yahoo.co.jp/stocks/ranking/marketCapitalHigh'
+    # 市場全域 & 日次ランキング URL を使用
+    url = 'https://finance.yahoo.co.jp/stocks/ranking/marketCapitalHigh?market=all&term=daily'
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         resp.raise_for_status()
@@ -29,7 +30,7 @@ def fetch_top(count, output):
         return False
 
     soup = BeautifulSoup(resp.text, 'html.parser')
-    rows = soup.select('table.rankingTable tbody tr')  # クラス名を指定して安定的に取得
+    rows = soup.select('table tbody tr')  # 汎用的に tbody の行を取得
     tickers = []
 
     for row in rows:

@@ -30,16 +30,20 @@ def update_stocks(top_file, output_file, sleep_sec):
     # ティッカー一覧読み込み
     try:
         with open(top_file, 'r', encoding='utf-8') as f:
-            tickers = json.load(f)
+            tickers_objs = json.load(f)
     except Exception as e:
         print(f"銘柄リストの読み込みに失敗: {e}", file=sys.stderr)
         return False
 
     results = []
-    for symbol in tickers:
+    for obj in tickers:
+        symbol = obj['code']
+        name_jp = obj.get('name_jp')
+        
         # 「7203」→「7203.T」に整形
-        symbol_t = symbol.upper() + ('' if symbol.upper().endswith('.T') else '.T')
-        code = symbol_t.replace('.T', '')
+        symbol_t = symbol + '.T'
+        code = symbol
+        
         print(f"🔄 {symbol_t} のデータ取得中…")
 
         price = None
@@ -47,7 +51,7 @@ def update_stocks(top_file, output_file, sleep_sec):
         pbr = None
         roe = None
         div_yield = None
-        name = None
+        name = name_jp or symbol
 
         try:
             ticker = yf.Ticker(symbol_t)
@@ -71,7 +75,7 @@ def update_stocks(top_file, output_file, sleep_sec):
 
         record = {
             'code': code,
-            'name': name or code,
+            'name': name,
             'price': clean_val(price),
             'per': clean_val(per),
             'pbr': clean_val(pbr),

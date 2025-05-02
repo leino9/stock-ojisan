@@ -28,7 +28,6 @@
     .command-panel {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, auto);
       gap: 0.5rem;
       width: 90%;
       max-width: 380px;
@@ -50,12 +49,8 @@
       border: none;
       cursor: pointer;
     }
-    .command-panel button:hover {
-      background: #222;
-    }
-    .ojisan-container {
-      position: relative;
-    }
+    .command-panel button:hover { background: #222; }
+    .ojisan-container { position: relative; }
     .ojisan-img {
       width: 100%;
       height: 340px;
@@ -66,40 +61,23 @@
       border: 3px ridge #7e5a3b;
     }
     .ojisan-number {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: transparent;
+      position: absolute; top: 8px; right: 8px;
       color: #382b1b;
-      font-size: 0.75rem;
-      font-weight: bold;
-      font-family: 'DotGothic16', monospace;
+      font-size: 0.75rem; font-weight: bold;
     }
     .ojisan-comment {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      right: 8px;
-      background: #000;
-      color: #fff;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: bold;
+      position: absolute; bottom: 8px; left: 8px; right: 8px;
+      background: #000; color: #fff;
+      padding: 0.5rem; border-radius: 0.5rem;
+      font-size: 0.75rem; line-height: 1.2;
       border: 1px solid #7e5a3b;
-      font-family: 'DotGothic16', monospace;
-      line-height: 1.2;
     }
     .result {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: grid; grid-template-columns: 1fr 1fr;
       gap: 0.5rem;
-      font-size: 1.1rem;
       margin: 1rem auto 0;
-      width: 90%;
-      padding: 1rem;
-      background: #000;
-      color: #fff;
+      width: 90%; padding: 1rem;
+      background: #000; color: #fff;
       border: 2px solid #8b5a2b;
       border-radius: 0.5rem;
     }
@@ -108,7 +86,7 @@
   </style>
 </head>
 <body>
-  <h1 style="color: #3c2200; text-shadow:1px 1px #fff6d6; font-family:'DotGothic16',monospace;">🔮本日の銘柄占い🔮</h1>
+  <h1 style="color:#3c2200;text-shadow:1px 1px #fff6d6;font-family:'DotGothic16',monospace;">🔮本日の銘柄占い🔮</h1>
   <div class="card" id="cardElement">
     <div class="ojisan-container">
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
@@ -125,54 +103,73 @@
   </div>
   <script>
     let stocks = [], quotes = {};
-    const categories = ['funny', 'harsh', 'kind', 'sad'];
-    const ojisanImages = Array.from({ length: 70 }, (_, i) => `https://leino9.github.io/stock-ojisan/ojisan/oji${i+1}.jpg`);
+    const categories = ['funny','harsh','kind','sad'];
+    const ojisanImages = Array.from({length:70},(_,i)=>
+      `https://leino9.github.io/stock-ojisan/ojisan/oji${i+1}.jpg`
+    );
     const fortuneBtn = document.getElementById('fortuneBtn');
-    const infoBtn = document.getElementById('infoBtn');
-    const shareBtn = document.getElementById('shareBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    fortuneBtn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = true;
+    const infoBtn    = document.getElementById('infoBtn');
+    const shareBtn   = document.getElementById('shareBtn');
+    const downloadBtn= document.getElementById('downloadBtn');
+    [fortuneBtn,infoBtn,shareBtn,downloadBtn].forEach(b=>b.disabled=true);
+
     Promise.all([
-      fetch('stocks.json').then(r => r.json()),
-      fetch('quotes.json').then(r => r.json())
-    ]).then(([sData, qData]) => {
-      stocks = sData;
-      quotes = qData;
-      fortuneBtn.disabled = infoBtn.disabled = shareBtn.disabled = downloadBtn.disabled = false;
-      fortuneBtn.onclick = generateFortune;
-      downloadBtn.onclick = () => {
-        const card = document.getElementById('cardElement');
-        const win = window.open('', '_blank');
-        html2canvas(card).then(canvas => {
-          const dataUrl = canvas.toDataURL('image/png');
-          win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>カード画像</title></head><body style="margin:0;display:flex;justify-content:center;align-items:center;background:#fff;height:100vh;"><img src="${dataUrl}" alt="カード画像"></body></html>`);
+      fetch('stocks.json').then(r=>r.json()),
+      fetch('quotes.json').then(r=>r.json())
+    ]).then(([sData,qData])=>{
+      stocks=sData; quotes=qData;
+      [fortuneBtn,infoBtn,shareBtn,downloadBtn].forEach(b=>b.disabled=false);
+      fortuneBtn.onclick=generateFortune;
+      downloadBtn.onclick=()=>{
+        const card=document.getElementById('cardElement');
+        html2canvas(card).then(canvas=>{
+          const win=window.open('','_blank');
+          const dataUrl=canvas.toDataURL('image/png');
+          const html=`<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>カード画像</title>
+<style>
+  body{margin:0;display:flex;justify-content:center;align-items:center;background:#fff;min-height:100vh;}
+  img{max-width:100%;height:auto;}
+</style>
+</head>
+<body>
+  <img src="${dataUrl}" alt="カード画像">
+</body>
+</html>`;
+          win.document.write(html);
+          win.document.close();
         });
       };
     });
-    function generateFortune() {
-      const cat = categories[Math.floor(Math.random()*categories.length)];
-      if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');
-      const idx = Math.floor(Math.random()*ojisanImages.length);
-      const s = stocks[Math.floor(Math.random()*stocks.length)];
-      const q = quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
-      document.getElementById('fortune').innerHTML =
+
+    function generateFortune(){
+      const cat=categories[Math.floor(Math.random()*categories.length)];
+      if(!stocks.length||!quotes[cat])return alert('データ読み込み中です');
+      const idx=Math.floor(Math.random()*ojisanImages.length);
+      const s=stocks[Math.floor(Math.random()*stocks.length)];
+      const q=quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
+      document.getElementById('fortune').innerHTML=
         `<div class='label'>銘柄:</div><div class='value'>${s.name}</div>`+
         `<div class='label'>前日終値:</div><div class='value'>${s.price} 円</div>`+
         `<div class='label'>PER:</div><div class='value'>${(s.per||0).toFixed(2)} 倍</div>`+
         `<div class='label'>PBR:</div><div class='value'>${(s.pbr||0).toFixed(2)} 倍</div>`+
         `<div class='label'>ROE:</div><div class='value'>${((s.roe||0)*100).toFixed(2)} %</div>`+
         `<div class='label'>配当利回り:</div><div class='value'>${(s.dividendYield||0).toFixed(2)} %</div>`;
-      document.getElementById('ojisanNumber').textContent = `No.${String(idx+1).padStart(4,'0')}`;
-      document.getElementById('ojisanQuote').textContent = `「${q}」`;
-      const imgEl = document.getElementById('ojisanImage');
-      imgEl.style.display = 'none';
-      imgEl.src = ojisanImages[idx] + '?t=' + Date.now();
-      imgEl.onload = () => imgEl.style.display = 'block';
-      imgEl.onerror = () => imgEl.style.display = 'none';
-      infoBtn.onclick = () => window.open(`https://finance.yahoo.co.jp/quote/${s.code}`,'_blank');
-      shareBtn.onclick = () => {
-        const ftxt = document.getElementById('fortune').innerText.trim();
-        const tt = encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
+      document.getElementById('ojisanNumber').textContent=`No.${String(idx+1).padStart(4,'0')}`;
+      document.getElementById('ojisanQuote').textContent=`「${q}」`;
+      const imgEl=document.getElementById('ojisanImage');
+      imgEl.style.display='none';
+      imgEl.src=ojisanImages[idx]+`?t=${Date.now()}`;
+      imgEl.onload=()=>imgEl.style.display='block';
+      imgEl.onerror=()=>imgEl.style.display='none';
+      infoBtn.onclick=()=>window.open(`https://finance.yahoo.co.jp/quote/${s.code}`,'_blank');
+      shareBtn.onclick=()=>{
+        const ftxt=document.getElementById('fortune').innerText.trim();
+        const tt=encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
         window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank');
       };
     }

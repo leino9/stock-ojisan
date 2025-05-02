@@ -20,13 +20,13 @@ jobs:
       - name: Install dependencies
         run: pip install requests yfinance
 
-      - name: Fetch Top50 tickers
-        run: |
-          python fetch_top50.py --count 50 --output top50.json --region JP
+         - name: Fetch Top50 tickers
+      working-directory: ./stock-ojisan/stock-ojisan
+      run: python fetch_top50.py --count 50 --output top50.json --region JP
 
-      - name: Update stocks.json
-        run: |
-          python update_stocks.py --top top50.json --output stocks.json --sleep 1
+    - name: Update stocks.json
+      working-directory: ./stock-ojisan/stock-ojisan
+      run: python update_stocks.py --top top50.json --output stocks.json --sleep 1
 
       - name: Commit and push changes
         run: |

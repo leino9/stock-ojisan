@@ -30,28 +30,16 @@ def fetch_top(count, output):
     soup = BeautifulSoup(resp.text, 'html.parser')
     rows = soup.select('table tbody tr')
     tickers = []
-    for row in rows:
-        # テーブルの2列目(td)にコードと名称が入っている
+    for row in rows[:count]:
         cells = row.find_all('td')
         if len(cells) < 2:
             continue
-        # 例: "7203 トヨタ自動車(株)" のようなテキストからコード部分を取得
         cell_text = cells[1].get_text(separator=' ', strip=True)
         parts = cell_text.split()
-        code = parts[0] if parts else None
-        if not code or not code.isdigit():
-            continue
-        tickers.append(code)
-        if len(tickers) >= count:
-            break[:count]:
-        link = row.select_one('td a')
-        if not link or not link.text:
-            continue
-        # 「コード　名称」のテキストから先頭のコードだけを抽出
-        text = link.text.strip()
-        code = text.split()[0]
-        tickers.append(code)
-
+        code = parts[0] if parts and parts[0].isdigit() else None
+        if code:
+            tickers.append(code)
+    
     if len(tickers) < count:
         print(f"⚠️ 取得件数が少ない: {len(tickers)} 件 (期待値: {count})", file=sys.stderr)
 
@@ -66,10 +54,11 @@ def fetch_top(count, output):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Yahoo Finance日本版から時価総額上位銘柄を取得')
+    parser = argparse.ArgumentParser(
+        description='Yahoo Finance日本版から時価総額上位銘柄を取得'
+    )
     parser.add_argument('-c', '--count', type=int, default=DEFAULT_COUNT, help='取得件数')
     parser.add_argument('-o', '--output', default=DEFAULT_OUTPUT, help='出力ファイル')
-    # 互換性維持用に --region オプションを追加（未使用）
     parser.add_argument('-r', '--region', help='(未使用) 市場コードを指定', default=None)
     args = parser.parse_args()
 

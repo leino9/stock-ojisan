@@ -29,7 +29,7 @@ def fetch_top(count, output):
         return False
 
     soup = BeautifulSoup(resp.text, 'html.parser')
-    rows = soup.select('table tbody tr')
+    rows = soup.select('table.rankingTable tbody tr')  # クラス名を指定して安定的に取得
     tickers = []
 
     for row in rows:

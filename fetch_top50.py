@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # fetch_top50.py
-# 毎日、Yahoo Finance 日本版の時価総額ランキングページをスクレイピングして
+# 日本版Yahoo Financeの時価総額ランキングページをスクレイピングして
 # 上位 count 件の銘柄コードを取得し top50.json に保存するスクリプト
 
 import requests
@@ -28,21 +28,25 @@ def fetch_top(count, output):
         return False
 
     soup = BeautifulSoup(resp.text, 'html.parser')
-    # quoteリンクからコード抽出
-    links = soup.select('a[href*="/quote/"]')
+    # <a>タグのhrefに "quote/{code}.T" を含む要素をすべて取得
+    links = soup.find_all('a', href=re.compile(r'quote/\d+\.T'))
     tickers = []
+
     for link in links:
         href = link.get('href', '')
-        m = re.search(r"/quote/(\d+)\.T", href)
+        m = re.search(r'quote/(\d+)\.T', href)
         if not m:
             continue
         code = m.group(1)
-        if code not in tickers:
-            tickers.append(code)
+        if code in tickers:
+            continue
+        tickers.append(code)
         if len(tickers) >= count:
             break
 
-    if len(tickers) < count:
+    if not tickers:
+        print("⚠️ 銘柄が1件も取得できませんでした。CSSセレクタを確認してください。", file=sys.stderr)
+    elif len(tickers) < count:
         print(f"⚠️ 取得件数が少ない: {len(tickers)} 件 (期待値: {count})", file=sys.stderr)
 
     try:
@@ -59,9 +63,8 @@ def main():
     parser = argparse.ArgumentParser(description='日本版Yahoo Financeから時価総額TOP銘柄を取得')
     parser.add_argument('-c', '--count', type=int, default=DEFAULT_COUNT, help='取得件数')
     parser.add_argument('-o', '--output', default=DEFAULT_OUTPUT, help='出力ファイル')
-    # 互換性維持用に --region オプションを追加（未使用）
-    parser.add_argument('-r', '--region', help='(未使用) 市場コードを指定', default=None)
-    args = parser.parse_args()()
+    parser.add_argument('-r', '--region', help='市場コード（互換性維持用）', default=None)
+    args = parser.parse_args()
 
     success = fetch_top(args.count, args.output)
     sys.exit(0 if success else 1)

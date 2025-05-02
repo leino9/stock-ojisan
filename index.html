@@ -9,8 +9,7 @@
     @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
     body { font-family: 'DotGothic16', monospace; text-align: center; background: linear-gradient(to bottom, #d4bfa1, #a68c6c); margin: 0; padding: 2rem 0 1rem; }
     .card { background: #f8f0dc; border: 6px ridge #8b5a2b; border-radius: 1rem; box-shadow: 0 0 15px rgba(0,0,0,0.5); padding: 1rem; margin: auto; max-width: 380px; color: #3b2b1b; }
-    .command-panel { background: #000; border: 3px solid #fff; border-radius: 0.5rem; padding: 0.5rem; margin-top: 0.5rem; }
-    .button-group { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; justify-items: center; }
+    .command-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; justify-items: center; margin: 0.5rem auto; }
     #fortuneBtn, #infoBtn, #shareBtn, #downloadBtn {
       width: 7rem;
       padding: 0.6rem 0;
@@ -23,11 +22,7 @@
       background: #000;
       color: #fff;
     }
-    /* Hover states */
-    #fortuneBtn:hover { background: #282828; }
-    #infoBtn:hover    { background: #282828; }
-    #shareBtn:hover   { background: #282828; }
-    #downloadBtn:hover{ background: #282828; }
+    #fortuneBtn:hover, #infoBtn:hover, #shareBtn:hover, #downloadBtn:hover { background: #282828; }
     .ojisan-container { position: relative; }
     .ojisan-img { width: 100%; height: 340px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 0.5rem; display: none; border: 3px ridge #7e5a3b; }
     .ojisan-number { position: absolute; top: 8px; right: 8px; background: transparent; color: #382b1b; font-size: 0.75rem; font-weight: bold; font-family: 'DotGothic16', monospace; }
@@ -45,15 +40,12 @@
       <div id="ojisanQuote" class="ojisan-comment"></div>
     </div>
     <div id="fortune" class="result"></div>
-    <!-- ボタンをカード内に移動 -->
-    <div class="command-panel">
-      <div class="button-group">
-        <button id="fortuneBtn" disabled>うらなう</button>
-        <button id="infoBtn"    disabled>めいがら</button>
-        <button id="shareBtn"   disabled>えっくす</button>
-        <button id="downloadBtn"disabled>ほぞん</button>
-      </div>
-    </div>
+  </div>
+  <div class="command-panel">
+    <button id="fortuneBtn" disabled>うらなう</button>
+    <button id="infoBtn"    disabled>めいがら</button>
+    <button id="shareBtn"   disabled>えっくす</button>
+    <button id="downloadBtn"disabled>ほぞん</button>
   </div>
   <script>
     let stocks = [], quotes = {};

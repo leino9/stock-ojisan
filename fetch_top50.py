@@ -7,6 +7,7 @@ import requests
 import json
 import sys
 import argparse
+import re
 from bs4 import BeautifulSoup
 
 DEFAULT_COUNT = 50
@@ -32,23 +33,19 @@ def fetch_top(count, output):
     tickers = []
 
     for row in rows:
-    import re
-    cells = row.find_all('td')
-    if len(cells) < 2:
-        continue
-    cell_text = cells[1].get_text(separator=' ', strip=True)
-    # 正規表現で先頭の数字部分（銘柄コード）を抽出
-    m = re.match(r"^(\d+)", cell_text)
-    if not m:
-        continue
-    code = m.group(1)
-    tickers.append(code)
-    # 必要件数に達したらループを抜ける
-    if len(tickers) >= count:
-        break
+        cells = row.find_all('td')
+        if len(cells) < 2:
+            continue
+        # 2列目のテキストから先頭の数字部分を抽出
+        cell_text = cells[1].get_text(separator=' ', strip=True)
+        m = re.match(r"^(\d+)", cell_text)
+        if not m:
+            continue
+        code = m.group(1)
+        tickers.append(code)
+        if len(tickers) >= count:
+            break
 
-
-    
     if len(tickers) < count:
         print(f"⚠️ 取得件数が少ない: {len(tickers)} 件 (期待値: {count})", file=sys.stderr)
 

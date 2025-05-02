@@ -18,11 +18,11 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install requests yfinance beautifulsoup4
+        run: pip install -r requirements.txt
 
       - name: Fetch Top50 tickers
         run: python fetch_top50.py --count 50 --output top50.json --region JP
-        
+
       - name: Update stocks.json
         run: python update_stocks.py --top top50.json --output stocks.json --sleep 1
 

@@ -20,7 +20,6 @@ def fetch_top(count, output):
     Yahoo Finance 日本版の時価総額ランキングページから
     上位 count 件の銘柄コードを取得し、output ファイルに保存する
     """
-    # 市場全域 & 日次ランキング URL を使用
     url = 'https://finance.yahoo.co.jp/stocks/ranking/marketCapitalHigh?market=all&term=daily'
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
@@ -30,20 +29,26 @@ def fetch_top(count, output):
         return False
 
     soup = BeautifulSoup(resp.text, 'html.parser')
-    rows = soup.select('table tbody tr')  # 汎用的に tbody の行を取得
-    tickers = []
+    # 日本版ランキングは table.rankingTable に格納されている
+    table = soup.find('table', class_='rankingTable')
+    if not table:
+        print("⚠️ ランキングテーブルが見つかりません。", file=sys.stderr)
+        return False
+    rows = table.select('tbody tr')
 
+    tickers = []
     for row in rows:
-        link = row.select_one('td a[href*="code="]')
+        # コードはリンクのhrefクエリパラメータとして含まれる
+        link = row.find('a', href=lambda h: h and 'code=' in h)
         if not link:
             continue
-        href = link['href']  # 例: '/stocks/detail/?code=7203.T'
+        href = link['href']  # '/stocks/detail/?code=7203.T'
         qs = urllib.parse.urlparse(href).query
         params = urllib.parse.parse_qs(qs)
         code_t = params.get('code')
         if not code_t:
             continue
-        code = code_t[0].replace('.T', '')
+        code = code_t[0].split('.')[0]  # '7203'
         tickers.append(code)
         if len(tickers) >= count:
             break

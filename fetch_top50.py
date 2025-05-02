@@ -13,14 +13,13 @@ DEFAULT_COUNT = 50
 DEFAULT_OUTPUT = 'top50.json'
 HEADERS = {'User-Agent': 'Mozilla/5.0'}
 
-
 def fetch_top(count, output):
     """
-    Yahoo Finance の Large Cap predefined スクリーンページから
+    Yahoo Finance 日本版の時価総額ランキングページから
     上位 count 件のティッカーを取得し、output ファイルに保存する
     """
-    # プリセットURLにクエリパラメータで件数とオフセットを指定
-    url = f'https://finance.yahoo.co.jp/screener/predefined/large_cap?count={count}&offset=0'
+    # 日本版Yahoo Financeの時価総額ランキングURL
+    url = 'https://finance.yahoo.co.jp/stocks/ranking/marketCapitalHigh'
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         resp.raise_for_status()
@@ -29,12 +28,16 @@ def fetch_top(count, output):
         return False
 
     soup = BeautifulSoup(resp.text, 'html.parser')
+    # テーブル行を取得
     rows = soup.select('table tbody tr')
     tickers = []
     for row in rows[:count]:
-        link = row.select_one('td:nth-child(1) a')
+        # 銘柄コードはリンクのhrefまたはテキストに含まれる
+        link = row.select_one('td a')
         if link and link.text:
-            tickers.append(link.text.strip())
+            # リンクテキストの末尾に".T"がない場合はそのままコードとして扱う
+            code = link.text.strip()
+            tickers.append(code)
 
     if len(tickers) < count:
         print(f"⚠️ 取得件数が少ない: {len(tickers)} 件 (期待値: {count})", file=sys.stderr)
@@ -47,7 +50,6 @@ def fetch_top(count, output):
     except IOError as e:
         print(f"ファイル書き込みエラー: {e}", file=sys.stderr)
         return False
-
 
 def main():
     parser = argparse.ArgumentParser(

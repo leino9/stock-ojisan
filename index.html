@@ -175,12 +175,8 @@
           siteUrl,
           '#銘柄占い'
         ];
-
-        const text = lines.join('
-');
-        const tt   = encodeURIComponent(text);
-        
-        window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank');
+        const text = lines.join('\n');
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
       });
       downloadBtn.addEventListener('click', () => {
         const card = document.getElementById('cardElement');

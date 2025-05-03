@@ -50,7 +50,10 @@
       cursor: pointer;
     }
     .command-panel button:hover { background: #222; }
-    .ojisan-container { position: relative; }
+
+    .ojisan-container {
+      position: relative;
+    }
     .ojisan-img {
       width: 100%;
       height: 420px; /* 縦幅を少し広げました */
@@ -72,6 +75,20 @@
       font-size: 0.75rem; line-height: 1.2;
       border: 1px solid #7e5a3b;
     }
+    .issue-date {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      /* 背景なし、フォントはおじさんnumberと同じスタイル */
+      background: none;
+      color: #382b1b;
+      font-size: 0.75rem;
+      font-family: 'DotGothic16', monospace;
+      font-weight: bold;
+      padding: 0;
+      border-radius: 0;
+      z-index: 10;
+    }
     .result {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 0.5rem;
@@ -92,6 +109,8 @@
       <img id="ojisanImage" src="" alt="おじさん画像" class="ojisan-img">
       <div id="ojisanNumber" class="ojisan-number"></div>
       <div id="ojisanQuote" class="ojisan-comment"></div>
+      <!-- 発行日を左上に表示 -->
+      <div class="issue-date">発行日：<span id="issueDateText"></span></div>
     </div>
     <div id="fortune" class="result"></div>
   </div>
@@ -102,6 +121,14 @@
     <button id="downloadBtn"disabled>ほぞん</button>
   </div>
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      document.getElementById('issueDateText').textContent = `${yyyy}/${mm}/${dd}`;
+    });
+
     let stocks = [], quotes = {};
     const categories = ['funny','harsh','kind','sad'];
     const ojisanImages = Array.from({length:70},(_,i)=>
@@ -122,38 +149,14 @@
       fortuneBtn.onclick=generateFortune;
       downloadBtn.onclick = () => {
         const card = document.getElementById('cardElement');
-        // Safari等でポップアップがブロックされないよう、最初にウィンドウを開く
         const win = window.open('', '_blank');
-        if (!win) {
-          return alert('ポップアップがブロックされました');
-        }
-        // キャンバス生成後に内容を書き込む
+        if (!win) return alert('ポップアップがブロックされました');
         html2canvas(card).then(canvas => {
           const dataUrl = canvas.toDataURL('image/png');
-          const html = `<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>カード画像</title>
-<style>
-  body{margin:0;display:flex;justify-content:center;align-items:center;background:#fff;min-height:100vh;}
-  img{max-width:100%;height:auto;}
-</style>
-</head>
-<body>
-  <img src="${dataUrl}" alt="カード画像">
-</body>
-</html>`;
-          win.document.open();
-          win.document.write(html);
-          win.document.close();
-        }).catch(() => {
-          win.close();
-          alert('画像生成に失敗しました');
-        });
+          const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>カード画像</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;background:#fff;min-height:100vh;}img{max-width:100%;height:auto;}</style></head><body><img src="${dataUrl}" alt="カード画像"></body></html>`;
+          win.document.open();win.document.write(html);win.document.close();
+        }).catch(() => { win.close(); alert('画像生成に失敗しました'); });
       };
-    });
 
     function generateFortune(){
       const cat=categories[Math.floor(Math.random()*categories.length)];
@@ -170,11 +173,8 @@
         `<div class='label'>配当利回り:</div><div class='value'>${(s.dividendYield||0).toFixed(2)} %</div>`;
       document.getElementById('ojisanNumber').textContent=`No.${String(idx+1).padStart(4,'0')}`;
       document.getElementById('ojisanQuote').textContent=`「${q}」`;
-      const imgEl=document.getElementById('ojisanImage');
-      imgEl.style.display='none';
-      imgEl.src=ojisanImages[idx]+`?t=${Date.now()}`;
-      imgEl.onload=()=>imgEl.style.display='block';
-      imgEl.onerror=()=>imgEl.style.display='none';
+      const imgEl=document.getElementById('ojisanImage');imgEl.style.display='none';imgEl.src=ojisanImages[idx]+`?t=${Date.now()}`;
+      imgEl.onload=()=>imgEl.style.display='block';imgEl.onerror=()=>imgEl.style.display='none';
       infoBtn.onclick=()=>window.open(`https://finance.yahoo.co.jp/quote/${s.code}`,'_blank');
       shareBtn.onclick=()=>{
         const ftxt=document.getElementById('fortune').innerText.trim();

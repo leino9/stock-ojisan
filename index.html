@@ -140,25 +140,7 @@
     const downloadBtn= document.getElementById('downloadBtn');
     [fortuneBtn,infoBtn,shareBtn,downloadBtn].forEach(b=>b.disabled=true);
 
-    Promise.all([
-      fetch('stocks.json').then(r=>r.json()),
-      fetch('quotes.json').then(r=>r.json())
-    ]).then(([sData,qData])=>{
-      stocks=sData; quotes=qData;
-      [fortuneBtn,infoBtn,shareBtn,downloadBtn].forEach(b=>b.disabled=false);
-      fortuneBtn.onclick=generateFortune;
-      downloadBtn.onclick = () => {
-        const card = document.getElementById('cardElement');
-        const win = window.open('', '_blank');
-        if (!win) return alert('ポップアップがブロックされました');
-        html2canvas(card).then(canvas => {
-          const dataUrl = canvas.toDataURL('image/png');
-          const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>カード画像</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;background:#fff;min-height:100vh;}img{max-width:100%;height:auto;}</style></head><body><img src="${dataUrl}" alt="カード画像"></body></html>`;
-          win.document.open();win.document.write(html);win.document.close();
-        }).catch(() => { win.close(); alert('画像生成に失敗しました'); });
-      };
-
-    function generateFortune(){
+    (){
       const cat=categories[Math.floor(Math.random()*categories.length)];
       if(!stocks.length||!quotes[cat])return alert('データ読み込み中です');
       const idx=Math.floor(Math.random()*ojisanImages.length);

@@ -165,10 +165,21 @@
         window.open(`https://finance.yahoo.co.jp/quote/${code}`, '_blank');
       });
       shareBtn.addEventListener('click', () => {
-        const ftxt = document.getElementById('fortune').innerText.trim();
-        const tt = encodeURIComponent(`🔮本日の銘柄占い🔮
-${ftxt}
-#銘柄占い`);
+        const s = fortuneData;
+        const siteUrl = 'https://leino9.github.io/stock-ojisan/';
+        const lines = [
+          '🔮本日の銘柄占い🔮',
+          `銘柄：${s.name}（${s.code}.T） 前日終値：${s.price}円`,
+          `PER：${(s.per||0).toFixed(2)}倍  PBR：${(s.pbr||0).toFixed(2)}倍`,
+          `ROE：${((s.roe||0)*100).toFixed(2)}%  配当利回り：${(s.dividendYield||0).toFixed(2)}%`,
+          siteUrl,
+          '#銘柄占い'
+        ];
+
+        const text = lines.join('
+');
+        const tt   = encodeURIComponent(text);
+        
         window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank');
       });
       downloadBtn.addEventListener('click', () => {

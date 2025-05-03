@@ -121,49 +121,81 @@
     <button id="downloadBtn"disabled>ほぞん</button>
   </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const now = new Date();
-      const yyyy = now.getFullYear();
-      const mm = String(now.getMonth() + 1).padStart(2, '0');
-      const dd = String(now.getDate()).padStart(2, '0');
-      document.getElementById('issueDateText').textContent = `${yyyy}/${mm}/${dd}`;
-    });
+  document.addEventListener('DOMContentLoaded', function() {
+    // 発行日セット
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    document.getElementById('issueDateText').textContent = `${yyyy}/${mm}/${dd}`;
 
+    // データロード＆ボタンセット
     let stocks = [], quotes = {};
     const categories = ['funny','harsh','kind','sad'];
-    const ojisanImages = Array.from({length:70},(_,i)=>
+    const ojisanImages = Array.from({length:70}, (_, i) =>
       `https://leino9.github.io/stock-ojisan/ojisan/oji${i+1}.jpg`
     );
     const fortuneBtn = document.getElementById('fortuneBtn');
     const infoBtn    = document.getElementById('infoBtn');
     const shareBtn   = document.getElementById('shareBtn');
     const downloadBtn= document.getElementById('downloadBtn');
-    [fortuneBtn,infoBtn,shareBtn,downloadBtn].forEach(b=>b.disabled=true);
+    [fortuneBtn, infoBtn, shareBtn, downloadBtn].forEach(b => b.disabled = true);
 
-    (){
-      const cat=categories[Math.floor(Math.random()*categories.length)];
-      if(!stocks.length||!quotes[cat])return alert('データ読み込み中です');
-      const idx=Math.floor(Math.random()*ojisanImages.length);
-      const s=stocks[Math.floor(Math.random()*stocks.length)];
-      const q=quotes[cat][Math.floor(Math.random()*quotes[cat].length)];
-      document.getElementById('fortune').innerHTML=
-        `<div class='label'>銘柄:</div><div class='value'>${s.name}</div>`+
-        `<div class='label'>前日終値:</div><div class='value'>${s.price} 円</div>`+
-        `<div class='label'>PER:</div><div class='value'>${(s.per||0).toFixed(2)} 倍</div>`+
-        `<div class='label'>PBR:</div><div class='value'>${(s.pbr||0).toFixed(2)} 倍</div>`+
-        `<div class='label'>ROE:</div><div class='value'>${((s.roe||0)*100).toFixed(2)} %</div>`+
-        `<div class='label'>配当利回り:</div><div class='value'>${(s.dividendYield||0).toFixed(2)} %</div>`;
-      document.getElementById('ojisanNumber').textContent=`No.${String(idx+1).padStart(4,'0')}`;
-      document.getElementById('ojisanQuote').textContent=`「${q}」`;
-      const imgEl=document.getElementById('ojisanImage');imgEl.style.display='none';imgEl.src=ojisanImages[idx]+`?t=${Date.now()}`;
-      imgEl.onload=()=>imgEl.style.display='block';imgEl.onerror=()=>imgEl.style.display='none';
-      infoBtn.onclick=()=>window.open(`https://finance.yahoo.co.jp/quote/${s.code}`,'_blank');
-      shareBtn.onclick=()=>{
-        const ftxt=document.getElementById('fortune').innerText.trim();
-        const tt=encodeURIComponent(`🔮本日の銘柄占い🔮\n${ftxt}\n#銘柄占い`);
-        window.open(`https://twitter.com/intent/tweet?text=${tt}`,'_blank');
-      };
-    }
-  </script>
+    Promise.all([
+      fetch('stocks.json').then(r => r.json()),
+      fetch('quotes.json').then(r => r.json())
+    ]).then(([sData, qData]) => {
+      stocks = sData;
+      quotes = qData;
+      [fortuneBtn, infoBtn, shareBtn, downloadBtn].forEach(b => b.disabled = false);
+      fortuneBtn.addEventListener('click', generateFortune);
+      infoBtn.addEventListener('click', () => {
+        const code = fortuneData.code;
+        window.open(`https://finance.yahoo.co.jp/quote/${code}`, '_blank');
+      });
+      shareBtn.addEventListener('click', () => {
+        const ftxt = document.getElementById('fortune').innerText.trim();
+        const tt = encodeURIComponent(`🔮本日の銘柄占い🔮
+${ftxt}
+#銘柄占い`);
+        window.open(`https://twitter.com/intent/tweet?text=${tt}`, '_blank');
+      });
+      downloadBtn.addEventListener('click', () => {
+        const card = document.getElementById('cardElement');
+        const win = window.open('', '_blank');
+        if (!win) return alert('ポップアップがブロックされました');
+        html2canvas(card).then(canvas => {
+          const dataUrl = canvas.toDataURL('image/png');
+          const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>カード画像</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;background:#fff;min-height:100vh;}img{max-width:100%;height:auto;}</style></head><body><img src="${dataUrl}" alt="カード画像"></body></html>`;
+          win.document.open(); win.document.write(html); win.document.close();
+        }).catch(() => { win.close(); alert('画像生成に失敗しました'); });
+      });
+
+      let fortuneData = {};
+      function generateFortune() {
+        const cat = categories[Math.floor(Math.random() * categories.length)];
+        if (!stocks.length || !quotes[cat]) return alert('データ読み込み中です');
+        const idx = Math.floor(Math.random() * ojisanImages.length);
+        const s = stocks[Math.floor(Math.random() * stocks.length)];
+        const q = quotes[cat][Math.floor(Math.random() * quotes[cat].length)];
+        fortuneData = s;
+        document.getElementById('fortune').innerHTML =
+          `<div class='label'>銘柄:</div><div class='value'>${s.name}</div>` +
+          `<div class='label'>前日終値:</div><div class='value'>${s.price} 円</div>` +
+          `<div class='label'>PER:</div><div class='value'>${(s.per||0).toFixed(2)} 倍</div>` +
+          `<div class='label'>PBR:</div><div class='value'>${(s.pbr||0).toFixed(2)} 倍</div>` +
+          `<div class='label'>ROE:</div><div class='value'>${((s.roe||0)*100).toFixed(2)} %</div>` +
+          `<div class='label'>配当利回り:</div><div class='value'>${(s.dividendYield||0).toFixed(2)} %</div>`;
+        document.getElementById('ojisanNumber').textContent = `No.${String(idx+1).padStart(4,'0')}`;
+        document.getElementById('ojisanQuote').textContent = `「${q}」`;
+        const imgEl = document.getElementById('ojisanImage');
+        imgEl.style.display = 'none';
+        imgEl.src = ojisanImages[idx] + `?t=${Date.now()}`;
+        imgEl.onload = () => imgEl.style.display = 'block';
+        imgEl.onerror = () => imgEl.style.display = 'none';
+      }
+    });
+  });
+</script>
 </body>
 </html>

@@ -3,16 +3,16 @@
     "code": "7203",
     "name": "トヨタ自動車(株)",
     "price": 3198.0,
-    "per": 8.998812,
+    "per": 8.992704,
     "pbr": 1.1054636,
     "roe": 0.12938,
-    "dividendYield": 2.97
+    "dividendYield": 2.99
   },
   {
     "code": "8306",
     "name": "(株)三菱ＵＦＪフィナンシャル・グループ",
     "price": 2450.0,
-    "per": 15.366771,
+    "per": 14.880699,
     "pbr": 1.3982352,
     "roe": 0.05943,
     "dividendYield": 2.86
@@ -21,53 +21,53 @@
     "code": "6758",
     "name": "ソニーグループ(株)",
     "price": 4669.0,
-    "per": 23.464802,
+    "per": 23.474178,
     "pbr": 3.654269,
     "roe": 0.15412,
-    "dividendYield": 0.54
+    "dividendYield": 0.53
   },
   {
     "code": "9984",
     "name": "ソフトバンクグループ(株)",
     "price": 21170.0,
-    "per": 9.241738,
+    "per": 9.242127,
     "pbr": 1.9990757,
     "roe": 0.2485,
-    "dividendYield": 0.13
+    "dividendYield": 0.14
   },
   {
     "code": "6501",
     "name": "(株)日立製作所",
     "price": 5349.0,
-    "per": 30.457188,
+    "per": 30.395266,
     "pbr": 3.7899942,
     "roe": null,
-    "dividendYield": 0.84
+    "dividendYield": 0.89
   },
   {
     "code": "9983",
     "name": "(株)ファーストリテイリング",
     "price": 57020.0,
-    "per": 40.11673,
+    "per": 40.160645,
     "pbr": 7.626224,
     "roe": null,
-    "dividendYield": 0.91
+    "dividendYield": 0.92
   },
   {
     "code": "7974",
     "name": "任天堂(株)",
     "price": 13665.0,
-    "per": 42.409237,
+    "per": 42.37315,
     "pbr": 5.5562696,
     "roe": 0.13779001,
-    "dividendYield": 2.03
+    "dividendYield": 2.07
   },
   {
     "code": "8316",
     "name": "(株)三井住友フィナンシャルグループ",
     "price": 4331.0,
-    "per": 14.221434,
-    "pbr": 1.1537265,
+    "per": 12.07743,
+    "pbr": 1.1591775,
     "roe": 0.03518,
     "dividendYield": 3.14
   },
@@ -75,46 +75,46 @@
     "code": "8058",
     "name": "三菱商事(株)",
     "price": 3731.0,
-    "per": 21.38458,
+    "per": 21.412664,
     "pbr": 1.6062152,
     "roe": 0.07865,
-    "dividendYield": 2.95
+    "dividendYield": 2.93
   },
   {
     "code": "8001",
     "name": "伊藤忠商事(株)",
     "price": 9448.0,
-    "per": 14.297742,
+    "per": 14.30613,
     "pbr": 2.2055116,
     "roe": 0.15312,
-    "dividendYield": 0.47
+    "dividendYield": 0.46
   },
   {
     "code": "8035",
     "name": "東京エレクトロン(株)",
     "price": 33910.0,
-    "per": 27.06768,
+    "per": 27.027029,
     "pbr": 7.283185,
     "roe": 0.28496,
-    "dividendYield": 1.57
+    "dividendYield": 1.67
   },
   {
     "code": "6857",
     "name": "(株)アドバンテスト",
     "price": 20670.0,
-    "per": 54.93362,
+    "per": 54.944435,
     "pbr": 23.275492,
     "roe": 0.48179,
-    "dividendYield": 0.28
+    "dividendYield": 0.25
   },
   {
     "code": "7011",
     "name": "三菱重工業(株)",
     "price": 4381.0,
-    "per": 51.22101,
+    "per": 51.283943,
     "pbr": 5.630474,
     "roe": 0.109110005,
-    "dividendYield": 0.55
+    "dividendYield": 0.57
   },
   {
     "code": "9432",
@@ -129,16 +129,16 @@
     "code": "4519",
     "name": "中外製薬(株)",
     "price": 8093.0,
-    "per": 33.753536,
+    "per": 33.78446,
     "pbr": 7.063941,
     "roe": 0.21518,
-    "dividendYield": 1.24
+    "dividendYield": 1.23
   },
   {
     "code": "6861",
     "name": "(株)キーエンス",
     "price": 55780.0,
-    "per": 33.03533,
+    "per": 33.003204,
     "pbr": 4.120327,
     "roe": 0.13139,
     "dividendYield": 0.99
@@ -147,34 +147,34 @@
     "code": "8411",
     "name": "(株)みずほフィナンシャルグループ",
     "price": 5314.0,
-    "per": 15.065806,
+    "per": 13.157895,
     "pbr": 1.256659,
     "roe": 0.084680006,
-    "dividendYield": 2.73
+    "dividendYield": 2.74
   },
   {
     "code": "6098",
     "name": "(株)リクルートホールディングス",
     "price": 8219.0,
-    "per": 27.234228,
+    "per": 27.247965,
     "pbr": 7.829038,
     "roe": 0.27734,
-    "dividendYield": 0.3
+    "dividendYield": 0.31
   },
   {
     "code": "8031",
     "name": "三井物産(株)",
     "price": 4100.0,
-    "per": 13.013416,
+    "per": 13.02085,
     "pbr": 1.4696859,
     "roe": 0.11768,
-    "dividendYield": 2.93
+    "dividendYield": 2.92
   },
   {
     "code": "8766",
     "name": "東京海上ホールディングス(株)",
     "price": 5916.0,
-    "per": 10.928015,
+    "per": 10.916933,
     "pbr": 2.2950304,
     "roe": 0.25652,
     "dividendYield": 3.55
@@ -183,10 +183,10 @@
     "code": "2914",
     "name": "ＪＴ",
     "price": 5671.0,
-    "per": 51.94153,
+    "per": 52.084286,
     "pbr": 2.4364781,
     "roe": 0.13274,
-    "dividendYield": 4.58
+    "dividendYield": 4.57
   },
   {
     "code": "9433",
@@ -195,7 +195,7 @@
     "per": 14.662424,
     "pbr": 2.0308065,
     "roe": null,
-    "dividendYield": 3.05
+    "dividendYield": 3.02
   },
   {
     "code": "9434",
@@ -210,7 +210,7 @@
     "code": "4063",
     "name": "信越化学工業(株)",
     "price": 4643.0,
-    "per": 17.97792,
+    "per": 17.985582,
     "pbr": 2.0575628,
     "roe": 0.11573,
     "dividendYield": 2.28
@@ -219,16 +219,16 @@
     "code": "6503",
     "name": "三菱電機(株)",
     "price": 4303.0,
-    "per": 22.227468,
+    "per": 22.22164,
     "pbr": 2.2263594,
     "roe": null,
-    "dividendYield": 1.28
+    "dividendYield": 1.3
   },
   {
     "code": "6702",
     "name": "富士通(株)",
     "price": 4164.0,
-    "per": 25.631104,
+    "per": 25.640553,
     "pbr": 3.7487502,
     "roe": 0.1481,
     "dividendYield": 0.72
@@ -237,7 +237,7 @@
     "code": "7741",
     "name": "ＨＯＹＡ(株)",
     "price": 24325.0,
-    "per": 39.76946,
+    "per": 39.84087,
     "pbr": 8.183041,
     "roe": 0.21204,
     "dividendYield": 0.99
@@ -246,106 +246,106 @@
     "code": "7267",
     "name": "ホンダ",
     "price": 1565.0,
-    "per": 10.242826,
+    "per": 10.246198,
     "pbr": 0.5066796,
     "roe": 0.05819,
-    "dividendYield": 4.47
+    "dividendYield": 4.5
   },
   {
     "code": "6701",
     "name": "ＮＥＣ",
     "price": 5990.0,
-    "per": 33.95605,
+    "per": 34.013992,
     "pbr": 4.0440216,
     "roe": 0.118030004,
-    "dividendYield": 0.53
+    "dividendYield": 0.54
   },
   {
     "code": "4502",
     "name": "武田薬品工業(株)",
     "price": 4380.0,
-    "per": 215.78436,
+    "per": 217.3679,
     "pbr": 0.9842147,
     "roe": 0.0047400002,
-    "dividendYield": 4.57
+    "dividendYield": 4.5
   },
   {
     "code": "8267",
     "name": "イオン(株)",
     "price": 2450.0,
-    "per": 220.58562,
+    "per": 222.16266,
     "pbr": 5.706075,
     "roe": 0.03499,
-    "dividendYield": 1.1
+    "dividendYield": 1.09
   },
   {
     "code": "8002",
     "name": "丸紅(株)",
     "price": 4041.0,
-    "per": 11.711633,
+    "per": 11.709595,
     "pbr": 1.8497161,
     "roe": 0.15471,
-    "dividendYield": 2.47
+    "dividendYield": 2.48
   },
   {
     "code": "4568",
     "name": "第一三共(株)",
     "price": 3425.0,
-    "per": 23.418186,
+    "per": 23.41975,
     "pbr": 3.9256752,
     "roe": 0.1709,
-    "dividendYield": 2.28
+    "dividendYield": 2.23
   },
   {
     "code": "7182",
     "name": "(株)ゆうちょ銀行",
     "price": 1772.5,
-    "per": 15.325253,
+    "per": 14.620248,
     "pbr": 0.69884694,
     "roe": 0.04753,
-    "dividendYield": 3.72
+    "dividendYield": 3.76
   },
   {
     "code": "6902",
     "name": "(株)デンソー",
     "price": 2094.5,
-    "per": 16.757118,
+    "per": 16.75053,
     "pbr": 1.16215,
     "roe": 0.07916,
-    "dividendYield": 3.06
+    "dividendYield": 3.0
   },
   {
     "code": "6981",
     "name": "(株)村田製作所",
     "price": 3169.0,
-    "per": 24.405369,
+    "per": 24.390053,
     "pbr": 2.1886365,
     "roe": 0.091630004,
-    "dividendYield": 1.89
+    "dividendYield": 1.93
   },
   {
     "code": "7751",
     "name": "キヤノン(株)",
     "price": 4485.0,
-    "per": 24.872316,
+    "per": 24.875048,
     "pbr": 1.2576734,
     "roe": 0.053850003,
-    "dividendYield": 3.57
+    "dividendYield": 3.53
   },
   {
     "code": "6367",
     "name": "ダイキン工業(株)",
     "price": 20770.0,
-    "per": 22.034986,
+    "per": 22.026503,
     "pbr": 2.0196218,
     "roe": 0.098629996,
-    "dividendYield": 1.59
+    "dividendYield": 1.6
   },
   {
     "code": "8053",
     "name": "住友商事(株)",
     "price": 4899.0,
-    "per": 9.731083,
+    "per": 9.727603,
     "pbr": 1.2061406,
     "roe": 0.13670999,
     "dividendYield": 2.86
@@ -354,25 +354,25 @@
     "code": "5803",
     "name": "(株)フジクラ",
     "price": 20705.0,
-    "per": 41.234043,
+    "per": 41.32196,
     "pbr": 11.485208,
     "roe": 0.30846,
-    "dividendYield": 0.92
+    "dividendYield": 0.98
   },
   {
     "code": "4661",
     "name": "(株)オリエンタルランド",
     "price": 3082.0,
-    "per": 40.873837,
+    "per": 40.985092,
     "pbr": 5.0394454,
     "roe": null,
-    "dividendYield": 0.45
+    "dividendYield": 0.44
   },
   {
     "code": "6201",
     "name": "(株)豊田自動織機",
     "price": 17340.0,
-    "per": 25.409836,
+    "per": 25.445217,
     "pbr": 0.97317696,
     "roe": 0.04112,
     "dividendYield": 1.61
@@ -381,63 +381,63 @@
     "code": "8725",
     "name": "ＭＳ＆ＡＤインシュアランスグループホールディングス(株)",
     "price": 3306.0,
-    "per": 7.513698,
+    "per": 7.5131917,
     "pbr": 1.2395357,
     "roe": 0.16415001,
-    "dividendYield": 3.63
+    "dividendYield": 3.59
   },
   {
     "code": "8015",
     "name": "豊田通商(株)",
     "price": 5023.0,
-    "per": 14.48078,
+    "per": 14.492837,
     "pbr": 1.8779329,
     "roe": 0.14093,
-    "dividendYield": 2.31
+    "dividendYield": 2.3
   },
   {
     "code": "3382",
     "name": "(株)セブン＆アイ・ホールディングス",
     "price": 2019.0,
-    "per": 21.624775,
+    "per": 21.597288,
     "pbr": 1.4032832,
     "roe": 0.06463,
-    "dividendYield": 2.48
+    "dividendYield": 2.45
   },
   {
     "code": "5108",
     "name": "(株)ブリヂストン",
     "price": 7250.0,
-    "per": 24.786499,
+    "per": 24.814249,
     "pbr": 1.3698757,
-    "roe": 0.05626,
-    "dividendYield": 3.17
+    "roe": 0.06877,
+    "dividendYield": 3.14
   },
   {
     "code": "6146",
     "name": "(株)ディスコ",
     "price": 48430.0,
-    "per": 40.68587,
+    "per": 40.650547,
     "pbr": 9.911185,
     "roe": 0.26512,
-    "dividendYield": 0.86
+    "dividendYield": 0.88
   },
   {
     "code": "6954",
     "name": "ファナック(株)",
     "price": 5217.0,
-    "per": 30.579788,
+    "per": 30.581602,
     "pbr": 2.716052,
     "roe": 0.09233,
-    "dividendYield": 1.97
+    "dividendYield": 1.99
   },
   {
     "code": "5802",
     "name": "住友電気工業(株)",
     "price": 6375.0,
-    "per": 22.759144,
+    "per": 22.727108,
     "pbr": 2.0687854,
     "roe": 0.09559,
-    "dividendYield": 1.85
+    "dividendYield": 1.87
   }
 ]
